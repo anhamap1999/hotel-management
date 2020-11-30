@@ -40,17 +40,12 @@ export default function Sidebar() {
                            Tra Cứu
                         </Link>
                       
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLocations" aria-expanded="false" aria-controls="collapseLocations">
+                        <Link to='/payment' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-money-check" /></div>
                             Thanh Toán
-                            <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
-                        </a>
-                        <div className="collapse" id="collapseLocations" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                            <nav className="sb-sidenav-menu-nested nav">
-                                <a className="nav-link sub_nav_link" href="/admin/location/list">All Locations</a>
-                                <a className="nav-link sub_nav_link" href="/admin/location/create">Add Location</a>
-                            </nav>
-                        </div>
+                           
+                        </Link>
+                       
                         <Link to='/report' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-scroll" /></div>
                             Báo Cáo

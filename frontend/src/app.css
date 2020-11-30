@@ -19,10 +19,36 @@ div#layoutSidenav_nav {
     margin-top: 55px;
     padding-right: 50px;
 }
-.listrom-table{
+.listroom-table{
     height: 50vh;
     overflow-y: scroll;
 }
 .listroom-button button {
     margin: 20px;
+}
+
+.form-body input {
+    width: 100% !important;
+    height: 5px;
+}
+
+.form-body table {
+    margin-top: 1rem;
+}
+
+.form-body table select {
+    margin: 5px;
+}
+
+.bill-table .table th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+table {
+    counter-reset: row-num;
+}
+.STT:before {              
+    content: counter(row-num); 
+    counter-increment: row-num; 
 }

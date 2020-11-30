@@ -9,6 +9,8 @@ import Listroom from './components/admin/listroom';
 import RuleScreen from './components/admin/rule'
 import ReportScreen from './components/admin/report'
 import SearchScreen from './components/admin/search';
+import PaymentScreen from './components/admin/payment';
+import BookingScreen from './components/admin/booking';
 export default function App(){
 	return <div className="App">
 	<BrowserRouter>
@@ -16,6 +18,8 @@ export default function App(){
 		<Route exact path='/' component={Home} />
 		<Route  path='/login' component={Login} />
 		<Route  path='/listroom' component={Listroom} />
+		<Route  path='/payment' component={PaymentScreen} />
+		<Route  path='/booking' component={BookingScreen} />
 		<Route  path='/rule' component={RuleScreen} />
 		<Route  path='/report' component={ReportScreen} />
 		<Route  path='/seek' component={SearchScreen} />

@@ -3,7 +3,7 @@ import HomeScreen from '../../../page/homeScreen';
 export default function Home()  {
      
         return  <HomeScreen>
-            <div id="layoutSidenav_content">
+    <div id="layoutSidenav_content">
         <main>
             <div className="container-fluid">
                 <h2 className="mt-30 page-title">Dashboard</h2>

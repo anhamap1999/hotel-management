@@ -10,7 +10,7 @@ export default function Listroom(){
 	return <HomeScreen>
        <div className="listroom ">
            <h1 className="text-center">Danh sách phòng</h1>
-           <div className="listrom-table">
+           <div className="listroom-table">
            <table class="table table-sm">
                 <thead>
                     <tr>
