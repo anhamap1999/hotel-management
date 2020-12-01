@@ -1,12 +1,11 @@
 const Customer = require('./../../models/customer');
 const { Success } = require('./../..//utils/Success');
 const { Error } = require('../../utils/Error');
-const customerModel = require('./../../models/customer');
 exports.createCustomer = async (req, res, next) => {
-  if (!req.user) {
-    // res.send(404, 'Unauthorized!');
-    throw new Error({ statusCode: 404, message: 'Unauthorized' });
-  }
+  // if (!req.user) {
+  //   // res.send(404, 'Unauthorized!');
+  //   throw new Error({ statusCode: 404, message: 'Unauthorized' });
+  // }
   try {
     const { name, customer_type_id, address, id_number } = req.body;
     const newCustomer = new Customer({
@@ -22,10 +21,10 @@ exports.createCustomer = async (req, res, next) => {
   }
 };
 exports.updateCustomer = async (req, res, next) => {
-  if (!req.user) {
-    // res.send(404, 'Unauthorized!');
-    throw new Error({ statusCode: 404, message: 'Unauthorized' });
-  }
+  // if (!req.user) {
+  //   // res.send(404, 'Unauthorized!');
+  //   throw new Error({ statusCode: 404, message: 'Unauthorized' });
+  // }
   try {
     const { id } = req.params;
     const customerFound = await Customer.findById(id);
@@ -45,13 +44,14 @@ exports.updateCustomer = async (req, res, next) => {
   }
 };
 exports.deleteCustomer = async (req, res, next) => {
-  if (!req.user) {
-    // res.send(404, 'Unauthorized!');
-    throw new Error({ statusCode: 404, message: 'Unauthorized' });
-  }
+  // if (!req.user) {
+  //   // res.send(404, 'Unauthorized!');
+  //   throw new Error({ statusCode: 404, message: 'Unauthorized' });
+  // }
   try {
     const { id } = req.params;
     const customerFound = await Customer.findById(id);
+
     if (!customerFound) {
       throw new Error({ statusCode: 404, message: 'Customer not found!' });
     }
@@ -62,10 +62,10 @@ exports.deleteCustomer = async (req, res, next) => {
   }
 };
 exports.getCustomers = async (req, res, next) => {
-  if (!req.user) {
-    // res.send(404, 'Unauthorized!');
-    throw new Error({ statusCode: 404, message: 'Unauthorized' });
-  }
+  // if (!req.user) {
+  //   // res.send(404, 'Unauthorized!');
+  //   throw new Error({ statusCode: 404, message: 'Unauthorized' });
+  // }
   try {
     const customerList = await Customer.find();
     res.status(200).send(new Success({ data: customerList }));
@@ -74,13 +74,14 @@ exports.getCustomers = async (req, res, next) => {
   }
 };
 exports.getCustomerById = async (req, res, next) => {
-  if (!req.user) {
-    // res.send(404, 'Unauthorized!');
-    throw new Error({ statusCode: 404, message: 'Unauthorized' });
-  }
+  // if (!req.user) {
+  //   // res.send(404, 'Unauthorized!');
+  //   throw new Error({ statusCode: 404, message: 'Unauthorized' });
+  // }
   try {
     const { id } = req.params;
-    const customerFound = Customer.findById(id);
+    const customerFound = await Customer.findById(id);
+    console.log('==============');
     if (!customerFound) {
       throw new Error({ statusCode: 404, message: 'Customer not found!' });
     }

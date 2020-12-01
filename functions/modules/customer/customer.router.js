@@ -13,7 +13,7 @@ router.get('/', getCustomers);
 router.get('/:id', getCustomerById);
 router.post('/create', createCustomer);
 router.patch('/update/:id', updateCustomer);
-router.delete(':id', deleteCustomer);
+router.delete('/:id', deleteCustomer);
 
 router.use(handleError);
 module.exports = router;
