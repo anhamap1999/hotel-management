@@ -1,0 +1,87 @@
+@import '~antd/dist/antd.css';
+
+.ant-btn {
+  margin-right: 8px;
+}
+.App{
+    width: 100%;
+    height:97vh;
+    overflow: hidden;
+}
+.sb-sidenav-dark {
+   
+    margin-top: 55px;
+}
+div#layoutSidenav_nav {
+    height:100vh;
+}
+.mar-55{
+    margin-top: 55px;
+    padding-right: 50px;
+}
+.listroom-table{
+    height: 50vh;
+    overflow-y: scroll;
+}
+.listroom-button button {
+    margin: 20px;
+}
+.form-width{
+    width: 50%;
+}
+.custom-form{
+    width: 85%;
+    margin-left: 5px;
+}
+.mar-10{
+    margin-bottom: 40px;
+}
+.ani-button:hover {
+    transform: scale(1.12);
+    transition: .3s;
+}
+.ani-button{
+    
+    transition: .3s;
+}
+
+.form-body input {
+    width: 100% !important;
+    height: 5px;
+}
+
+.form-body table {
+    margin-top: 1rem;
+}
+
+.form-body table select {
+    margin: 5px;
+}
+
+.bill-table .table th {
+    text-align: center;
+    vertical-align: middle;
+}
+.frnt-link {
+    color: #141411 !important;
+    position: absolute;
+    right: 60px;
+}
+
+table {
+    counter-reset: row-num;
+}
+a{
+    color: white !important;
+}
+.STT:before {              
+    content: counter(row-num); 
+    counter-increment: row-num; 
+}
+.options-size {
+    width: 150px;
+}
+
+.customerList input {
+    padding: 5px;
+}
