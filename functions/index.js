@@ -39,15 +39,16 @@ app.use(bodyParser.json());
 //import route section
 const billRouter = require('./modules/bill/bill.router');
 const bookingRouter = require('./modules/booking/booking.router');
-const customer = require('./modules/customer/customer.router');
-const customertype = require('./modules/customertype/customertype.router');
-const roomtype = require('./modules/roomtype/roomtype.router');
-
+const customerRouter = require('./modules/customer/customer.router');
+const customertypeRouter = require('./modules/customertype/customertype.router');
+const roomtypeRouter = require('./modules/roomtype/roomtype.router');
+const configRouter = require('./modules/config/config.router');
 //define route section
 app.use('/bill', billRouter);
 app.use('/booking', bookingRouter);
-app.use('/customer', customer);
-app.use('/customertype', customertype);
-app.use('/roomtype', roomtype);
+app.use('/customer', customerRouter);
+app.use('/customertype', customertypeRouter);
+app.use('/roomtype', roomtypeRouter);
+app.use('/config', configRouter);
 
 exports.api = functions.https.onRequest(app);
