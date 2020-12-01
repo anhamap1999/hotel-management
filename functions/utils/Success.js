@@ -8,7 +8,7 @@ class Success {
   addField(key, value) {
     this[key] = value;
     return this;
-  };
+  }
 }
 
 module.exports = { Success };

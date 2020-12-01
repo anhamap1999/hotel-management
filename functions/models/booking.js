@@ -7,6 +7,5 @@ const bookingSchema = new mongoose.Schema({
   total: { type: Number }, 
   created_at: { type: Date, default: Date.now(), required: true }
 });
-bookingSchema.plugin(paginate);
 const bookingModel = mongoose.model('Booking', bookingSchema);
 module.exports = bookingModel;

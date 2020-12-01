@@ -5,7 +5,7 @@ const RoomType = require('../../models/roomType');
 
 exports.getRooms = async (req, res, next) => {
   try {
-    const { select, sort, type_id, ...query } = req.query;
+    const { select, sort, type_id } = req.query;
     if (type_id) {
       const roomType = await RoomType.findById(type_id);
       if (!roomType) {
@@ -16,13 +16,13 @@ exports.getRooms = async (req, res, next) => {
         });
       }
     }
-    const rooms = await Room.find({ ...query })
+    const rooms = await Room.find({})
       .select(select ? select : '')
       .sort(sort ? sort : 'name');
     const success = new Success({ data: rooms });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };
 
@@ -39,7 +39,7 @@ exports.getRoomById = async (req, res, next) => {
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };
 exports.createRooms = async (req, res, next) => {
@@ -61,7 +61,7 @@ exports.createRooms = async (req, res, next) => {
     const success = new Success({ data: result });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };
 exports.updateRoom = async (req, res, next) => {
@@ -82,12 +82,12 @@ exports.updateRoom = async (req, res, next) => {
         error: 'room type not found',
       });
     }
-    room = { ...room._doc, ...req.body };
+    // room = { ...room._doc, ...req.body };
     await Room.findByIdAndUpdate(req.params.id, room);
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };
 
@@ -106,7 +106,7 @@ exports.updateStatusRoom = async (req, res, next) => {
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };
 
@@ -131,6 +131,6 @@ exports.deleteRoom = async (req, res, next) => {
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };

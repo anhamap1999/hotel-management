@@ -22,21 +22,21 @@ exports.isAuth = async (req, res, next) => {
       });
     }
     req.user = decoded.data;
-    next();
+    () => next();
   } catch(error) {
-    next(error);
+    () => next(error);
   }
 };
 
 exports.isAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
-    return next();
+    () => next();
   }
   const error = new Error({
     statusCode: 401,
     message: 'permission.notAdmin',
     error: '',
   });
-  next(error);
+  () => next(error);
   // return res.status(401).send({ message: 'Admin Token is not valid.' });
 };
