@@ -7,4 +7,3 @@ export default function RuleScreen(){
             RuleScreen
     </HomeScreen>
 }
-

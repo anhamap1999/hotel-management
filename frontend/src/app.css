@@ -52,3 +52,10 @@ table {
     content: counter(row-num); 
     counter-increment: row-num; 
 }
+.options-size {
+    width: 150px;
+}
+
+.customerList input {
+    padding: 5px;
+}

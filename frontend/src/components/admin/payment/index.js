@@ -25,7 +25,7 @@ export default function PaymentScreen(){
                                 </div>
                                 <div className="col-md-6">
                                     <div class="form-group">
-                                        <label for="inputPassword4" >Ngày</label>
+                                        <label for="date" >Ngày</label>
                                         <input type="text" class="form-control" id="date" placeholder={date} disabled />
                                     </div>
                                 </div>

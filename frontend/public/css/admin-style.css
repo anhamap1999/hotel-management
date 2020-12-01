@@ -219,6 +219,12 @@
     border-color: #78c350;
 }
 
+.dashboard-report-card.income {
+    background-color: #ffc107;
+    border-color:#ffc107;
+}
+
+
 .rpt_icon {
 	font-size: 29px !important;
 }

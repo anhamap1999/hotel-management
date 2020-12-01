@@ -1,6 +1,8 @@
 import React from 'react';
 import HomeScreen from '../../../page/homeScreen';
+import CreateBooking from './createBooking'
 export default function Home()  {
+
      
         return  <HomeScreen>
     <div id="layoutSidenav_content">
@@ -12,6 +14,11 @@ export default function Home()  {
                 </ol>
                 <div className="row">
                     <div className="col-xl-3 col-md-6">
+                        <CreateBooking />
+                    </div>
+
+
+                    <div className="col-xl-3 col-md-6">
                         <div className="dashboard-report-card purple">
                             <div className="card-content">
                                 <span className="card-title">Phòng Đặt Trước</span>
@@ -22,19 +29,9 @@ export default function Home()  {
                             </div>
                         </div>
                     </div>
+
                     <div className="col-xl-3 col-md-6">
-                        <div className="dashboard-report-card red">
-                            <div className="card-content">
-                                <span className="card-title">Phòng Đã Hủy</span>
-                                <span className="card-count">0</span>
-                            </div>
-                            <div className="card-media">
-                                <i className="far fa-times-circle" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-md-6">
-                        <div className="dashboard-report-card info">
+                        <div className="dashboard-report-card success">
                             <div className="card-content">
                                 <span className="card-title">Phòng Sử Dụng</span>
                                 <span className="card-count">5</span>
@@ -45,7 +42,7 @@ export default function Home()  {
                         </div>
                     </div>
                     <div className="col-xl-3 col-md-6">
-                        <div className="dashboard-report-card success">
+                        <div className="dashboard-report-card income">
                             <div className="card-content">
                                 <span className="card-title">Thu Nhập Hôm nay </span>
                                 <span className="card-count">$9568.00</span>
