@@ -1,13 +1,5 @@
 const functions = require('firebase-functions');
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
-
 const express = require('express');
 const dotenv = require('dotenv');
 const config = require('./commons/config');
@@ -23,6 +15,7 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
+    useFindAndModify: false
   })
   .then(console.log('connected!'))
   .catch((error) => console.log(error.reason));
@@ -36,8 +29,21 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 
-// app.listen(5000, () => {
-//   console.log('server is running : 5000   ');
-// });
+//import route section
+const billRouter = require('./modules/bill/bill.router');
+const bookingRouter = require('./modules/booking/booking.router');
+const customerRouter = require('./modules/customer/customer.router');
+const customertypeRouter = require('./modules/customertype/customertype.router');
+const roomtypeRouter = require('./modules/roomtype/roomtype.router');
+const configRouter = require('./modules/config/config.router');
+const roomRouter = require('./modules/room/room.router');
+//define route section
+app.use('/bill', billRouter);
+app.use('/booking', bookingRouter);
+app.use('/customer', customerRouter);
+app.use('/customertype', customertypeRouter);
+app.use('/roomtype', roomtypeRouter);
+app.use('/config', configRouter);
+app.use('/room', roomRouter);
 
 exports.api = functions.https.onRequest(app);

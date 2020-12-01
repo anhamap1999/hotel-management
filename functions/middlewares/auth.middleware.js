@@ -22,9 +22,9 @@ exports.isAuth = async (req, res, next) => {
       });
     }
     req.user = decoded.data;
-    next();
-  } catch(error) {
-    next(error);
+    () => next();
+  } catch (error) {
+    () => next(error);
   }
 };
 
@@ -37,6 +37,6 @@ exports.isAdmin = (req, res, next) => {
     message: 'permission.notAdmin',
     error: '',
   });
-  next(error);
+  return next(error);
   // return res.status(401).send({ message: 'Admin Token is not valid.' });
 };
