@@ -3,11 +3,7 @@ const { isAdmin, isAuth } = require('../../middlewares/auth.middleware');
 const { handleError } = require('../../middlewares/error.middleware');
 
 const router = express.Router();
-const {
-  getRooms,
-  getRoomById,
-  createRooms
-} = require('./room.controller');
+const { getRooms, getRoomById, createRooms } = require('./room.controller');
 
 // router.use(isAuth);
 

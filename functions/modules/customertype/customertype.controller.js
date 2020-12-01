@@ -1,4 +1,3 @@
-const customerModel = require('../../models/customer');
 const { Success } = require('../../utils/Success');
 const CustomerType = require('./../../models/customerType');
 exports.getCustomerType = async (req, res, next) => {
