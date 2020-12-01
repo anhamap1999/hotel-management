@@ -1,5 +1,5 @@
 const express = require('express');
-
+const { handleError } = require('./../../middlewares/error.middleware');
 const router = express.Router();
 const {
   createCustomer,
@@ -14,4 +14,6 @@ router.get('/:id', getCustomerById);
 router.post('/create', createCustomer);
 router.patch('/update/:id', updateCustomer);
 router.delete(':id', deleteCustomer);
+
+router.use(handleError);
 module.exports = router;
