@@ -10,7 +10,7 @@ export default function Listroom(){
 	return <HomeScreen>
        <div className="listroom ">
            <h1 className="text-center">Danh sách phòng</h1>
-           <div className="listrom-table">
+           <div className="listroom-table">
            <table class="table table-sm">
                 <thead>
                     <tr>
@@ -174,7 +174,7 @@ export default function Listroom(){
            </div>
            <div className="listroom-button">
                 <button type="button" class="btn btn-dark">Reset</button>
-                <CreateRoom />
+                <CreateRoom/>
                 <Link to='/' ><button type="button" class="btn btn-success">Thoát</button></Link>
            </div>
        </div>

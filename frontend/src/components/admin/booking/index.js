@@ -93,4 +93,3 @@ export default function RoomedScreen(){
        </div>
     </HomeScreen>
 }
-

@@ -113,3 +113,7 @@ export default function PaymentScreen(){
             </div>
     </HomeScreen>
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3

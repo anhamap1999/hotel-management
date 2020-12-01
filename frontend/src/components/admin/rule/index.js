@@ -1,11 +1,20 @@
 import React from 'react';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
 import HomeScreen from '../../../page/homeScreen';
+=======
+import HomeScreen from '../../../page/homeScreen';  
+import { Link } from 'react-router-dom';
+>>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
 export default function RuleScreen(){
     
 
 	return <HomeScreen>
+<<<<<<< HEAD
          <div className="rule container">
+=======
+        <div className="rule container">
+>>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
             <h1 className="text-center">Thay đổi quy định</h1>
             <div className="rule-body">
                 <form action="#" method="post">      

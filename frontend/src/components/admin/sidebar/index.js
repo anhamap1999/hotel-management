@@ -43,9 +43,15 @@ export default function Sidebar() {
                         <Link to='/payment' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-money-check" /></div>
                             Thanh Toán
+<<<<<<< HEAD
                           
                         </Link>
                         
+=======
+                           
+                        </Link>
+                       
+>>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
                         <Link to='/report' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-scroll" /></div>
                             Báo Cáo
