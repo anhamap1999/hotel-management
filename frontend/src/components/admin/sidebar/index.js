@@ -21,7 +21,7 @@ export default function Sidebar() {
                         <div className="collapse" id="collapseShops" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav className="sb-sidenav-menu-nested nav">
                                 <Link  to='/listroom' className="nav-link sub_nav_link" href="/admin/room/list">Danh Sách Phòng</Link>
-                                <Link  to='/addroom' className="nav-link sub_nav_link" href="/admin/room/create">Thêm Phòng</Link>
+                             
                             </nav>
                         </div>
                         <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
@@ -31,8 +31,8 @@ export default function Sidebar() {
                         </a>
                         <div className="collapse" id="collapseProducts" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav className="sb-sidenav-menu-nested nav">
-                                <a className="nav-link sub_nav_link" href="/admin/roomed/list">Phòng Đã Thuê</a>
-                                <a   className="nav-link sub_nav_link" href="/admin/roomed/create">Lập Phiếu Thuê</a> 
+                                <Link to='/roomed' className="nav-link sub_nav_link" href="/admin/roomed/list">Phòng Đã Thuê</Link>
+                                
                             </nav>
                         </div>
                         <Link  to='/seek' className="nav-link collapsed" >
@@ -43,9 +43,15 @@ export default function Sidebar() {
                         <Link to='/payment' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-money-check" /></div>
                             Thanh Toán
+<<<<<<< HEAD
+                          
+                        </Link>
+                        
+=======
                            
                         </Link>
                        
+>>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
                         <Link to='/report' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-scroll" /></div>
                             Báo Cáo

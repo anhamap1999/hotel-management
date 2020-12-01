@@ -1,53 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import HomeScreen from '../../../page/homeScreen';
-export default function RuleScreen(){
+export default function RoomedScreen(){
     
-
 	return <HomeScreen>
              <div className="listroom ">
-           <h1 className="text-center">Tra Cứu phòng</h1>
-           <div className="form-width">
-            <form>
-                <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">Số Phòng</label>
-                        <div class="col-sm-10">
-                        <input type="text" class="form-control"  placeholder="Số Phòng" />
-                        </div>
-                    </div>
-                <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label">Loại Phòng</label>
-                    <div class="col-sm-10">
-                    <input type="text" class="form-control"  placeholder="Loại Phòng" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">Tình Trạng Phòng</label>
-                        <div class="col-sm-10">
-                        <input type="text" class="form-control"  placeholder="Tình Trạng Phòng" />
-                        </div>
-                    </div>
-                <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label">Đơn Giá</label>
-                    <div class="col-sm-10">
-                    <input type="text" class="form-control"  placeholder="Đơn Giá" />
-                    </div>
-                </div>
-                </form>
-           </div>
-           <div className="listroom-button">       
-            <button type="button" class="btn btn-danger">Tra cứu</button>
-            <button type="button" class="btn btn-dark">Reset</button>
-           </div>
+           <h1 className="text-center">Phòng Đang Thuê</h1>
+    
            <div className="listrom-table">
                
            <table class="table table-sm">
                 <thead>
                     <tr>
                     <th scope="col">STT</th>    
+                    <th scope="col">Tên Khách Hàng</th>
                     <th scope="col">Số Phòng</th>
-                    <th scope="col">Loai Phòng</th>
-                    <th scope="col">Đơn Giá</th>
-                    <th scope="col">Tình Trạng</th>
+                    <th scope="col">Loại Khách</th>
+                    <th scope="col">CMND</th>     
+                  
                     </tr>
                 </thead>
                 <tbody>
@@ -116,7 +86,10 @@ export default function RuleScreen(){
                 </tbody>
                 </table>          
            </div>
-           
+           <div className="listroom-button">       
+            <button type="button" class="btn btn-danger"><Link to="/">Thoát</Link></button>
+            <button type="button" class="btn btn-dark"><Link to="/seek">Tra cứ</Link></button>
+           </div>
        </div>
     </HomeScreen>
 }

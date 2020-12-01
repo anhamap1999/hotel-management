@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import HomeScreen from '../../../page/homeScreen';
 import CreateBooking from './createBooking'
 export default function Home()  {
@@ -56,7 +57,7 @@ export default function Home()  {
                         <div className="card card-static-2 mb-30">
                             <div className="card-title-2">
                                 <h4>Chi tiết Phòng đang sử dụng</h4>
-                                <a href="orders.html" className="view-btn hover-btn">Xem tất cả</a>
+                                <Link to='/roomed' className="view-btn hover-btn">Xem tất cả</Link>
                             </div>
                             <div className="card-body-table">
                                 <div className="table-responsive">
@@ -105,17 +106,7 @@ export default function Home()  {
                 </div>
             </div>
         </main>
-        <footer className="py-4 bg-footer mt-auto">
-            <div className="container-fluid">
-                <div className="d-flex align-items-center justify-content-between small">
-                    <div className="text-muted-1">© 2020 <b>Grocery Supermarket</b>. by <a href="https://themeforest.net/user/gambolthemes">Abhinash kumar</a></div>
-                    <div className="footer-links">
-                        <a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/privacy_policy.html">Privacy Policy</a>
-                        <a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/term_and_conditions.html">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        
     </div>
         </HomeScreen>
 
@@ -123,4 +114,3 @@ export default function Home()  {
   
     
 }
-
