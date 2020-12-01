@@ -43,6 +43,7 @@ const customerRouter = require('./modules/customer/customer.router');
 const customertypeRouter = require('./modules/customertype/customertype.router');
 const roomtypeRouter = require('./modules/roomtype/roomtype.router');
 const configRouter = require('./modules/config/config.router');
+const roomRouter = require('./modules/room/room.router');
 //define route section
 app.use('/bill', billRouter);
 app.use('/booking', bookingRouter);
@@ -50,5 +51,6 @@ app.use('/customer', customerRouter);
 app.use('/customertype', customertypeRouter);
 app.use('/roomtype', roomtypeRouter);
 app.use('/config', configRouter);
+app.use('/room', roomRouter);
 
 exports.api = functions.https.onRequest(app);
