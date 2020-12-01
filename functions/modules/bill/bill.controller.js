@@ -11,7 +11,7 @@ exports.create = async (req, res, next) => {
     const result = await newBill.save();
     res.send(new Success({ data: result })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.getAllBills = async (req, res, next) => {
@@ -19,7 +19,7 @@ exports.getAllBills = async (req, res, next) => {
     const billList = await Bill.find();
     res.send(new Success({ data: billList })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.getBillById = async (req, res, next) => {
@@ -31,6 +31,6 @@ exports.getBillById = async (req, res, next) => {
     }
     res.send(new Success({ data: billFound })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };

@@ -5,7 +5,7 @@ const RoomType = require('../../models/roomType');
 
 exports.getRooms = async (req, res, next) => {
   try {
-    const { select, sort, type_id, rest } = req.query;
+    const { select, sort, type_id, status } = req.query;
     if (type_id) {
       const roomType = await RoomType.findById(type_id);
       if (!roomType) {
@@ -16,13 +16,17 @@ exports.getRooms = async (req, res, next) => {
         });
       }
     }
-    const rooms = await Room.find({ rest })
+    const query = {};
+    if (status) {
+      query.status = status;
+    }
+    const rooms = await Room.find(query)
       .select(select ? select : '')
       .sort(sort ? sort : 'name');
     const success = new Success({ data: rooms });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 
@@ -39,7 +43,7 @@ exports.getRoomById = async (req, res, next) => {
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.createRooms = async (req, res, next) => {
@@ -55,18 +59,18 @@ exports.createRooms = async (req, res, next) => {
         });
       }
       const room = new Room(item);
-      return room.save();
+      return await room.save();
     });
     const result = await Promise.all(createRoomPromises);
     const success = new Success({ data: result });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.updateRoom = async (req, res, next) => {
   try {
-    let room = await Room.findById(req.params.id);
+    const room = await Room.findById(req.params.id);
     if (!room) {
       throw new Error({
         statusCode: 400,
@@ -82,12 +86,14 @@ exports.updateRoom = async (req, res, next) => {
         error: 'room type not found',
       });
     }
-    // room = { ...room._doc, ...req.body };
+    room.name = req.body.name;
+    room.note = req.body.note;
+    room.room_type_id = req.body.room_type_id;
     await Room.findByIdAndUpdate(req.params.id, room);
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 
@@ -106,7 +112,7 @@ exports.updateStatusRoom = async (req, res, next) => {
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 
@@ -131,6 +137,6 @@ exports.deleteRoom = async (req, res, next) => {
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };

@@ -42,6 +42,6 @@ exports.loginByEmail = async (req, res, next) => {
     const success = new Success({ data });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };

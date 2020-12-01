@@ -9,7 +9,7 @@ exports.createConfig = async (req, res, next) => {
     const success = new Success({ data: config });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.getAllConfigs = async (req, res, next) => {
@@ -21,7 +21,7 @@ exports.getAllConfigs = async (req, res, next) => {
     const success = new Success({ data: configs });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.updateConfig = async (req, res, next) => {
@@ -38,7 +38,7 @@ exports.updateConfig = async (req, res, next) => {
     const success = new Success({ data: config });
     res.status(200).send(success);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.deleteConfig = async (req, res, next) => {};

@@ -58,7 +58,7 @@ exports.deleteCustomer = async (req, res, next) => {
     await Customer.findByIdAndDelete(id);
     res.send(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.getCustomers = async (req, res, next) => {
@@ -70,7 +70,7 @@ exports.getCustomers = async (req, res, next) => {
     const customerList = await Customer.find();
     res.status(200).send(new Success({ data: customerList }));
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.getCustomerById = async (req, res, next) => {
@@ -87,6 +87,6 @@ exports.getCustomerById = async (req, res, next) => {
     }
     res.send(new Success({ data: customerFound })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };

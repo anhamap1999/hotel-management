@@ -13,7 +13,7 @@ exports.create = async (req, res, next) => {
     const result = await newBooking.save();
     res.send(new Success({ data: result })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.getAllBookings = async (req, res, next) => {
@@ -21,7 +21,7 @@ exports.getAllBookings = async (req, res, next) => {
     const bookingList = await Booking.find();
     res.send(new Success({ data: bookingList })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.getBookingById = async (req, res, next) => {
@@ -34,6 +34,6 @@ exports.getBookingById = async (req, res, next) => {
     }
     res.send(new Success({ data: bookingFound })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };

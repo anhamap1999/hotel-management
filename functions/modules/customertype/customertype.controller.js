@@ -9,7 +9,7 @@ exports.getCustomerType = async (req, res, next) => {
     const customerTypeList = await CustomerType.find();
     res.send(new Success({ data: customerTypeList })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.createType = async (req, res, next) => {
@@ -25,7 +25,7 @@ exports.createType = async (req, res, next) => {
     const newType = await newCustomerType.save();
     res.send(new Success({ data: newType })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.updateType = async (req, res, next) => {
@@ -45,7 +45,7 @@ exports.updateType = async (req, res, next) => {
     });
     res.send(new Success({ data: updatedType })).status(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
 exports.deleteType = async (req, res, next) => {
@@ -62,6 +62,6 @@ exports.deleteType = async (req, res, next) => {
     await CustomerType.findByIdAndRemove(id);
     res.send(200);
   } catch (error) {
-    () => next(error);
+    return next(error);
   }
 };
