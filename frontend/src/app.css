@@ -26,6 +26,16 @@ div#layoutSidenav_nav {
 .listroom-button button {
     margin: 20px;
 }
+.form-width{
+    width: 50%;
+}
+.custom-form{
+    width: 85%;
+    margin-left: 5px;
+}
+.mar-10{
+    margin-bottom: 40px;
+}
 
 .form-body input {
     width: 100% !important;
