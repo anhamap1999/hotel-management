@@ -36,8 +36,18 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 
-// app.listen(5000, () => {
-//   console.log('server is running : 5000   ');
-// });
+//import route section
+const billRouter = require('./modules/bill/bill.router');
+const bookingRouter = require('./modules/booking/booking.router');
+const customer = require('./modules/customer/customer.router');
+const customertype = require('./modules/customertype/customertype.router');
+const roomtype = require('./modules/roomtype/roomtype.router');
+
+//define route section
+app.use('/bill', billRouter);
+app.use('/booking', bookingRouter);
+app.use('/customer', customer);
+app.use('/customertype', customertype);
+app.use('/roomtype', roomtype);
 
 exports.api = functions.https.onRequest(app);
