@@ -36,7 +36,6 @@ div#layoutSidenav_nav {
 .mar-10{
     margin-bottom: 40px;
 }
-<<<<<<< HEAD
 .ani-button:hover {
     transform: scale(1.12);
     transition: .3s;
@@ -45,8 +44,6 @@ div#layoutSidenav_nav {
     
     transition: .3s;
 }
-=======
->>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
 
 .form-body input {
     width: 100% !important;
@@ -65,24 +62,18 @@ div#layoutSidenav_nav {
     text-align: center;
     vertical-align: middle;
 }
-<<<<<<< HEAD
 .frnt-link {
     color: #141411 !important;
     position: absolute;
     right: 60px;
 }
-=======
->>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
 
 table {
     counter-reset: row-num;
 }
-<<<<<<< HEAD
 a{
     color: white !important;
 }
-=======
->>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
 .STT:before {              
     content: counter(row-num); 
     counter-increment: row-num; 
