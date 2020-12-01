@@ -36,3 +36,52 @@ div#layoutSidenav_nav {
 .mar-10{
     margin-bottom: 40px;
 }
+.ani-button:hover {
+    transform: scale(1.12);
+    transition: .3s;
+}
+.ani-button{
+    
+    transition: .3s;
+}
+
+.form-body input {
+    width: 100% !important;
+    height: 5px;
+}
+
+.form-body table {
+    margin-top: 1rem;
+}
+
+.form-body table select {
+    margin: 5px;
+}
+
+.bill-table .table th {
+    text-align: center;
+    vertical-align: middle;
+}
+.frnt-link {
+    color: #141411 !important;
+    position: absolute;
+    right: 60px;
+}
+
+table {
+    counter-reset: row-num;
+}
+a{
+    color: white !important;
+}
+.STT:before {              
+    content: counter(row-num); 
+    counter-increment: row-num; 
+}
+.options-size {
+    width: 150px;
+}
+
+.customerList input {
+    padding: 5px;
+}

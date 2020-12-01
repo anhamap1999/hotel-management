@@ -1,9 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import HomeScreen from '../../../page/homeScreen';
+import CreateBooking from './createBooking'
 export default function Home()  {
+
      
         return  <HomeScreen>
-            <div id="layoutSidenav_content">
+    <div id="layoutSidenav_content">
         <main>
             <div className="container-fluid">
                 <h2 className="mt-30 page-title">Dashboard</h2>
@@ -11,6 +14,11 @@ export default function Home()  {
                     <li className="breadcrumb-item active">Dashboard</li>
                 </ol>
                 <div className="row">
+                    <div className="col-xl-3 col-md-6">
+                        <CreateBooking />
+                    </div>
+
+
                     <div className="col-xl-3 col-md-6">
                         <div className="dashboard-report-card purple">
                             <div className="card-content">
@@ -22,19 +30,9 @@ export default function Home()  {
                             </div>
                         </div>
                     </div>
+
                     <div className="col-xl-3 col-md-6">
-                        <div className="dashboard-report-card red">
-                            <div className="card-content">
-                                <span className="card-title">Phòng Đã Hủy</span>
-                                <span className="card-count">0</span>
-                            </div>
-                            <div className="card-media">
-                                <i className="far fa-times-circle" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-md-6">
-                        <div className="dashboard-report-card info">
+                        <div className="dashboard-report-card success">
                             <div className="card-content">
                                 <span className="card-title">Phòng Sử Dụng</span>
                                 <span className="card-count">5</span>
@@ -45,7 +43,7 @@ export default function Home()  {
                         </div>
                     </div>
                     <div className="col-xl-3 col-md-6">
-                        <div className="dashboard-report-card success">
+                        <div className="dashboard-report-card income">
                             <div className="card-content">
                                 <span className="card-title">Thu Nhập Hôm nay </span>
                                 <span className="card-count">$9568.00</span>
@@ -59,7 +57,7 @@ export default function Home()  {
                         <div className="card card-static-2 mb-30">
                             <div className="card-title-2">
                                 <h4>Chi tiết Phòng đang sử dụng</h4>
-                                <a href="orders.html" className="view-btn hover-btn">Xem tất cả</a>
+                                <Link to='/roomed' className="view-btn hover-btn">Xem tất cả</Link>
                             </div>
                             <div className="card-body-table">
                                 <div className="table-responsive">
@@ -67,11 +65,12 @@ export default function Home()  {
                                         <thead>
                                             <tr>
                                                 <th style={{ width: 130 }}>Room ID</th>
-                                                <th style={{ width: 130 }}>Payment Method</th>
-                                                <th style={{ width: 200 }}>Date</th>
-                                                <th style={{ width: 200 }}>Delivery Date</th>
-                                                <th style={{ width: 130 }}>Status</th>
+                                                <th style={{ width: 130 }}>Số lượng khách</th>
+                                                <th style={{ width: 200 }}>Ngày bắt đầu thuê</th>
+                                                
+                                                <th style={{ width: 130 }}>Loại phòng</th>
                                                 <th style={{ width: 130 }}>Total</th>
+                                                <th style={{ width: 200 }}>Ghi chú</th>
                                                 <th style={{ width: 100 }}>Action</th>
                                             </tr>
                                         </thead>
@@ -79,13 +78,13 @@ export default function Home()  {
 
                                             <tr >
                                                 <td>#ORDER 123</td>
-                                                <td>Card </td>
-                                                <td>
-
-                                                </td>
+                                                <td>5 </td>
                                                 <td>
                                                     2013-01-12 09:10
-                                                            </td>
+                                                </td>
+                                                <td>
+                                                   VIP
+                                                </td>
                                                 <td>
                                                     Pending
                                                             </td>
@@ -107,17 +106,7 @@ export default function Home()  {
                 </div>
             </div>
         </main>
-        <footer className="py-4 bg-footer mt-auto">
-            <div className="container-fluid">
-                <div className="d-flex align-items-center justify-content-between small">
-                    <div className="text-muted-1">© 2020 <b>Grocery Supermarket</b>. by <a href="https://themeforest.net/user/gambolthemes">Abhinash kumar</a></div>
-                    <div className="footer-links">
-                        <a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/privacy_policy.html">Privacy Policy</a>
-                        <a href="http://gambolthemes.net/html-items/gambo_supermarket_demo/term_and_conditions.html">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        
     </div>
         </HomeScreen>
 
@@ -125,4 +114,3 @@ export default function Home()  {
   
     
 }
-

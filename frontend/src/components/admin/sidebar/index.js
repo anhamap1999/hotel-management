@@ -21,7 +21,7 @@ export default function Sidebar() {
                         <div className="collapse" id="collapseShops" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav className="sb-sidenav-menu-nested nav">
                                 <Link  to='/listroom' className="nav-link sub_nav_link" href="/admin/room/list">Danh Sách Phòng</Link>
-                                <Link  to='/addroom' className="nav-link sub_nav_link" href="/admin/room/create">Thêm Phòng</Link>
+                             
                             </nav>
                         </div>
                         <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
@@ -31,8 +31,8 @@ export default function Sidebar() {
                         </a>
                         <div className="collapse" id="collapseProducts" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                             <nav className="sb-sidenav-menu-nested nav">
-                                <a className="nav-link sub_nav_link" href="/admin/roomed/list">Phòng Đã Thuê</a>
-                                <a   className="nav-link sub_nav_link" href="/admin/roomed/create">Lập Phiếu Thuê</a> 
+                                <Link to='/roomed' className="nav-link sub_nav_link" href="/admin/roomed/list">Phòng Đã Thuê</Link>
+                                
                             </nav>
                         </div>
                         <Link  to='/seek' className="nav-link collapsed" >
@@ -40,17 +40,12 @@ export default function Sidebar() {
                            Tra Cứu
                         </Link>
                       
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLocations" aria-expanded="false" aria-controls="collapseLocations">
+                        <Link to='/payment' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-money-check" /></div>
                             Thanh Toán
-                            <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
-                        </a>
-                        <div className="collapse" id="collapseLocations" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                            <nav className="sb-sidenav-menu-nested nav">
-                                <a className="nav-link sub_nav_link" href="/admin/location/list">All Locations</a>
-                                <a className="nav-link sub_nav_link" href="/admin/location/create">Add Location</a>
-                            </nav>
-                        </div>
+                          
+                        </Link>
+                        
                         <Link to='/report' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-scroll" /></div>
                             Báo Cáo
