@@ -55,7 +55,7 @@ exports.createRooms = async (req, res, next) => {
         });
       }
       const room = new Room(item);
-      return room.save();
+      return await room.save();
     });
     const result = await Promise.all(createRoomPromises);
     const success = new Success({ data: result });
@@ -82,12 +82,12 @@ exports.updateRoom = async (req, res, next) => {
         error: 'room type not found',
       });
     }
-    room = { ...room._doc, ...req.body };
+    // room = { ...req.body };
     await Room.findByIdAndUpdate(req.params.id, room);
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };
 
@@ -106,7 +106,7 @@ exports.updateStatusRoom = async (req, res, next) => {
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };
 
@@ -131,6 +131,6 @@ exports.deleteRoom = async (req, res, next) => {
     const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
-    next(error);
+    () => next(error);
   }
 };

@@ -37,6 +37,6 @@ exports.isAdmin = (req, res, next) => {
     message: 'permission.notAdmin',
     error: '',
   });
-  () => next(error);
+  return next(error);
   // return res.status(401).send({ message: 'Admin Token is not valid.' });
 };
