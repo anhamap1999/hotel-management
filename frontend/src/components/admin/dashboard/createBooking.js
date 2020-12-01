@@ -2,11 +2,7 @@ import React from 'react';
 
 export default function CreateBooking(){
 	return <span>
-<<<<<<< HEAD
         <button type="button" className="ani-button" data-toggle="modal" data-target=".bd-example-modal-xl" style={{ padding: '0px 15px', outline :"none", width: '100%', height: '100%',background:'none', border: 'none'}}>
-=======
-        <button type="button" data-toggle="modal" data-target=".bd-example-modal-xl" style={{ padding: '0px 15px', width: '100%', height: '100%',background:'none', border: 'none'}}>
->>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
             <div className="dashboard-report-card info" style={{ height:"80%",border:'2px solid gray'}}>
                 <div className="card-content">
                     <span className="card-title text-left" >Thuê phòng</span>
@@ -111,9 +107,4 @@ export default function CreateBooking(){
         </div>
         </div>
 	</span>
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> 3e0caf5eed40cb99118bfa376703523a82a26be3
