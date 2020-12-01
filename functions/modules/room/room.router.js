@@ -9,7 +9,7 @@ const {
   createRooms,
   updateRoom,
   updateStatusRoom,
-  deleteRoom
+  deleteRoom,
 } = require('./room.controller');
 
 router.use(isAuth);

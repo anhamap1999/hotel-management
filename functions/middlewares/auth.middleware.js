@@ -23,7 +23,7 @@ exports.isAuth = async (req, res, next) => {
     }
     req.user = decoded.data;
     () => next();
-  } catch(error) {
+  } catch (error) {
     () => next(error);
   }
 };
