@@ -64,11 +64,12 @@ export default function Home()  {
                                         <thead>
                                             <tr>
                                                 <th style={{ width: 130 }}>Room ID</th>
-                                                <th style={{ width: 130 }}>Payment Method</th>
-                                                <th style={{ width: 200 }}>Date</th>
-                                                <th style={{ width: 200 }}>Delivery Date</th>
-                                                <th style={{ width: 130 }}>Status</th>
+                                                <th style={{ width: 130 }}>Số lượng khách</th>
+                                                <th style={{ width: 200 }}>Ngày bắt đầu thuê</th>
+                                                
+                                                <th style={{ width: 130 }}>Loại phòng</th>
                                                 <th style={{ width: 130 }}>Total</th>
+                                                <th style={{ width: 200 }}>Ghi chú</th>
                                                 <th style={{ width: 100 }}>Action</th>
                                             </tr>
                                         </thead>
@@ -76,13 +77,13 @@ export default function Home()  {
 
                                             <tr >
                                                 <td>#ORDER 123</td>
-                                                <td>Card </td>
-                                                <td>
-
-                                                </td>
+                                                <td>5 </td>
                                                 <td>
                                                     2013-01-12 09:10
-                                                            </td>
+                                                </td>
+                                                <td>
+                                                   VIP
+                                                </td>
                                                 <td>
                                                     Pending
                                                             </td>

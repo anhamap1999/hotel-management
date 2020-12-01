@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function CreateBooking(){
 	return <span>
-        <button type="button" data-toggle="modal" data-target=".bd-example-modal-xl" style={{ padding: '0px', width: '100%', height: '100%',background:'none', border:'none'}}>
-            <div className="dashboard-report-card info" style={{ height:"80%"}}>
+        <button type="button" data-toggle="modal" data-target=".bd-example-modal-xl" style={{ padding: '0px 15px', width: '100%', height: '100%',background:'none', border: 'none'}}>
+            <div className="dashboard-report-card info" style={{ height:"80%",border:'2px solid gray'}}>
                 <div className="card-content">
                     <span className="card-title text-left" >Thuê phòng</span>
                 </div>
