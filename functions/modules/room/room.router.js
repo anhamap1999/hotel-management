@@ -6,15 +6,20 @@ const router = express.Router();
 const {
   getRooms,
   getRoomById,
-  createRooms
+  createRooms,
+  updateRoom,
+  updateStatusRoom,
+  deleteRoom
 } = require('./room.controller');
 
-// router.use(isAuth);
+router.use(isAuth);
 
 router.get('/', getRooms);
 router.get('/:id', getRoomById);
 router.post('/create', createRooms);
+router.put('/update/:id', updateRoom);
+router.put('/update-status/:id', updateStatusRoom);
+router.delete('/delete/:id', deleteRoom);
 
 router.use(handleError);
-// router.patch('/update/:id', updateType);
 module.exports = router;
