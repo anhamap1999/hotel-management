@@ -1,15 +1,21 @@
 const express = require('express');
+const { isAdmin, isAuth } = require('../../middlewares/auth.middleware');
+const { handleError } = require('../../middlewares/error.middleware');
 
 const router = express.Router();
 const {
   createType,
-  getRoomType,
+  getRoomTypes,
   deleteType,
   updateType,
 } = require('./roomtype.controller');
 
-router.get('/', getRoomType);
-router.delete('/:id', deleteType);
+// router.use(isAuth);
+
+router.get('/', getRoomTypes);
+router.delete('/delete/:id', deleteType);
 router.post('/create', createType);
 router.patch('/update/:id', updateType);
+
+router.use(handleError);
 module.exports = router;

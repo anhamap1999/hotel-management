@@ -53,7 +53,7 @@ app.use('/bill', billRouter);
 app.use('/booking', bookingRouter);
 app.use('/customer', customerRouter);
 app.use('/customertype', customertypeRouter);
-app.use('/roomtype', roomtypeRouter);
+app.use('/room-type', roomtypeRouter);
 app.use('/config', configRouter);
 app.use('/room', roomRouter);
 
