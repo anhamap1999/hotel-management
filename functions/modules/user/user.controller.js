@@ -100,3 +100,25 @@ exports.updateUser = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.getUser = async (req, res, next) => {
+    try {
+      const user = await User.findOne({
+        _id: req.user._id,
+        status: 'active',
+      });
+      if (!user) {
+        throw new Error({
+          statusCode: 400,
+          message: 'user.notFound',
+          error: 'user not found',
+        });
+      }
+
+      const success = new Success({ data: user });
+      res.status(200).send(success);
+    } catch (error) {
+      return next(error);
+    }
+  };
+  
