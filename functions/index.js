@@ -14,6 +14,7 @@ const dotenv = require('dotenv');
 const config = require('./commons/config');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(bodyParser.json());
+app.use(cors());
 
 //import route section
 const billRouter = require('./modules/bill/bill.router');
