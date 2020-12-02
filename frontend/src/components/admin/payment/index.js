@@ -20,7 +20,12 @@ export default function PaymentScreen(){
                                 <div className="col-md-6">
                                     <div class="form-group">
                                         <label for="name">Tên khách hàng</label>
-                                        <input type="text" class="form-control" id="CustomerName" placeholder="Vd: Nguyễn Thanh Liêm" />
+                                        <select class="form-control" id="CustomerName">
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="opel">Opel</option>
+    <option value="audi">Audi</option>
+  </select>
                                     </div>
                                 </div>
                                 <div className="col-md-6">
