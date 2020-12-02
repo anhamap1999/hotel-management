@@ -17,7 +17,7 @@ exports.createCustomer = async (req, res, next) => {
     const result = await newCustomer.save();
     res.send(new Success({ data: result })).status(200);
   } catch (err) {
-    () => next(err);
+    return next(err);
   }
 };
 exports.updateCustomer = async (req, res, next) => {
@@ -40,7 +40,7 @@ exports.updateCustomer = async (req, res, next) => {
     });
     res.status(200).send(new Success({ data: customerUpdated }));
   } catch (err) {
-    () => next(err);
+    return next(err);
   }
 };
 exports.deleteCustomer = async (req, res, next) => {
