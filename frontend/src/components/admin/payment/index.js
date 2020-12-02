@@ -16,10 +16,6 @@ export default function PaymentScreen() {
   useEffect(() => {
     fetchCustomer();
   }, []);
-
-  const handleUserChosen = (user) => {
-    setCustomerSelect(user);
-  };
   return (
     <HomeScreen>
       <div className='bill'>
@@ -31,12 +27,15 @@ export default function PaymentScreen() {
                 <div className='col-md-6'>
                   <div class='form-group'>
                     <label for='name'>Tên khách hàng</label>
-                    <select class='form-control' id='CustomerName'>
+                    <select
+                      class='form-control'
+                      id='CustomerName'
+                      onChange={(e) => {
+                        setCustomerSelect(e.target.value);
+                      }}
+                    >
                       {customerList.map((item) => (
-                        <option
-                          value={item.id}
-                          onClick={() => handleUserChosen(item)}
-                        >
+                        <option key={item._id} value={item._id}>
                           {item.name}
                         </option>
                       ))}

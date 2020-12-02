@@ -43,7 +43,7 @@ export default function CreateBooking() {
       <div
         class='modal fade bd-example-modal-xl'
         id='exampleModalCenter'
-        tabindex='-1'
+        tabIndex='-1'
         role='dialog'
         aria-labelledby='myLargeModalLabel'
         aria-hidden='true'
