@@ -35,10 +35,9 @@ exports.updateType = async (req, res, next) => {
         error: 'room type not found',
       });
     }
-    type.name = req.body.name;
-    type.price = req.body.price;
-    await RoomType.findByIdAndUpdate(req.params.id, type);
-    const success = new Success({ data: type });
+    await RoomType.findByIdAndUpdate(req.params.id, req.body);
+    const updatedType = await RoomType.findById(req.params.id);
+    const success = new Success({ data: updatedType });
     res.status(200).send(success);
   } catch (error) {
     return next(error);
