@@ -15,6 +15,7 @@ exports.getRooms = async (req, res, next) => {
           error: 'room type not found',
         });
       }
+      query.room_type_id = type_id;
     }
     const query = {};
     if (status) {
