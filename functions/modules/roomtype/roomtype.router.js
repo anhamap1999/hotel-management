@@ -15,7 +15,7 @@ const {
 router.get('/', getRoomTypes);
 router.delete('/delete/:id', deleteType);
 router.post('/create', createType);
-router.put('/update/:id', updateType);
+router.patch('/update/:id', updateType);
 
 router.use(handleError);
 module.exports = router;
