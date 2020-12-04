@@ -101,8 +101,12 @@ export default function SearchScreen() {
           </form>
         </div>
         <div className='listroom-button'>
-          <button type='button' className='btn btn-danger'>
-            Tra cứu
+          <button
+            type='button'
+            className='btn btn-danger'
+            onClick={() => data && setDataRender(data)}
+          >
+            Đặt lại
           </button>
         </div>
         <div className='listrom-table'>
