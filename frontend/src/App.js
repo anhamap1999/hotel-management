@@ -1,5 +1,4 @@
 import React from 'react';
-import NoMatch from './components/nomatch';
 import { Route, BrowserRouter } from 'react-router-dom';
 import 'react-notifications/lib/notifications.css';
 import Login from './components/login';
@@ -12,7 +11,14 @@ import ReportScreen from './components/admin/report';
 import SearchScreen from './components/admin/search';
 import PaymentScreen from './components/admin/payment';
 import RoomedScreen from './components/admin/booking';
+import { useHistory } from 'react-router-dom';
+
 export default function App() {
+  const history = useHistory();
+  const token = localStorage.getItem('token');
+  if (!token) {
+    history.push('/login');
+  }
   return (
     <div className='App'>
       <BrowserRouter>
