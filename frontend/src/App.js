@@ -6,6 +6,7 @@ import Login from './components/login';
 import Home from './components/admin/dashboard';
 import './app.css';
 import Listroom from './components/admin/listroom';
+import ListRoomType from './components/admin/roomtype';
 import RuleScreen from './components/admin/rule';
 import ReportScreen from './components/admin/report';
 import SearchScreen from './components/admin/search';
@@ -18,6 +19,7 @@ export default function App() {
         <Route exact path='/' component={Home} />
         <Route path='/login' component={Login} />
         <Route path='/listroom' component={Listroom} />
+        <Route path='/room-type' component={ListRoomType} />
         <Route path='/roomed' component={RoomedScreen} />
         <Route path='/payment' component={PaymentScreen} />
         <Route path='/rule' component={RuleScreen} />

@@ -24,6 +24,10 @@ export default function Sidebar() {
                              
                             </nav>
                         </div>
+                        <Link to='/room-type' className="nav-link active">
+                            <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt" /></div>
+                            Danh sách loại phòng
+                        </Link>
                         <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
                             <div className="sb-nav-link-icon"><i className="fas fa-box" /></div>
                             Thuê Phòng
