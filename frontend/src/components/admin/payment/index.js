@@ -33,7 +33,7 @@ export default function PaymentScreen() {
   };
 
   useEffect(() => {
-    // fetchRoom();
+    fetchRoom();
     fetchCustomers();
   }, []);
   return (
