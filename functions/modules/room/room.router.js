@@ -12,13 +12,13 @@ const {
   deleteRoom,
 } = require('./room.controller');
 
-// router.use(isAuth);
+router.use(isAuth);
 
 router.get('/', getRooms);
 router.get('/:id', getRoomById);
 router.post('/create', createRooms);
-router.patch('/update/:id', updateRoom);
-router.patch('/update-status/:id', updateStatusRoom);
+router.put('/update/:id', updateRoom);
+router.put('/update-status/:id', updateStatusRoom);
 router.delete('/delete/:id', deleteRoom);
 
 router.use(handleError);

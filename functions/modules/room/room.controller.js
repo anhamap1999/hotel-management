@@ -15,7 +15,6 @@ exports.getRooms = async (req, res, next) => {
           error: 'room type not found',
         });
       }
-      query.room_type_id = type_id;
     }
     const query = {};
     if (status) {
@@ -79,19 +78,19 @@ exports.updateRoom = async (req, res, next) => {
         error: 'room not found',
       });
     }
-    if (req.body.room_type_id) {
-      const roomType = await RoomType.findById(req.body.room_type_id);
-      if (!roomType) {
-        throw new Error({
-          statusCode: 400,
-          message: 'roomType.notFound',
-          error: 'room type not found',
-        });
-      }
+    const roomType = await RoomType.findById(req.body.room_type_id);
+    if (!roomType) {
+      throw new Error({
+        statusCode: 400,
+        message: 'roomType.notFound',
+        error: 'room type not found',
+      });
     }
-    await Room.findByIdAndUpdate(req.params.id, req.body);
-    const updatedRoom = await Room.findById(req.params.id);
-    const success = new Success({ data: updatedRoom });
+    room.name = req.body.name;
+    room.note = req.body.note;
+    room.room_type_id = req.body.room_type_id;
+    await Room.findByIdAndUpdate(req.params.id, room);
+    const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
     return next(error);
@@ -108,9 +107,9 @@ exports.updateStatusRoom = async (req, res, next) => {
         error: 'room not found',
       });
     }
-    await Room.findByIdAndUpdate(req.params.id, req.body);
-    const updatedRoom = await Room.findById(req.params.id);
-    const success = new Success({ data: updatedRoom });
+    room.status = req.body.status;
+    await Room.findByIdAndUpdate(req.params.id, room);
+    const success = new Success({ data: room });
     res.status(200).send(success);
   } catch (error) {
     return next(error);

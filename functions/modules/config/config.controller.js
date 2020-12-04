@@ -26,36 +26,19 @@ exports.getAllConfigs = async (req, res, next) => {
 };
 exports.updateConfig = async (req, res, next) => {
   try {
-    const config = await Config.findById(req.params.id);
+    let config = await Config.findById(req.params.id);
     if (!config) {
       throw new Error({
         statusCode: 400,
         message: 'config.notFound',
         error: 'config not found',
-      });
+      }); 
     }
-    config.value = req.body.value;
-    await Config.findByIdAndUpdate(req.params.id, config);
+    
     const success = new Success({ data: config });
     res.status(200).send(success);
   } catch (error) {
     return next(error);
   }
 };
-exports.deleteConfig = async (req, res, next) => {
-  try {
-    const config = await Config.findById(req.params.id);
-    if (!config) {
-      throw new Error({
-        statusCode: 400,
-        message: 'config.notFound',
-        error: 'config not found',
-      });
-    }
-    await Config.findByIdAndRemove(req.params.id);
-    const success = new Success({ data: config });
-    res.status(200).send(success);
-  } catch (error) {
-    return next(error);
-  }
-};
+exports.deleteConfig = async (req, res, next) => {};

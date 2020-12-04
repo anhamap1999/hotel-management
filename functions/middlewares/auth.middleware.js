@@ -22,7 +22,7 @@ exports.isAuth = async (req, res, next) => {
       });
     }
     req.user = decoded.data;
-    return next();
+    () => next();
   } catch (error) {
     return next(error);
   }
@@ -30,7 +30,7 @@ exports.isAuth = async (req, res, next) => {
 
 exports.isAdmin = (req, res, next) => {
   if (req.user && req.user.isAdmin) {
-    return next();
+    () => next();
   }
   const error = new Error({
     statusCode: 401,
