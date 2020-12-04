@@ -112,14 +112,52 @@ export default function PaymentScreen() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                  <tr>
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>Open this select menu</option>
-                          <option value='1'>One</option>
-                          <option value='2'>Two</option>
-                          <option value='3'>Three</option>
+                          <option selected>chọn phòng</option>
+                          <option value='1'>A.101</option>
+                          <option value='2'>A.102</option>
+                          <option value='3'>A.103</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input type='text' disabled value='1' />
+                      </td>
+                      <td>
+                        <input type='text' disabled value='200 000$' />
+                      </td>
+                      <td>
+                        <input type='text' placeholder='Ghi chú' />
+                      </td>
+                    </tr> <tr>
+                      <th scope='row' className='STT'></th>
+                      <td>
+                        <select class='custom-select'>
+                          <option selected>chọn phòng</option>
+                          <option value='1'>A.101</option>
+                          <option value='2'>A.102</option>
+                          <option value='3'>A.103</option>
+                        </select>
+                      </td>
+                      <td>
+                        <input type='text' disabled value='1' />
+                      </td>
+                      <td>
+                        <input type='text' disabled value='200 000$' />
+                      </td>
+                      <td>
+                        <input type='text' placeholder='Ghi chú' />
+                      </td>
+                    </tr> <tr>
+                      <th scope='row' className='STT'></th>
+                      <td>
+                        <select class='custom-select'>
+                          <option selected>chọn phòng</option>
+                          <option value='1'>A.101</option>
+                          <option value='2'>A.102</option>
+                          <option value='3'>A.103</option>
                         </select>
                       </td>
                       <td>
@@ -132,47 +170,7 @@ export default function PaymentScreen() {
                         <input type='text' placeholder='Ghi chú' />
                       </td>
                     </tr>
-                    <tr>
-                      <th scope='row' className='STT'></th>
-                      <td>
-                        <select class='custom-select'>
-                          <option selected>Open this select menu</option>
-                          <option value='1'>One</option>
-                          <option value='2'>Two</option>
-                          <option value='3'>Three</option>
-                        </select>
-                      </td>
-                      <td>
-                        <input type='text' disabled value='1' />
-                      </td>
-                      <td>
-                        <input type='text' disabled value='200 000$' />
-                      </td>
-                      <td>
-                        <input type='text' placeholder='Ghi chú' />
-                      </td>
-                    </tr>{' '}
-                    <tr>
-                      <th scope='row' className='STT'></th>
-                      <td>
-                        <select class='custom-select'>
-                          <option selected>Open this select menu</option>
-                          <option value='1'>One</option>
-                          <option value='2'>Two</option>
-                          <option value='3'>Three</option>
-                        </select>
-                      </td>
-                      <td>
-                        <input type='text' disabled value='1' />
-                      </td>
-                      <td>
-                        <input type='text' disabled value='200 000$' />
-                      </td>
-                      <td>
-                        <input type='text' placeholder='Ghi chú' />
-                      </td>
-                    </tr>
-                  </tbody>
+                   </tbody>
                 </table>
               </div>
               <div className='listroom-button text-center'>

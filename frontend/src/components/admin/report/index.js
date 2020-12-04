@@ -32,15 +32,21 @@ export default function ReportScreen(){
                     <th scope="col">STT</th>    
                     <th scope="col">Loai Phòng</th>
                     <th scope="col">Doanh thu</th>
-                    <th scope="col">Tỷ Lệ</th>
+                    <th scope="col">Tuỳ chỉnh</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
+                        <td>Thường</td>
+                        <td>5200 000 Đ</td>
+                        <td>Xoá</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Vip</td>
+                        <td>4250 000 Đ</td>
+                        <td>Xoá</td>
                     </tr>
                    
                     
