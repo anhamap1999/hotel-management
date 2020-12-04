@@ -100,34 +100,6 @@ export default function Home() {
                             </td>
                           </tr>
                           <tr>
-                            <td>A.103</td>
-                            <td>2 </td>
-                            <td>2020-01-24 07:50</td>
-                            <td>VIP</td>
-
-                            <td>&#8377;5 000</td>
-                            <td className='action-btns'>
-                              <i className='fas fa-eye' />
-
-                              <i className='fas fa-edit' />
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tbody>
-                          <tr>
-                            <td>A.201</td>
-                            <td>2</td>
-                            <td>2020-05-12 09:10</td>
-                            <td>Thường</td>
-
-                            <td>&#8377;3 000</td>
-                            <td className='action-btns'>
-                              <i className='fas fa-eye' />
-
-                              <i className='fas fa-edit' />
-                            </td>
-                          </tr>
-                          <tr>
                             <td>A.205</td>
                             <td>1 </td>
                             <td>2020-04-20 09:10</td>

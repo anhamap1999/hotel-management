@@ -55,10 +55,10 @@ export default function ReportScreen() {
           </table>
         </div>
         <div className='listroom-button'>
-          <button type='button' className='btn btn-danger'>
+          <button type='button' className='btn btn-primary'>
             Xuất{' '}
           </button>
-          <button type='button' className='btn btn-dark'>
+          <button type='button' className='btn btn-danger'>
             <Link to='/'>Thoát</Link>
           </button>
         </div>

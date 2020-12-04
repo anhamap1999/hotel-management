@@ -7,10 +7,10 @@ const roomSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    enum: ['available', 'busy', 'reserved', 'unavailable'],
-    default: 'available',
+    enum: ['Còn trống', 'Đã đặt', 'Đang sửa chữa'],
+    default: 'Còn trống',
   },
-  created_at: { type: Date, default: Date.now(), required: true }
+  created_at: { type: Date, default: Date.now(), required: true },
 });
 const roomModel = mongoose.model('Room', roomSchema);
 module.exports = roomModel;
