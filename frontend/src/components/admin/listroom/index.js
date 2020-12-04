@@ -33,7 +33,7 @@ export default function Listroom() {
       <div className='listroom '>
         <h1 className='text-center'>Danh sách phòng</h1>
         <div className='listroom-table'>
-          <table class='table table-sm'>
+          <table className='table table-sm'>
             <thead>
               <tr>
                 <th scope='col'>STT</th>
@@ -217,12 +217,12 @@ export default function Listroom() {
           </table>
         </div>
         <div className='listroom-button'>
-          <button type='button' class='btn btn-dark'>
+          <button type='button' className='btn btn-dark'>
             Reset
           </button>
           <CreateRoom />
           <Link to='/'>
-            <button type='button' class='btn btn-success'>
+            <button type='button' className='btn btn-success'>
               Thoát
             </button>
           </Link>

@@ -42,13 +42,13 @@ export default function PaymentScreen() {
         <h1 className='text-center'>Lập hóa đơn</h1>
         <div className='bill-body'>
           <form style={{ width: '100%' }}>
-            <div class='form-body'>
+            <div className='form-body'>
               <div className='row'>
                 <div className='col-md-6'>
-                  <div class='form-group'>
-                    <label for='name'>Tên khách hàng</label>
+                  <div className='form-group'>
+                    <label htmlFor='name'>Tên khách hàng</label>
                     <select
-                      class='form-control'
+                      className='form-control'
                       id='CustomerName'
                       onChange={(e) => handleSelectUser(e.target.value)}
                     >
@@ -61,11 +61,11 @@ export default function PaymentScreen() {
                   </div>
                 </div>
                 <div className='col-md-6'>
-                  <div class='form-group'>
-                    <label for='date'>Ngày</label>
+                  <div className='form-group'>
+                    <label htmlFor='date'>Ngày</label>
                     <input
                       type='text'
-                      class='form-control'
+                      className='form-control'
                       id='date'
                       placeholder={date}
                       disabled
@@ -76,11 +76,11 @@ export default function PaymentScreen() {
 
               <div className='row'>
                 <div className='col-md-6'>
-                  <div class='form-group'>
-                    <label for='name'>Địa chỉ</label>
+                  <div className='form-group'>
+                    <label htmlFor='name'>Địa chỉ</label>
                     <input
                       type='text'
-                      class='form-control'
+                      className='form-control'
                       id='CustomerName'
                       placeholder='Vd: Tp HCM'
                       value={(customerSelect && customerSelect.address) || ''}
@@ -88,11 +88,11 @@ export default function PaymentScreen() {
                   </div>
                 </div>
                 <div className='col-md-6'>
-                  <div class='form-group'>
-                    <label for='Total'>Thành tiền</label>
+                  <div className='form-group'>
+                    <label htmlFor='Total'>Thành tiền</label>
                     <input
                       type='text'
-                      class='form-control'
+                      className='form-control'
                       id='Total'
                       value='2 000 000$'
                       disabled
@@ -101,7 +101,7 @@ export default function PaymentScreen() {
                 </div>
               </div>
               <div className='bill-table'>
-                <table class='table table-sm'>
+                <table className='table table-sm'>
                   <thead className='text-center'>
                     <tr>
                       <th scope='col'>STT</th>
@@ -112,10 +112,10 @@ export default function PaymentScreen() {
                     </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                    <tr>
                       <th scope='row' className='STT'></th>
                       <td>
-                        <select class='custom-select'>
+                        <select className='custom-select'>
                           <option selected>chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
@@ -131,10 +131,11 @@ export default function PaymentScreen() {
                       <td>
                         <input type='text' placeholder='Ghi chú' />
                       </td>
-                    </tr> <tr>
+                    </tr>{' '}
+                    <tr>
                       <th scope='row' className='STT'></th>
                       <td>
-                        <select class='custom-select'>
+                        <select className='custom-select'>
                           <option selected>chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
@@ -150,10 +151,11 @@ export default function PaymentScreen() {
                       <td>
                         <input type='text' placeholder='Ghi chú' />
                       </td>
-                    </tr> <tr>
+                    </tr>{' '}
+                    <tr>
                       <th scope='row' className='STT'></th>
                       <td>
-                        <select class='custom-select'>
+                        <select className='custom-select'>
                           <option selected>chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
@@ -170,18 +172,18 @@ export default function PaymentScreen() {
                         <input type='text' placeholder='Ghi chú' />
                       </td>
                     </tr>
-                   </tbody>
+                  </tbody>
                 </table>
               </div>
               <div className='listroom-button text-center'>
-                <button type='button' class='btn btn-primary'>
+                <button type='button' className='btn btn-primary'>
                   Thanh toán
                 </button>
-                <button type='button' class='btn btn-success'>
+                <button type='button' className='btn btn-success'>
                   Reset
                 </button>
                 <Link to='/'>
-                  <button type='button' class='btn btn-danger'>
+                  <button type='button' className='btn btn-danger'>
                     Thoát
                   </button>
                 </Link>
