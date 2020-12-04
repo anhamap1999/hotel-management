@@ -46,43 +46,33 @@ export default function CreateRoom() {
                 />
               </div>
               <div className='form-group'>
-                <label htmlFor='nameroom'>Tên Phòng</label>
-                <input
-                  type='text'
-                  className='form-control'
-                  id='nameroom'
-                  placeholder='Enter room'
-                />
+                <label htmlFor='roomtype'>Loại phòng</label>
+
+                <select className='form-control' id='roomtype'>
+                  <option>Vip</option>
+                  <option>Thường</option>
+                </select>
               </div>
               <div className='form-group'>
-                <label htmlFor='nameroom'>Tên Phòng</label>
+                <label htmlFor='noteroom'>Ghi chú</label>
                 <input
                   type='text'
                   className='form-control'
-                  id='nameroom'
-                  placeholder='Enter room'
-                />
-              </div>
-              <div className='form-group'>
-                <label htmlFor='nameroom'>Tên Phòng</label>
-                <input
-                  type='text'
-                  className='form-control'
-                  id='nameroom'
+                  id='noteroom'
                   placeholder='Enter room'
                 />
               </div>
             </div>
             <div className='modal-footer'>
+              <button type='button' className='btn btn-primary'>
+                Lưu phòng
+              </button>
               <button
                 type='button'
                 className='btn btn-secondary'
                 data-dismiss='modal'
               >
-                Close
-              </button>
-              <button type='button' className='btn btn-primary'>
-                Save changes
+                Đóng
               </button>
             </div>
           </div>
