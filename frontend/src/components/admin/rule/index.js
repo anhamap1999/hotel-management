@@ -123,9 +123,7 @@ export default function RuleScreen() {
               <button type='submit' className='btn btn-primary'>
                 Chấp nhận
               </button>
-              <button type='button' className='btn btn-success'>
-                Reset
-              </button>
+
               <Link to='/'>
                 <button type='button' className='btn btn-danger'>
                   Thoát
