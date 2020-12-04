@@ -1,11 +1,9 @@
 import vi from '../assets/languages/vi.json';
 import _ from 'lodash';
-const keyDefined = {
-
-}
+const keyDefined = {};
 
 function getMessage(key, param = []) {
-  let string = _.get('vi', key);
+  let string = _.get(vi, key) || 'lỗi không xác định';
   if (string && param.length > 0) {
     for (let i = 0; i < param.length; i++) {
       try {
@@ -33,5 +31,6 @@ function getMessageError(errors) {
 }
 
 export default {
+  getMessage,
   getMessageError,
 };

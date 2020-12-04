@@ -1,18 +1,25 @@
 import React, { useState } from 'react';
 import './styles.css';
 import { authApis } from '../../apis/auth.api';
+import { useHistory } from 'react-router-dom';
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const onSubmit = (event) => {
-    console.log('SUBMIT')
     event.preventDefault();
     const data = {
       username,
       password
     }
-    authApis.login(data);
+    authApis.login(data).then(res => {
+      if (res) {
+        localStorage.setItem('app-user', JSON.stringify(res.user));
+        localStorage.setItem('token', JSON.stringify(res.access_token));
+        history.push('/');
+      }
+    });
   };
   return (
     <div className='wrapper fadeInDown'>
@@ -27,7 +34,7 @@ export default function Login() {
             id='username'
             className='fadeIn second'
             name='username'
-            placeholder='username'
+            placeholder='Tên đăng nhập'
             onChange={(event) => setUsername(event.target.value)}
           />
           <input
@@ -35,13 +42,13 @@ export default function Login() {
             id='password'
             className='fadeIn third'
             name='login'
-            placeholder='password'
+            placeholder='Mật khẩu'
             onChange={(event) => setPassword(event.target.value)}
           />
           <input
             type='submit'
             className='fadeIn fourth'
-            value='Log In'
+            value='Đăng nhập'
             
           />
         </form>
