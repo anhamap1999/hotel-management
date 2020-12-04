@@ -1,6 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { roomTypeApis } from './../../../apis/roomType.api';
+import { roomApis } from './../../../apis/room.api';
 
 export default function CreateRoom() {
+  const [roomTypes, setRoomTypes] = useState([]);
+  const [error, setError] = useState('');
+  const [name, setName] = useState('');
+  const [roomtypeid, setRoomtypeid] = useState('');
+  const [note, setNote] = useState('');
+  useEffect(() => {
+    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
+  }, []);
+
+  const handleCreateRoom = async (e) => {
+    e.preventDefault();
+    const room = { name, note, room_type_id: roomtypeid };
+    roomApis
+      .createRoom(room)
+      .then((data) => {
+        console.log(data);
+        setError('');
+        setNote('');
+        setName('');
+        setRoomtypeid('');
+      })
+      .catch((err) => {
+        setError('Đã xảy ra lỗi trong khi thực thi!');
+      });
+  };
   return (
     <span>
       <button
@@ -35,46 +62,81 @@ export default function CreateRoom() {
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
-            <div className='modal-body'>
-              <div className='form-group'>
-                <label htmlFor='nameroom'>Tên Phòng</label>
-                <input
-                  type='text'
-                  className='form-control'
-                  id='nameroom'
-                  placeholder='Enter room'
-                />
-              </div>
-              <div className='form-group'>
-                <label htmlFor='roomtype'>Loại phòng</label>
+            <form onSubmit={handleCreateRoom}>
+              <div className='modal-body'>
+                <div className='form-group'>
+                  <label htmlFor='nameroom'>Tên Phòng</label>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='nameroom'
+                    placeholder='Nhập tên phòng'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className='form-group'>
+                  <label htmlFor='roomtype'>Loại phòng</label>
 
-                <select className='form-control' id='roomtype'>
-                  <option>Vip</option>
-                  <option>Thường</option>
-                </select>
+                  <select
+                    className='form-control'
+                    id='roomtype'
+                    value={roomtypeid}
+                    onChange={(e) => {
+                      const { value } = e.target;
+                      setRoomtypeid(value);
+                    }}
+                  >
+                    {roomTypes &&
+                      roomTypes.map((type) => (
+                        <option
+                          style={{ textTransform: 'uppercase' }}
+                          key={type._id}
+                          value={type._id}
+                        >
+                          {type.name.toUpperCase()}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                <div className='form-group'>
+                  <label htmlFor='noteroom'>Ghi chú</label>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='noteroom'
+                    value={note}
+                    placeholder='Nhập ghi chú'
+                    onChange={(e) => setNote(e.target.value)}
+                  />
+                </div>
               </div>
-              <div className='form-group'>
-                <label htmlFor='noteroom'>Ghi chú</label>
-                <input
-                  type='text'
-                  className='form-control'
-                  id='noteroom'
-                  placeholder='Enter room'
-                />
+              <div className='modal-footer'>
+                {error && (
+                  <div
+                    className='err'
+                    style={{
+                      textAlign: 'center',
+                      color: 'red',
+                      fontWeight: 500,
+                      display: 'block',
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
+                <button type='submit' className='btn btn-primary'>
+                  Lưu phòng
+                </button>
+                <button
+                  type='button'
+                  className='btn btn-secondary'
+                  data-dismiss='modal'
+                >
+                  Đóng
+                </button>
               </div>
-            </div>
-            <div className='modal-footer'>
-              <button type='button' className='btn btn-primary'>
-                Lưu phòng
-              </button>
-              <button
-                type='button'
-                className='btn btn-secondary'
-                data-dismiss='modal'
-              >
-                Đóng
-              </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>

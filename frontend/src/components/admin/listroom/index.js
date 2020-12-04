@@ -18,7 +18,7 @@ export default function Listroom() {
     ? data.map((room, index) => {
         const type = roomTypes.find((item) => item._id === room.room_type_id);
         return (
-          <tr>
+          <tr key={room._id}>
             <th scope='row'>{index + 1}</th>
             <td>{room.name}</td>
             <td>{type ? type.name : ''}</td>
