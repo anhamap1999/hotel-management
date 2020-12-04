@@ -13,7 +13,7 @@ export default function Sidebar() {
                             Bảng điều khiển
                         </Link>
 
-                        <Link  className="nav-link collapsed"  data-toggle="collapse" data-target="#collapseShops" aria-expanded="false" aria-controls="collapseShops">
+                        {/* <Link  className="nav-link collapsed"  data-toggle="collapse" data-target="#collapseShops" aria-expanded="false" aria-controls="collapseShops">
                             <div className="sb-nav-link-icon"><i className="fas fa-store" /></div>
                             Danh Mục Phòng
                         <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
@@ -23,7 +23,11 @@ export default function Sidebar() {
                                 <Link  to='/listroom' className="nav-link sub_nav_link" href="/admin/room/list">Danh Sách Phòng</Link>
                              
                             </nav>
-                        </div>
+                        </div> */}
+                        {/* <Link  to='/listroom' className="nav-link collapsed" >
+                            <div className="sb-nav-link-icon"><i className="fas fa-store" /></div>
+                           Danh mục phòng
+                        </Link>
                         <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProducts" aria-expanded="false" aria-controls="collapseProducts">
                             <div className="sb-nav-link-icon"><i className="fas fa-box" /></div>
                             Thuê Phòng
@@ -34,11 +38,16 @@ export default function Sidebar() {
                                 <Link to='/roomed' className="nav-link sub_nav_link" href="/admin/roomed/list">Phòng Đã Thuê</Link>
                                 
                             </nav>
-                        </div>
+                        </div> */}
+                        <Link  to='/roomed' className="nav-link collapsed" >
+                            <div className="sb-nav-link-icon"><i className="fas fa-box" /></div>
+                           Thuê phòng
+                        </Link>
                         <Link  to='/seek' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-search" /></div>
                            Tra Cứu
                         </Link>
+                        
                       
                         <Link to='/payment' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-money-check" /></div>

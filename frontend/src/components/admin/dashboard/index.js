@@ -68,18 +68,33 @@ export default function Home() {
 
                             <th style={{ width: 130 }}>Loại phòng</th>
                          
-                            <th style={{ width: 200 }}>Ghi chú</th>
+                            <th style={{ width: 200 }}>Thành tiền</th>
                             <th style={{ width: 100 }}>Tuỳ chỉnh</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
                             <td>A.101</td>
-                            <td>5 </td>
+                            <td>3 </td>
                             <td>2013-01-12 09:10</td>
                             <td>VIP</td>
                             
-                            <td>&#8377;5000</td>
+                            <td>&#8377;5 000</td>
+                            <td className='action-btns'>
+                              <i className='fas fa-eye' />
+
+                              <i className='fas fa-edit' />
+                            </td>
+                          </tr>
+                        </tbody>
+                        <tbody>
+                          <tr>
+                            <td>A.201</td>
+                            <td>2</td>
+                            <td>2020-05-12 09:10</td>
+                            <td>Thường</td>
+                            
+                            <td>&#8377;3 000</td>
                             <td className='action-btns'>
                               <i className='fas fa-eye' />
 

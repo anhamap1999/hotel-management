@@ -116,7 +116,7 @@ export default function PaymentScreen() {
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>chọn phòng</option>
+                          <option selected>Chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
                           <option value='3'>A.103</option>
@@ -135,7 +135,7 @@ export default function PaymentScreen() {
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>chọn phòng</option>
+                          <option selected>Chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
                           <option value='3'>A.103</option>
@@ -154,7 +154,7 @@ export default function PaymentScreen() {
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>chọn phòng</option>
+                          <option selected>Chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
                           <option value='3'>A.103</option>

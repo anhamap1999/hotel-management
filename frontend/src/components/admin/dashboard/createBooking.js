@@ -73,12 +73,11 @@ export default function CreateBooking() {
                     Số phòng
                   </label>
                   <div className='col-md-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='roomId'
-                      placeholder='Vd:101'
-                    />
+                    
+                    <select class='form-control'>
+                      <option>1</option>
+                      <option>2</option>
+                    </select>
                   </div>
                 </div>
 
@@ -209,16 +208,17 @@ export default function CreateBooking() {
               </form>
             </div>
             <div class='modal-footer'>
+            <button type='button' class='btn btn-primary'>
+                Tạo Phiếu Thuê
+              </button>
               <button
                 type='button'
                 class='btn btn-secondary'
                 data-dismiss='modal'
               >
-                Close
+              Đóng
               </button>
-              <button type='button' class='btn btn-primary'>
-                Tạo Phiếu Thuê
-              </button>
+              
             </div>
           </div>
         </div>
