@@ -3,6 +3,7 @@ import HomeScreen from '../../../page/homeScreen';
 import { Link } from 'react-router-dom';
 import { customerApis } from './../../../apis/customer.api';
 import { useEffect } from 'react';
+import { notification } from 'antd';
 export default function PaymentScreen() {
   const [customerList, setCustomerList] = useState([]);
   const [customerSelect, setCustomerSelect] = useState(null);
@@ -32,6 +33,7 @@ export default function PaymentScreen() {
                       id='CustomerName'
                       onChange={(e) => {
                         setCustomerSelect(e.target.value);
+                        notification('success', 'hello');
                       }}
                     >
                       {customerList.map((item) => (
