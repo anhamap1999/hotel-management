@@ -1,14 +1,23 @@
 const Booking = require('./../../models/booking');
 const Customer = require('./../../models/customer');
-
+const Room = require('./../../models/room');
 const { Error } = require('./../../utils/Error');
 const { Success } = require('./../../utils/Success');
 exports.create = async (req, res, next) => {
   try {
-    const { room_id, user_ids, total } = req.body;
+    const { room_id, customers, total } = req.body;
+    const room = await Room.findById(room_id);
+    if (room.status !== 'available') {
+      throw new Error({
+        statusCode: 400,
+        message: 'room.isNotAvailable',
+        error: 'room is not available to book',
+      });
+    }
+    await Room.findByIdAndUpdate(room_id, { status: 'busy' });
     const newBooking = new Booking({
       room_id,
-      user_ids,
+      customers,
     });
     const result = await newBooking.save();
     res.send(new Success({ data: result })).status(200);
