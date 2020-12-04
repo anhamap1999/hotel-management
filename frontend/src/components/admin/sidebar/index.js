@@ -17,7 +17,7 @@ export default function Sidebar() {
               Bảng điều khiển
             </Link>
 
-            <Link
+            {/* <Link
               className='nav-link collapsed'
               data-toggle='collapse'
               data-target='#collapseShops'
@@ -79,7 +79,19 @@ export default function Sidebar() {
                   Phòng Đã Thuê
                 </Link>
               </nav>
-            </div>
+            </div> */}
+            <Link to='/listroom' className='nav-link collapsed'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-store' />
+              </div>
+              Danh sách phòng
+            </Link>
+            <Link to='/roomed' className='nav-link collapsed'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-box' />
+              </div>
+              Thuê phòng
+            </Link>
             <Link to='/seek' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-search' />
