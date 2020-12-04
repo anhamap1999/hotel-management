@@ -2,7 +2,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 const axiosClient = axios.create({
-  baseURL: '',
+  baseURL: 'https://us-central1-hotel-management-se.cloudfunctions.net/api',
   headers: {
     'Content-Type': 'application/json',
   },

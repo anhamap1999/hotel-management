@@ -14,6 +14,7 @@ const dotenv = require('dotenv');
 const config = require('./commons/config');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(bodyParser.json());
+app.use(cors());
 
 //import route section
 const billRouter = require('./modules/bill/bill.router');
@@ -46,13 +48,17 @@ const customertypeRouter = require('./modules/customertype/customertype.router')
 const roomtypeRouter = require('./modules/roomtype/roomtype.router');
 const configRouter = require('./modules/config/config.router');
 const roomRouter = require('./modules/room/room.router');
+const userRouter = require('./modules/user/user.router');
+const authRouter = require('./modules/auth/auth.router');
 //define route section
 app.use('/bill', billRouter);
 app.use('/booking', bookingRouter);
 app.use('/customer', customerRouter);
 app.use('/customertype', customertypeRouter);
-app.use('/roomtype', roomtypeRouter);
+app.use('/room-type', roomtypeRouter);
 app.use('/config', configRouter);
 app.use('/room', roomRouter);
+app.use('/user', userRouter);
+app.use('/auth', authRouter);
 
 exports.api = functions.https.onRequest(app);
