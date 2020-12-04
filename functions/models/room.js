@@ -7,8 +7,8 @@ const roomSchema = new mongoose.Schema({
   status: {
     type: String,
     required: true,
-    enum: ['Còn trống', 'Đã đặt', 'Đang sửa chữa'],
-    default: 'Còn trống',
+    enum: ['available', 'busy', 'unavailable', 'reserved'],
+    default: 'available',
   },
   created_at: { type: Date, default: Date.now(), required: true },
 });
