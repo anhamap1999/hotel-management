@@ -217,12 +217,9 @@ export default function Listroom() {
           </table>
         </div>
         <div className='listroom-button'>
-          <button type='button' className='btn btn-dark'>
-            Reset
-          </button>
           <CreateRoom />
           <Link to='/'>
-            <button type='button' className='btn btn-success'>
+            <button type='button' className='btn btn-danger'>
               Thoát
             </button>
           </Link>
