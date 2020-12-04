@@ -1,11 +1,10 @@
 {
-  "name": "bechu",
+  "name": "hotel-uit",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.6.0",
     "@material-ui/icons": "^4.5.1",
-    "antd": "^4.8.6",
     "axios": "^0.19.2",
     "html-react-parser": "^0.13.0",
     "install": "^0.13.0",
