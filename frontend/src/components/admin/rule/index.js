@@ -22,64 +22,64 @@ export default function RuleScreen() {
         <h1 className='text-center'>Thay đổi quy định</h1>
         <div className='rule-body'>
           <form onSubmit={handleSubmit}>
-            <div class='row'>
+            <div className='row'>
               <p className='col-sm-2 font-weight-bold '>Giá phòng</p>
-              <div class='form-row col-10'>
-                <div class='form-group col-md-4'>
-                  <label for='roomType'>Loại phòng</label>
-                  <select id='roomType' class='form-control'>
+              <div className='form-row col-10'>
+                <div className='form-group col-md-4'>
+                  <label htmlFor='roomType'>Loại phòng</label>
+                  <select id='roomType' className='form-control'>
                     <option selected>Choose...</option>
                     <option>...</option>
                   </select>
                 </div>
                 <div className='form-group col-md-3 oldPrice'>
-                  <label for='oldPrice'>Giá cũ</label>
+                  <label htmlFor='oldPrice'>Giá cũ</label>
                   <input
                     type='number'
-                    class='form-control'
+                    className='form-control'
                     id='oldPrice'
                     value='200000'
                     disabled
                   />
                 </div>
-                <div class='form-group col-md-4'>
-                  <label for='newPrice'>Giá mới</label>
+                <div className='form-group col-md-4'>
+                  <label htmlFor='newPrice'>Giá mới</label>
                   <input
                     type='text'
-                    class='form-control'
+                    className='form-control'
                     id='newPrice'
                     placeholder='Giá mới'
                   />
                 </div>
               </div>
             </div>
-            <div class='row'>
+            <div className='row'>
               <p className='col-sm-2 font-weight-bold '>
                 Số lượng khách tối đa
               </p>
-              <div class='form-row col-10'>
-                <div class='form-group col-md-4'>
-                  <label for='roomType'>Loại phòng</label>
-                  <select id='roomType' class='form-control'>
+              <div className='form-row col-10'>
+                <div className='form-group col-md-4'>
+                  <label htmlFor='roomType'>Loại phòng</label>
+                  <select id='roomType' className='form-control'>
                     <option selected>Choose...</option>
                     <option>...</option>
                   </select>
                 </div>
                 <div className='form-group col-md-3'>
-                  <label for='oldQuantityValue'>Giá trị cũ</label>
+                  <label htmlFor='oldQuantityValue'>Giá trị cũ</label>
                   <input
                     type='text'
-                    class='form-control'
+                    className='form-control'
                     id='oldQuantityValue'
                     value='2'
                     disabled
                   />
                 </div>
-                <div class='form-group col-md-4'>
-                  <label for='newQuantityValue'>Giá trị mới</label>
+                <div className='form-group col-md-4'>
+                  <label htmlFor='newQuantityValue'>Giá trị mới</label>
                   <input
                     type='text'
-                    class='form-control'
+                    className='form-control'
                     id='newQuantityValue'
                     placeholder='Số khách tối đa mới'
                   />
@@ -87,32 +87,32 @@ export default function RuleScreen() {
               </div>
             </div>
 
-            <div class='row'>
+            <div className='row'>
               <p className='col-sm-2 font-weight-bold '>Tỷ lệ phụ thu</p>
-              <div class='form-row col-10'>
-                <div class='form-group col-md-4'>
-                  <label for='valueType'>Loại phụ thu</label>
-                  <select id='valueType' class='form-control'>
+              <div className='form-row col-10'>
+                <div className='form-group col-md-4'>
+                  <label htmlFor='valueType'>Loại phụ thu</label>
+                  <select id='valueType' className='form-control'>
                     <option selected>Chọn</option>
                     <option>Phụ thu khách tối đa</option>
                     <option>Phụ thu khách nước ngoài</option>
                   </select>
                 </div>
                 <div className='form-group col-md-3'>
-                  <label for='oldRatioValue'>Giá trị cũ</label>
+                  <label htmlFor='oldRatioValue'>Giá trị cũ</label>
                   <input
                     type='text'
-                    class='form-control'
+                    className='form-control'
                     id='oldRatioValue'
                     value='2'
                     disabled
                   />
                 </div>
-                <div class='form-group col-md-4'>
-                  <label for='newRatioValue'>Giá trị mới</label>
+                <div className='form-group col-md-4'>
+                  <label htmlFor='newRatioValue'>Giá trị mới</label>
                   <input
                     type='text'
-                    class='form-control'
+                    className='form-control'
                     id='newRatioValue'
                     placeholder='Tỉ lệ mới'
                   />
@@ -120,14 +120,12 @@ export default function RuleScreen() {
               </div>
             </div>
             <div className='listroom-button text-center'>
-              <button type='submit' class='btn btn-primary'>
+              <button type='submit' className='btn btn-primary'>
                 Chấp nhận
               </button>
-              <button type='button' class='btn btn-success'>
-                Reset
-              </button>
+
               <Link to='/'>
-                <button type='button' class='btn btn-danger'>
+                <button type='button' className='btn btn-danger'>
                   Thoát
                 </button>
               </Link>

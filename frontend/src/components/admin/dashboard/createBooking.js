@@ -41,7 +41,7 @@ export default function CreateBooking() {
       </button>
 
       <div
-        class='modal fade bd-example-modal-xl'
+        className='modal fade bd-example-modal-xl'
         id='exampleModalCenter'
         tabIndex='-1'
         role='dialog'
@@ -49,49 +49,55 @@ export default function CreateBooking() {
         aria-hidden='true'
       >
         <div
-          class='modal-dialog modal-xl modal-dialog-centered'
+          className='modal-dialog modal-xl modal-dialog-centered'
           role='document'
         >
-          <div class='modal-content'>
-            <div class='modal-header'>
-              <h5 class='modal-title' id='exampleModalCenterTitle'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <h5 className='modal-title' id='exampleModalCenterTitle'>
                 Tạo Phiếu Thuê Phòng
               </h5>
               <button
                 type='button'
-                class='close'
+                className='close'
                 data-dismiss='modal'
                 aria-label='Close'
               >
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
-            <div class='modal-body'>
-              <form class='' style={{ width: '100%' }}>
-                <div class='form-group row'>
-                  <label for='roomId' class='col-md-3 col-form-label'>
+            <div className='modal-body'>
+              <form className='' style={{ width: '100%' }}>
+                <div className='form-group row'>
+                  <label htmlFor='roomId' className='col-md-3 col-form-label'>
                     Số phòng
                   </label>
                   <div className='col-md-9'>
-                    <input
-                      type='text'
-                      class='form-control'
-                      id='roomId'
-                      placeholder='Vd:101'
-                    />
+                    
+                    <select class='form-control'>
+                      <option>1</option>
+                      <option>2</option>
+                    </select>
                   </div>
                 </div>
 
-                <div class='form-group row'>
-                  <label for='startDate' class='col-md-3 col-form-label'>
+                <div className='form-group row'>
+                  <label
+                    htmlFor='startDate'
+                    className='col-md-3 col-form-label'
+                  >
                     Ngày bắt đầu thuê
                   </label>
                   <div className='col-md-9'>
-                    <input type='date' class='form-control' id='startDate' />
+                    <input
+                      type='date'
+                      className='form-control'
+                      id='startDate'
+                    />
                   </div>
                 </div>
                 <div className='customerList'>
-                  <table class='table table-sm'>
+                  <table className='table table-sm'>
                     <thead className='text-center'>
                       <tr>
                         <th scope='col'>STT</th>
@@ -111,29 +117,28 @@ export default function CreateBooking() {
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Nhập tên khách hàng'
                           />
                         </td>
                         <td>
-                          <select class='custom-select options-size'>
-                          <option selected>Lựa chọn ...</option>
+                          <select className='custom-select options-size'>
+                            <option selected>Lựa chọn ...</option>
                             <option value='1'>Thường</option>
                             <option value='2'>Vip</option>
-                            
                           </select>
                         </td>
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Số CMND'
                           />
                         </td>
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Vd: quận 2, Tp HCM'
                           />
                         </td>
@@ -143,29 +148,28 @@ export default function CreateBooking() {
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Nhập tên khách hàng'
                           />
                         </td>
                         <td>
-                          <select class='custom-select options-size'>
+                          <select className='custom-select options-size'>
                             <option selected>Lựa chọn ...</option>
                             <option value='1'>Thường</option>
                             <option value='2'>Vip</option>
-                            
                           </select>
                         </td>
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Số CMND'
                           />
                         </td>
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Vd: quận 2, Tp HCM'
                           />
                         </td>
@@ -175,30 +179,28 @@ export default function CreateBooking() {
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Nhập tên khách hàng'
                           />
                         </td>
                         <td>
-                          <select class='custom-select options-size'>
+                          <select className='custom-select options-size'>
                             <option selected>Lựa chọn ...</option>
                             <option value='1'>Thường</option>
                             <option value='2'>Vip</option>
-
                           </select>
-                          
                         </td>
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Số CMND'
                           />
                         </td>
                         <td>
                           <input
                             type='text'
-                            class='form-control'
+                            className='form-control'
                             placeholder='Vd: quận 2, Tp HCM'
                           />
                         </td>
@@ -209,16 +211,17 @@ export default function CreateBooking() {
               </form>
             </div>
             <div class='modal-footer'>
-              <button
-                type='button'
-                class='btn btn-secondary'
-                data-dismiss='modal'
-              >
-                Close
-              </button>
-              <button type='button' class='btn btn-primary'>
+            <button type='button' class='btn btn-primary'>
                 Tạo Phiếu Thuê
               </button>
+              <button
+                type='button'
+                className='btn btn-secondary'
+                data-dismiss='modal'
+              >
+              Đóng
+              </button>
+              
             </div>
           </div>
         </div>

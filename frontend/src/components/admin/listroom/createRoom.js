@@ -1,11 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { roomTypeApis } from './../../../apis/roomType.api';
+import { roomApis } from './../../../apis/room.api';
 
 export default function CreateRoom() {
+  const [roomTypes, setRoomTypes] = useState([]);
+  const [error, setError] = useState('');
+  const [name, setName] = useState('');
+  const [roomtypeid, setRoomtypeid] = useState('');
+  const [note, setNote] = useState('');
+  useEffect(() => {
+    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
+  }, []);
+
+  const handleCreateRoom = async (e) => {
+    e.preventDefault();
+    const room = { name, note, room_type_id: roomtypeid };
+    roomApis
+      .createRoom(room)
+      .then((data) => {
+        console.log(data);
+        setError('');
+        setNote('');
+        setName('');
+        setRoomtypeid('');
+      })
+      .catch((err) => {
+        setError('Đã xảy ra lỗi trong khi thực thi!');
+      });
+  };
   return (
     <span>
       <button
         type='button'
-        class='btn btn-primary'
+        className='btn btn-primary'
         data-toggle='modal'
         data-target='#exampleModalCenter'
       >
@@ -13,78 +40,103 @@ export default function CreateRoom() {
       </button>
 
       <div
-        class='modal fade'
+        className='modal fade'
         id='exampleModalCenter'
         tabIndex='-1'
         role='dialog'
         aria-labelledby='exampleModalCenterTitle'
         aria-hidden='true'
       >
-        <div class='modal-dialog modal-dialog-centered' role='document'>
-          <div class='modal-content'>
-            <div class='modal-header'>
-              <h5 class='modal-title' id='exampleModalCenterTitle'>
+        <div className='modal-dialog modal-dialog-centered' role='document'>
+          <div className='modal-content'>
+            <div className='modal-header'>
+              <h5 className='modal-title' id='exampleModalCenterTitle'>
                 Tạo Phòng Mới
               </h5>
               <button
                 type='button'
-                class='close'
+                className='close'
                 data-dismiss='modal'
                 aria-label='Close'
               >
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
-            <div class='modal-body'>
-              <div class='form-group'>
-                <label for='nameroom'>Tên Phòng</label>
-                <input
-                  type='text'
-                  class='form-control'
-                  id='nameroom'
-                  placeholder='Enter room'
-                />
+            <form onSubmit={handleCreateRoom}>
+              <div className='modal-body'>
+                <div className='form-group'>
+                  <label htmlFor='nameroom'>Tên Phòng</label>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='nameroom'
+                    placeholder='Nhập tên phòng'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className='form-group'>
+                  <label htmlFor='roomtype'>Loại phòng</label>
+
+                  <select
+                    className='form-control'
+                    id='roomtype'
+                    value={roomtypeid}
+                    onChange={(e) => {
+                      const { value } = e.target;
+                      setRoomtypeid(value);
+                    }}
+                  >
+                    {roomTypes &&
+                      roomTypes.map((type) => (
+                        <option
+                          style={{ textTransform: 'uppercase' }}
+                          key={type._id}
+                          value={type._id}
+                        >
+                          {type.name.toUpperCase()}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                <div className='form-group'>
+                  <label htmlFor='noteroom'>Ghi chú</label>
+                  <input
+                    type='text'
+                    className='form-control'
+                    id='noteroom'
+                    value={note}
+                    placeholder='Nhập ghi chú'
+                    onChange={(e) => setNote(e.target.value)}
+                  />
+                </div>
               </div>
-              <div class='form-group'>
-                <label for='nameroom'>Tên Phòng</label>
-                <input
-                  type='text'
-                  class='form-control'
-                  id='nameroom'
-                  placeholder='Enter room'
-                />
+              <div className='modal-footer'>
+                {error && (
+                  <div
+                    className='err'
+                    style={{
+                      textAlign: 'center',
+                      color: 'red',
+                      fontWeight: 500,
+                      display: 'block',
+                    }}
+                  >
+                    {error}
+                  </div>
+                )}
+                <button type='submit' className='btn btn-primary'>
+                  Lưu phòng
+                </button>
+                <button
+                  type='button'
+                  className='btn btn-secondary'
+                  data-dismiss='modal'
+                >
+                  Đóng
+                </button>
               </div>
-              <div class='form-group'>
-                <label for='nameroom'>Tên Phòng</label>
-                <input
-                  type='text'
-                  class='form-control'
-                  id='nameroom'
-                  placeholder='Enter room'
-                />
-              </div>
-              <div class='form-group'>
-                <label for='nameroom'>Tên Phòng</label>
-                <input
-                  type='text'
-                  class='form-control'
-                  id='nameroom'
-                  placeholder='Enter room'
-                />
-              </div>
-            </div>
-            <div class='modal-footer'>
-              <button
-                type='button'
-                class='btn btn-secondary'
-                data-dismiss='modal'
-              >
-                Close
-              </button>
-              <button type='button' class='btn btn-primary'>
-                Save changes
-              </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>

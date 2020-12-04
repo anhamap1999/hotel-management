@@ -112,11 +112,11 @@ export default function PaymentScreen() {
                     </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                    <tr>
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>chọn phòng</option>
+                          <option selected>Chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
                           <option value='3'>A.103</option>
@@ -131,11 +131,12 @@ export default function PaymentScreen() {
                       <td>
                         <input type='text' placeholder='Ghi chú' />
                       </td>
-                    </tr> <tr>
+                    </tr>{' '}
+                    <tr>
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>chọn phòng</option>
+                          <option selected>Chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
                           <option value='3'>A.103</option>
@@ -150,11 +151,12 @@ export default function PaymentScreen() {
                       <td>
                         <input type='text' placeholder='Ghi chú' />
                       </td>
-                    </tr> <tr>
+                    </tr>{' '}
+                    <tr>
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>chọn phòng</option>
+                          <option selected>Chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
                           <option value='3'>A.103</option>
@@ -170,16 +172,14 @@ export default function PaymentScreen() {
                         <input type='text' placeholder='Ghi chú' />
                       </td>
                     </tr>
-                   </tbody>
+                  </tbody>
                 </table>
               </div>
               <div className='listroom-button text-center'>
                 <button type='button' class='btn btn-primary'>
                   Thanh toán
                 </button>
-                <button type='button' class='btn btn-success'>
-                  Reset
-                </button>
+
                 <Link to='/'>
                   <button type='button' class='btn btn-danger'>
                     Thoát
