@@ -41,7 +41,7 @@ export default function RoomedScreen() {
             <Link to='/'>Thoát</Link>
           </button>
           <button type='button' className='btn btn-dark'>
-            <Link to='/seek'>Tra cứ</Link>
+            <Link to='/seek'>Tra cứu</Link>
           </button>
         </div>
       </div>

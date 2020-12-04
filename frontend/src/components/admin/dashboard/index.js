@@ -9,7 +9,7 @@ export default function Home() {
         <main>
           <div className='container-fluid'>
             <h2 className='mt-30 page-title'>Bảng điều khiển</h2>
-           
+
             <div className='row'>
               <div className='col-xl-3 col-md-6'>
                 <CreateBooking />
@@ -67,7 +67,7 @@ export default function Home() {
                             <th style={{ width: 200 }}>Ngày bắt đầu thuê</th>
 
                             <th style={{ width: 130 }}>Loại phòng</th>
-                         
+
                             <th style={{ width: 200 }}>Thành tiền</th>
                             <th style={{ width: 100 }}>Tuỳ chỉnh</th>
                           </tr>
@@ -75,11 +75,63 @@ export default function Home() {
                         <tbody>
                           <tr>
                             <td>A.101</td>
-                            <td>5 </td>
-                            <td>2013-01-12 09:10</td>
+                            <td>3 </td>
+                            <td>2020-01-12 09:10</td>
                             <td>VIP</td>
 
                             <td>5 000 000Đ</td>
+                            <td className='action-btns'>
+                              <i className='fas fa-eye' />
+
+                              <i className='fas fa-edit' />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>A.102</td>
+                            <td>2 </td>
+                            <td>2020-01-30 19:30</td>
+                            <td>THƯỜNG</td>
+
+                            <td>3 000 000Đ</td>
+                            <td className='action-btns'>
+                              <i className='fas fa-eye' />
+
+                              <i className='fas fa-edit' />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>A.103</td>
+                            <td>2 </td>
+                            <td>2020-01-24 07:50</td>
+                            <td>VIP</td>
+
+                            <td>5 000 000Đ</td>
+                            <td className='action-btns'>
+                              <i className='fas fa-eye' />
+
+                              <i className='fas fa-edit' />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>A.205</td>
+                            <td>1 </td>
+                            <td>2020-04-20 09:10</td>
+                            <td>THƯỜNG</td>
+
+                            <td>2 000 000Đ</td>
+                            <td className='action-btns'>
+                              <i className='fas fa-eye' />
+
+                              <i className='fas fa-edit' />
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>A.302</td>
+                            <td>2 </td>
+                            <td>2020-03-12 09:10</td>
+                            <td>THƯỜNG</td>
+
+                            <td>3 000 000Đ</td>
                             <td className='action-btns'>
                               <i className='fas fa-eye' />
 
