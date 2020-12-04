@@ -1,137 +1,147 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { roomApis } from '../../../apis/room.api';
+import { roomTypeApis } from '../../../apis/roomType.api';
 import HomeScreen from '../../../page/homeScreen';
-export default function SearchScreen(){
-    
-
-	return <HomeScreen>
-           <div className="listroom ">
-           <h1 className="text-center">Tra Cứu phòng</h1>
-           <div className="form-width">
-            <form>
-                <div class="form-group row">
-                        <label  class="col-sm-2 col-form-label">Số Phòng</label>
-                        <div class="col-sm-10">
-                        <input type="text" class="form-control"  placeholder="Số Phòng" />
-                        </div>
-                    </div>
-                <div class="form-group row">
-                    <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Loại Phòng</label>
-                    <div class="col-sm-10">  
-                        <select class="form-control custom-form" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Tình Trạng Phòng</label>
-                    <div class="col-sm-10">  
-                        <select class="form-control custom-form" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label  class="col-sm-2 col-form-label">Đơn Giá</label>
-                    <div class="col-sm-10">
-                    <input type="text" class="form-control"  placeholder="Đơn Giá" />
-                    </div>
-                </div>
-                </form>
-           </div>
-           <div className="listroom-button">       
-            <button type="button" class="btn btn-danger">Tra cứu</button>
-            <button type="button" class="btn btn-dark">Reset</button>
-           </div>
-           <div className="listrom-table">
-               
-           <table class="table table-sm">
-                <thead>
-                    <tr>
-                    <th scope="col">STT</th>    
-                    <th scope="col">Số Phòng</th>
-                    <th scope="col">Loai Phòng</th>
-                    <th scope="col">Đơn Giá</th>
-                    <th scope="col">Tình Trạng</th>
+export default function SearchScreen() {
+  const [data, setData] = useState(null);
+  const [dataRender, setDataRender] = useState(null);
+  const [roomTypes, setRoomTypes] = useState([]);
+  useEffect(() => {
+    roomApis.getRooms().then((res) => {
+      setData(res);
+      setDataRender(res);
+    });
+    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
+  }, []);
+  return (
+    <HomeScreen>
+      <div className='listroom '>
+        <h1 className='text-center'>Tra Cứu phòng</h1>
+        <div className='form-width'>
+          <form>
+            <div className='form-group row'>
+              <label className='col-sm-2 col-form-label'>Số Phòng</label>
+              <div className='col-sm-10'>
+                <input
+                  type='text'
+                  className='form-control'
+                  placeholder='Số Phòng'
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    const filteredData = data.filter((room) =>
+                      room.name.includes(value)
+                    );
+                    setDataRender(filteredData);
+                  }}
+                />
+              </div>
+            </div>
+            <div className='form-group row'>
+              <label
+                htmlFor='exampleFormControlSelect1'
+                className='col-sm-2 col-form-label'
+              >
+                Loại Phòng
+              </label>
+              <div className='col-sm-10'>
+                <select
+                  className='form-control custom-form'
+                  id='exampleFormControlSelect1'
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    const filteredData = data.filter(
+                      (room) => room.room_type_id === value
+                    );
+                    setDataRender(filteredData);
+                  }}
+                >
+                  {roomTypes.map((type) => (
+                    <option
+                      style={{ textTransform: 'uppercase' }}
+                      key={type._id}
+                      value={type._id}
+                    >
+                      {type.name.toUpperCase()}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <div className='form-group row'>
+              <label
+                htmlFor='exampleFormControlSelect1'
+                className='col-sm-2 col-form-label'
+              >
+                Tình Trạng Phòng
+              </label>
+              <div className='col-sm-10'>
+                <select
+                  className='form-control custom-form'
+                  id='exampleFormControlSelect1'
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    const filteredData = data.filter(
+                      (room) => room.status === value
+                    );
+                    setDataRender(filteredData);
+                  }}
+                >
+                  {data &&
+                    data
+                      .map((room) => room.status)
+                      .filter((x, i, a) => a.indexOf(x) === i)
+                      .map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div className='listroom-button'>
+          <button
+            type='button'
+            className='btn btn-danger'
+            onClick={() => data && setDataRender(data)}
+          >
+            Đặt lại
+          </button>
+        </div>
+        <div className='listrom-table'>
+          <table className='table table-sm'>
+            <thead>
+              <tr>
+                <th scope='col'>STT</th>
+                <th scope='col'>Số Phòng</th>
+                <th scope='col'>Loai Phòng</th>
+                <th scope='col'>Đơn Giá</th>
+                <th scope='col'>Tình Trạng</th>
+              </tr>
+            </thead>
+            <tbody>
+              {dataRender &&
+                dataRender.map((room, index) => {
+                  const getRoomType = roomTypes.find(
+                    (type) => type._id === room.room_type_id
+                  );
+                  return (
+                    <tr key={room._id}>
+                      <th scope='row'>{index + 1}</th>
+                      <td>{room.name}</td>
+                      <td style={{ textTransform: 'uppercase' }}>
+                        {getRoomType && getRoomType.name}
+                      </td>
+                      <td>{getRoomType && getRoomType.price}</td>
+                      <td>{room.status}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>@mdo</td>
-                    </tr> 
-                </tbody>
-                </table>          
-           </div>
-           
-       </div>
-    
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </HomeScreen>
+  );
 }
-
