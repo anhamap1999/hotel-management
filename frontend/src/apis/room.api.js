@@ -1,8 +1,10 @@
 import fetchApi from './index';
+import utils from '../modules/utils';
 
-const getRooms = () => {
+const getRooms = (query) => {
+  const queryString = utils.formatQuery(query);
   return fetchApi
-    .get('/room')
+    .get('/room' + queryString)
     .then((response) => {
       if (response.data) {
         return response.data;

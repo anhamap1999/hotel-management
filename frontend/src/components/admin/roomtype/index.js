@@ -121,13 +121,13 @@ export default function ListRoomType() {
   return (
     <HomeScreen>
       <div className='listroom '>
-        <h1 className='text-center'>Danh sách loai phòng</h1>
+        <h1 className='text-center'>Danh sách loại phòng</h1>
         <div className='listroom-table'>
           <table className='table table-sm'>
             <thead>
               <tr>
                 <th scope='col'>STT</th>
-                <th scope='col'>Tên Loai Phòng</th>
+                <th scope='col'>Tên Loại Phòng</th>
                 <th scope='col'>Đơn Giá</th>
                 <th scope='col'>Ngày tạo</th>
                 <th scope='col'>Chỉnh sửa</th>

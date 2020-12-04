@@ -31,7 +31,7 @@ export default function Home() {
                 <div className='dashboard-report-card success'>
                   <div className='card-content'>
                     <span className='card-title'>Phòng Sử Dụng</span>
-                    <span className='card-count'>5</span>
+                    <span className='card-count'>4</span>
                   </div>
                   <div className='card-media'>
                     <i className='fas fa-sync-alt rpt_icon' />
@@ -42,7 +42,7 @@ export default function Home() {
                 <div className='dashboard-report-card income'>
                   <div className='card-content'>
                     <span className='card-title'>Thu Nhập Hôm nay </span>
-                    <span className='card-count'>9900 000 Đ</span>
+                    <span className='card-count'>300000 Đ</span>
                   </div>
                   <div className='card-media'>
                     <i className='fas fa-money-bill rpt_icon' />
@@ -69,7 +69,6 @@ export default function Home() {
                             <th style={{ width: 130 }}>Loại phòng</th>
 
                             <th style={{ width: 200 }}>Thành tiền</th>
-                            <th style={{ width: 100 }}>Tuỳ chỉnh</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -80,11 +79,6 @@ export default function Home() {
                             <td>VIP</td>
 
                             <td>5 000 000Đ</td>
-                            <td className='action-btns'>
-                              <i className='fas fa-eye' />
-
-                              <i className='fas fa-edit' />
-                            </td>
                           </tr>
                           <tr>
                             <td>A.102</td>
@@ -93,11 +87,6 @@ export default function Home() {
                             <td>THƯỜNG</td>
 
                             <td>3 000 000Đ</td>
-                            <td className='action-btns'>
-                              <i className='fas fa-eye' />
-
-                              <i className='fas fa-edit' />
-                            </td>
                           </tr>
                           <tr>
                             <td>A.205</td>
@@ -106,11 +95,6 @@ export default function Home() {
                             <td>THƯỜNG</td>
 
                             <td>2 000 000Đ</td>
-                            <td className='action-btns'>
-                              <i className='fas fa-eye' />
-
-                              <i className='fas fa-edit' />
-                            </td>
                           </tr>
                           <tr>
                             <td>A.302</td>
@@ -119,11 +103,6 @@ export default function Home() {
                             <td>THƯỜNG</td>
 
                             <td>3 000 000Đ</td>
-                            <td className='action-btns'>
-                              <i className='fas fa-eye' />
-
-                              <i className='fas fa-edit' />
-                            </td>
                           </tr>
                         </tbody>
                       </table>

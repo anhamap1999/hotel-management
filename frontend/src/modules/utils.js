@@ -30,7 +30,20 @@ function getMessageError(errors) {
   }
 }
 
+function formatQuery(query) {
+  let queryString = '?';
+  for (let key in query) {
+    if (!query[key] && typeof query[key] !== 'boolean' && typeof query[key] !== 'number') {
+      delete query[key];
+    } else {
+      queryString += `${key}=${query[key]}&`;
+    }
+  }
+  return queryString;
+}
+
 export default {
   getMessage,
   getMessageError,
+  formatQuery
 };

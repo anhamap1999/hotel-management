@@ -6,6 +6,12 @@ export default function SearchScreen() {
   const [data, setData] = useState(null);
   const [dataRender, setDataRender] = useState(null);
   const [roomTypes, setRoomTypes] = useState([]);
+  const statusDefined = {
+    available: 'Còn trống',
+    busy: 'Đang cho thuê',
+    unavailable: 'Đang sửa chữa',
+    reserved: 'Đã đặt trước'
+  }
   useEffect(() => {
     roomApis.getRooms().then((res) => {
       setData(res);
@@ -92,7 +98,7 @@ export default function SearchScreen() {
                       .filter((x, i, a) => a.indexOf(x) === i)
                       .map((status) => (
                         <option key={status} value={status}>
-                          {status}
+                          {statusDefined[status]}
                         </option>
                       ))}
                 </select>
@@ -134,7 +140,7 @@ export default function SearchScreen() {
                         {getRoomType && getRoomType.name}
                       </td>
                       <td>{getRoomType && getRoomType.price}</td>
-                      <td>{room.status}</td>
+                      <td>{statusDefined[room.status]}</td>
                     </tr>
                   );
                 })}

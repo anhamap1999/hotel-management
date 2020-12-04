@@ -4,20 +4,23 @@ import { Link } from 'react-router-dom';
 import { customerApis } from './../../../apis/customer.api';
 import { roomApis } from './../../../apis/room.api';
 import { useEffect } from 'react';
+import moment from 'moment';
 export default function PaymentScreen() {
   const [customerList, setCustomerList] = useState([]);
   const [customerSelect, setCustomerSelect] = useState(null);
   const [rooms, setRooms] = useState([]);
 
   var today = new Date();
-  const date =
-    today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  // const date =
+  //   today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  const date = moment().format('hh:mm DD/MM/YYYY')
   const fetchCustomers = async () => {
     const data = await customerApis.getCustomer();
     setCustomerList(data);
   };
   const fetchRoom = async () => {
-    const data = await roomApis.getRooms();
+    const data = await roomApis.getRooms({ status: 'busy' });
+    setRooms(data);
   };
 
   const handleSelectUser = (id) => {
@@ -117,9 +120,11 @@ export default function PaymentScreen() {
                       <td>
                         <select class='custom-select'>
                           <option selected>Chọn phòng</option>
-                          <option value='1'>A.101</option>
-                          <option value='2'>A.102</option>
-                          <option value='3'>A.103</option>
+                          {rooms.map((item) => (
+                            <option key={item._id} value={item._id}>
+                              {item.name}
+                            </option>
+                          ))}
                         </select>
                       </td>
                       <td>

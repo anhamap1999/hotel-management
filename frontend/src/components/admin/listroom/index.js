@@ -9,9 +9,19 @@ import { roomTypeApis } from '../../../apis/roomType.api';
 export default function Listroom() {
   const [data, setData] = useState(null);
   const [roomTypes, setRoomTypes] = useState([]);
+  const statusDefined = {
+    available: 'Còn trống',
+    busy: 'Đang cho thuê',
+    unavailable: 'Đang sửa chữa',
+    reserved: 'Đã đặt trước',
+  };
   useEffect(() => {
-    roomApis.getRooms().then((res) => setData(res));
-    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
+    roomApis.getRooms().then((res) => {
+      if (res) setData(res);
+    });
+    roomTypeApis.getRoomTypes().then((res) => {
+      if (res) setRoomTypes(res);
+    });
   }, []);
 
   const dataRender = data
@@ -23,6 +33,7 @@ export default function Listroom() {
             <td>{room.name}</td>
             <td>{type ? type.name : ''}</td>
             <td>{type ? type.price : ''}</td>
+            <td>{statusDefined[room.status]}</td>
             <td>{room.note}</td>
           </tr>
         );
@@ -40,6 +51,7 @@ export default function Listroom() {
                 <th scope='col'>Số Phòng</th>
                 <th scope='col'>Loai Phòng</th>
                 <th scope='col'>Đơn Giá</th>
+                <th scope='col'>Trạng thái</th>
                 <th scope='col'>Ghi Chú</th>
               </tr>
             </thead>
