@@ -117,10 +117,10 @@ export default function CreateBooking() {
                         </td>
                         <td>
                           <select class='custom-select options-size'>
-                            <option selected>Choose</option>
-                            <option value='1'>One</option>
-                            <option value='2'>Two</option>
-                            <option value='3'>Three</option>
+                          <option selected>Lựa chọn ...</option>
+                            <option value='1'>Thường</option>
+                            <option value='2'>Vip</option>
+                            
                           </select>
                         </td>
                         <td>
@@ -149,10 +149,10 @@ export default function CreateBooking() {
                         </td>
                         <td>
                           <select class='custom-select options-size'>
-                            <option selected>Choose</option>
-                            <option value='1'>One</option>
-                            <option value='2'>Two</option>
-                            <option value='3'>Three</option>
+                            <option selected>Lựa chọn ...</option>
+                            <option value='1'>Thường</option>
+                            <option value='2'>Vip</option>
+                            
                           </select>
                         </td>
                         <td>
@@ -181,11 +181,12 @@ export default function CreateBooking() {
                         </td>
                         <td>
                           <select class='custom-select options-size'>
-                            <option selected>Choose</option>
-                            <option value='1'>One</option>
-                            <option value='2'>Two</option>
-                            <option value='3'>Three</option>
+                            <option selected>Lựa chọn ...</option>
+                            <option value='1'>Thường</option>
+                            <option value='2'>Vip</option>
+
                           </select>
+                          
                         </td>
                         <td>
                           <input

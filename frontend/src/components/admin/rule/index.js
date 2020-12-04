@@ -7,6 +7,7 @@ export default function RuleScreen() {
   const fetchConfigs = async () => {
     const config = await configApis.getConfigs();
     console.log(config);
+    setConfigs(config);
   };
   useEffect(() => {
     fetchConfigs();

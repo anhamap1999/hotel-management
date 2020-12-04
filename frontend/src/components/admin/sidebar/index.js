@@ -10,7 +10,7 @@ export default function Sidebar() {
                     <div className="nav">
                         <Link to='/' className="nav-link active">
                             <div className="sb-nav-link-icon"><i className="fas fa-tachometer-alt" /></div>
-                            Dashboard
+                            Bảng điều khiển
                         </Link>
 
                         <Link  className="nav-link collapsed"  data-toggle="collapse" data-target="#collapseShops" aria-expanded="false" aria-controls="collapseShops">
