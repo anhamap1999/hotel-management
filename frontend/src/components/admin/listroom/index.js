@@ -14,17 +14,20 @@ export default function Listroom() {
     roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
   }, []);
 
-  const dataRender = data ? data.map((room, index) => {
-    const type = roomTypes.find(item => item._id === room.room_type_id);
-    return (
-    <tr>
-      <th scope='row'>{index + 1}</th>
-      <td>{room.name}</td>
-      <td>{type ? type.name : ''}</td>
-      <td>{type ? type.price : ''}</td>
-      <td>{room.note}</td>
-    </tr>
-  )}) : data;
+  const dataRender = data
+    ? data.map((room, index) => {
+        const type = roomTypes.find((item) => item._id === room.room_type_id);
+        return (
+          <tr>
+            <th scope='row'>{index + 1}</th>
+            <td>{room.name}</td>
+            <td>{type ? type.name : ''}</td>
+            <td>{type ? type.price : ''}</td>
+            <td>{room.note}</td>
+          </tr>
+        );
+      })
+    : data;
   return (
     <HomeScreen>
       <div className='listroom '>
