@@ -78,22 +78,24 @@ export default function SearchScreen() {
                 <select
                   className='form-control custom-form'
                   id='exampleFormControlSelect1'
+                  onChange={(e) => {
+                    const { value } = e.target;
+                    const filteredData = data.filter(
+                      (room) => room.status === value
+                    );
+                    setDataRender(filteredData);
+                  }}
                 >
                   {data &&
-                    data.map((room) => (
-                      <option value={room.status}>{room.status}</option>
-                    ))}
+                    data
+                      .map((room) => room.status)
+                      .filter((x, i, a) => a.indexOf(x) === i)
+                      .map((status) => (
+                        <option key={status} value={status}>
+                          {status}
+                        </option>
+                      ))}
                 </select>
-              </div>
-            </div>
-            <div className='form-group row'>
-              <label className='col-sm-2 col-form-label'>Đơn Giá</label>
-              <div className='col-sm-10'>
-                <input
-                  type='text'
-                  className='form-control'
-                  placeholder='Đơn Giá'
-                />
               </div>
             </div>
           </form>
