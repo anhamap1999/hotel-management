@@ -168,7 +168,7 @@ export default function CreateBooking() {
                     Số phòng
                   </label>
                   <div className='col-md-9'>
-                    <select class='form-control'>
+                    <select className='form-control'>
                       {rooms.map((room) => (
                         <option
                           style={{ textTransform: 'uppercase' }}
@@ -192,7 +192,7 @@ export default function CreateBooking() {
                   <div className='col-md-9'>
                     <input
                       type='text'
-                      class='form-control'
+                      className='form-control'
                       id='date'
                       placeholder={date}
                       disabled
@@ -275,8 +275,8 @@ export default function CreateBooking() {
                 </div>
               </form>
             </div>
-            <div class='modal-footer'>
-              <button type='button' class='btn btn-primary'>
+            <div className='modal-footer'>
+              <button type='button' className='btn btn-primary'>
                 Tạo Phiếu Thuê
               </button>
               <button

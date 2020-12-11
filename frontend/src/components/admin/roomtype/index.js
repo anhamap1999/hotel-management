@@ -136,7 +136,7 @@ export default function ListRoomType() {
             <tbody>{dataRender}</tbody>
           </table>
         </div>
-        <CreateRoomType reloadData={reloadData}/>
+        <CreateRoomType reloadData={reloadData} />
         <div
           className='modal fade'
           id='editModal'
@@ -189,17 +189,16 @@ export default function ListRoomType() {
                 </div>
               </div>
               <div className='modal-footer'>
-                <input
+                <button type='submit' className='btn btn-primary'>
+                  Cập nhật
+                </button>
+                <button
                   type='button'
                   className='btn btn-secondary'
                   data-dismiss='modal'
-                  value='Thoát'
-                />
-                <input
-                  type='submit'
-                  className='btn btn-primary'
-                  value='Cập nhật'
-                />
+                >
+                  Đóng
+                </button>
               </div>
             </form>
           </div>

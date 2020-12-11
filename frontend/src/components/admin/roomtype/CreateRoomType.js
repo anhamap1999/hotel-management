@@ -60,7 +60,7 @@ export default function CreateRoomType(props) {
           <form class='modal-content' onSubmit={handleSubmit}>
             <div class='modal-header'>
               <h5 class='modal-title' id='exampleModalCenterTitle'>
-              Tạo Loại Phòng Mới
+                Tạo Loại Phòng Mới
               </h5>
               <button
                 type='button'
@@ -75,38 +75,41 @@ export default function CreateRoomType(props) {
               <div class='form-group'>
                 <label for='name'>Tên Loại Phòng</label>
                 <div>
-                <input
-                  type='text'
-                  class='form-control'
-                  id='name'
-                  placeholder='Nhập tên loại phòng'
-                  value={name}
-                  onChange={event => onInput('name', event.target.value)}
-                />
+                  <input
+                    type='text'
+                    class='form-control'
+                    id='name'
+                    placeholder='Nhập tên loại phòng'
+                    value={name}
+                    onChange={(event) => onInput('name', event.target.value)}
+                  />
                 </div>
               </div>
               <div class='form-group'>
                 <label for='price'>Đơn giá</label>
                 <div>
-                <input
-                  type='text'
-                  class='form-control'
-                  id='price'
-                  placeholder='Nhập đơn giá'
-                  value={price}
-                  onChange={event => onInput('price', event.target.value)}
-                />
+                  <input
+                    type='text'
+                    class='form-control'
+                    id='price'
+                    placeholder='Nhập đơn giá'
+                    value={price}
+                    onChange={(event) => onInput('price', event.target.value)}
+                  />
                 </div>
               </div>
             </div>
             <div class='modal-footer'>
-            <input
-                  type='button'
-                  className='btn btn-secondary'
-                  data-dismiss='modal'
-                  value='Thoát'
-                />
-                <input type='submit' className='btn btn-primary' value='Tạo' />
+              <button type='submit' className='btn btn-primary'>
+                Tạo
+              </button>
+              <button
+                type='button'
+                className='btn btn-secondary'
+                data-dismiss='modal'
+              >
+                Đóng
+              </button>
             </div>
           </form>
         </div>

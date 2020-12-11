@@ -2,22 +2,28 @@ import React, { useState, useEffect } from 'react';
 import { roomTypeApis } from './../../../apis/roomType.api';
 import { roomApis } from './../../../apis/room.api';
 
-export default function CreateRoom() {
+export default function CreateRoom(props) {
   const [roomTypes, setRoomTypes] = useState([]);
   const [error, setError] = useState('');
   const [name, setName] = useState('');
   const [roomtypeid, setRoomtypeid] = useState('');
   const [note, setNote] = useState('');
   useEffect(() => {
-    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
+    roomTypeApis.getRoomTypes().then((res) => {
+      setRoomTypes(res);
+      setRoomtypeid(res[0]._id);
+    });
   }, []);
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
     const room = { name, note, room_type_id: roomtypeid };
     roomApis
-      .createRoom(room)
+      .createOrUpdateRoom(null, room)
       .then((data) => {
+        if (props.reload) {
+          props.reload();
+        }
         console.log(data);
         setError('');
         setNote('');

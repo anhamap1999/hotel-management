@@ -2,10 +2,10 @@ import fetchApi from './index';
 import utils from '../modules/utils';
 import sweetAlert from 'sweetalert';
 
-const getBills = (query) => {
+const getReport = (query) => {
   const queryString = utils.formatQuery(query);
   return fetchApi
-    .get('/bill' + queryString)
+    .get('/report' + queryString)
     .then((response) => {
       if (response.data) {
         return response.data;
@@ -13,6 +13,6 @@ const getBills = (query) => {
     })
     .catch((error) => false);
 };
-export const billApis = {
-  getBills,
+export const reportApis = {
+  getReport,
 };
