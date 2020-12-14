@@ -35,21 +35,10 @@ export default function Sidebar() {
                             </nav>
                         </div>
                         
-                        <a className="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCustomer" aria-expanded="false" aria-controls="collapseProducts">
-                            <div className="sb-nav-link-icon"><i className="fas fa-box" /></div>
-                            Khách hàng
-                            <div className="sb-sidenav-collapse-arrow"><i className="fas fa-angle-down" /></div>
-                        </a>
-                        <div className="collapse" id="collapseCustomer" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                            <nav className="sb-sidenav-menu-nested nav">
-                                <Link to='/guestList' className="nav-link sub_nav_link" href="/admin/roomed/list">Danh sách khách hàng</Link>  
-                            </nav>
-                        </div>
-                        <div className="collapse" id="collapseCustomer" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                            <nav className="sb-sidenav-menu-nested nav">
-                                <Link to='/guestType' className="nav-link sub_nav_link" href="/admin/roomed/list">Loại khách hàng</Link>  
-                            </nav>
-                        </div>
+                        <Link  to='/guest' className="nav-link collapsed" >
+                            <div className="sb-nav-link-icon"><i class="fas fa-user" /></div>
+                           Khách hàng
+                        </Link>
 
                         <Link  to='/seek' className="nav-link collapsed" >
                             <div className="sb-nav-link-icon"><i className="fas fa-search" /></div>

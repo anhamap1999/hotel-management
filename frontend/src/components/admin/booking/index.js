@@ -40,7 +40,7 @@ export default function RoomedScreen(){
            </div>
            <div className="listroom-button">       
             <button type="button" class="btn btn-danger"><Link to="/">Thoát</Link></button>
-            <button type="button" class="btn btn-dark"><Link to="/seek">Tra cứ</Link></button>
+            <button type="button" class="btn btn-dark"><Link to="/seek">Tra cứu</Link></button>
            </div>
        </div>
     </HomeScreen>

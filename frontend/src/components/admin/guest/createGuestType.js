@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CreateRoom() {
+export default function CreateGuestType() {
   return (
     <span>
       <button
@@ -9,7 +9,7 @@ export default function CreateRoom() {
         data-toggle='modal'
         data-target='#exampleModalCenter'
       >
-        Tạo Phòng
+        Thêm khách hàng
       </button>
 
       <div
@@ -24,7 +24,7 @@ export default function CreateRoom() {
           <div class='modal-content'>
             <div class='modal-header'>
               <h5 class='modal-title' id='exampleModalCenterTitle'>
-                Tạo Phòng Mới
+                Khách hàng mới
               </h5>
               <button
                 type='button'
@@ -37,7 +37,7 @@ export default function CreateRoom() {
             </div>
             <div class='modal-body'>
               <div class='form-group'>
-                <label for='nameroom'>Số phòng</label>
+                <label for='nameroom'>Tên Khách hàng</label>
                 <input
                   type='text'
                   class='form-control'
@@ -46,7 +46,7 @@ export default function CreateRoom() {
                 />
               </div>
               <div class='form-group'>
-                <label for='nameroom'>Loại phòng</label>
+                <label for='nameroom'>Chứng minh nhân dân</label>
                 <input
                   type='text'
                   class='form-control'
@@ -55,12 +55,13 @@ export default function CreateRoom() {
                 />
               </div>
               <div class='form-group'>
-                <label for='nameroom' style={{marginRight:'35px'}}>Ghi chú</label>
+                <label for='nameroom' style={{marginRight:'35px'}}>Địa chỉ</label>
                 <input
-                  type='text'
-                  class='form-control'
-                  id='nameroom'
-                  placeholder='Enter room'
+
+                    type='text'
+                    class='form-control'
+                    id='nameroom'
+                    placeholder='Enter room'
                 />
               </div>
             </div>
