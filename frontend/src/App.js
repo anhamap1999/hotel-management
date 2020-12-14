@@ -10,6 +10,7 @@ import RuleScreen from './components/admin/rule';
 import ReportScreen from './components/admin/report';
 import SearchScreen from './components/admin/search';
 import PaymentScreen from './components/admin/payment';
+import GuestScreen from './components/admin/guest';
 import RoomedScreen from './components/admin/booking';
 import { useHistory } from 'react-router-dom';
 
@@ -27,6 +28,7 @@ export default function App() {
         <Route path='/listroom' component={Listroom} />
         <Route path='/room-type' component={ListRoomType} />
         <Route path='/roomed' component={RoomedScreen} />
+        <Route path='/guest' component={GuestScreen} />
         <Route path='/payment' component={PaymentScreen} />
         <Route path='/rule' component={RuleScreen} />
         <Route path='/report' component={ReportScreen} />

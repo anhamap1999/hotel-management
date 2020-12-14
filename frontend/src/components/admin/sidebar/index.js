@@ -98,6 +98,12 @@ export default function Sidebar() {
               </div>
               Thuê phòng
             </Link>
+            <Link to='/guest' className='nav-link collapsed'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-user' />
+              </div>
+              Khách hàng
+            </Link>
             <Link to='/seek' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-search' />
