@@ -19,11 +19,9 @@ export default function SearchScreen(){
                     <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Loại Phòng</label>
                     <div class="col-sm-10">  
                         <select class="form-control custom-form" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option>Thường</option>
+                                <option>VIP</option>
+                                
                         </select>
                     </div>
                 </div>
@@ -31,11 +29,9 @@ export default function SearchScreen(){
                     <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Tình Trạng Phòng</label>
                     <div class="col-sm-10">  
                         <select class="form-control custom-form" id="exampleFormControlSelect1">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option>Còn trống</option>
+                                <option>Đang thuê</option>
+                                <option>Đã đặt trước</option>
                         </select>
                     </div>
                 </div>

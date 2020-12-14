@@ -53,7 +53,7 @@ export default function ReportScreen(){
                 </tbody>
                 </table>          
            </div>
-           <div className="listroom-button">       
+           <div className="listroom-button text-center">       
             <button type="button" class="btn btn-danger">Xuất </button>
             <button type="button" class="btn btn-dark"><Link to='/'>Thoát</Link></button>
            </div>

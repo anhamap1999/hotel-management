@@ -38,7 +38,7 @@ export default function RoomedScreen(){
                 </tbody>
                 </table>          
            </div>
-           <div className="listroom-button">       
+           <div className="listroom-button text-center">       
             <button type="button" class="btn btn-danger"><Link to="/">Thoát</Link></button>
             <button type="button" class="btn btn-dark"><Link to="/seek">Tra cứu</Link></button>
            </div>
