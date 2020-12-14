@@ -4,20 +4,23 @@ import { Link } from 'react-router-dom';
 import { customerApis } from './../../../apis/customer.api';
 import { roomApis } from './../../../apis/room.api';
 import { useEffect } from 'react';
+import moment from 'moment';
 export default function PaymentScreen() {
   const [customerList, setCustomerList] = useState([]);
   const [customerSelect, setCustomerSelect] = useState(null);
   const [rooms, setRooms] = useState([]);
 
   var today = new Date();
-  const date =
-    today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  // const date =
+  //   today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  const date = moment().format('hh:mm DD/MM/YYYY')
   const fetchCustomers = async () => {
     const data = await customerApis.getCustomer();
     setCustomerList(data);
   };
   const fetchRoom = async () => {
-    const data = await roomApis.getRooms();
+    const data = await roomApis.getRooms({ status: 'busy' });
+    setRooms(data);
   };
 
   const handleSelectUser = (id) => {
@@ -112,11 +115,33 @@ export default function PaymentScreen() {
                     </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                    <tr>
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>chọn phòng</option>
+                          <option selected>Chọn phòng</option>
+                          {rooms.map((item) => (
+                            <option key={item._id} value={item._id}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td>
+                        <input type='text' disabled value='1' />
+                      </td>
+                      <td>
+                        <input type='text' disabled value='200 000$' />
+                      </td>
+                      <td>
+                        <input type='text' placeholder='Ghi chú' />
+                      </td>
+                    </tr>{' '}
+                    <tr>
+                      <th scope='row' className='STT'></th>
+                      <td>
+                        <select class='custom-select'>
+                          <option selected>Chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
                           <option value='3'>A.103</option>
@@ -131,30 +156,12 @@ export default function PaymentScreen() {
                       <td>
                         <input type='text' placeholder='Ghi chú' />
                       </td>
-                    </tr> <tr>
+                    </tr>{' '}
+                    <tr>
                       <th scope='row' className='STT'></th>
                       <td>
                         <select class='custom-select'>
-                          <option selected>chọn phòng</option>
-                          <option value='1'>A.101</option>
-                          <option value='2'>A.102</option>
-                          <option value='3'>A.103</option>
-                        </select>
-                      </td>
-                      <td>
-                        <input type='text' disabled value='1' />
-                      </td>
-                      <td>
-                        <input type='text' disabled value='200 000$' />
-                      </td>
-                      <td>
-                        <input type='text' placeholder='Ghi chú' />
-                      </td>
-                    </tr> <tr>
-                      <th scope='row' className='STT'></th>
-                      <td>
-                        <select class='custom-select'>
-                          <option selected>chọn phòng</option>
+                          <option selected>Chọn phòng</option>
                           <option value='1'>A.101</option>
                           <option value='2'>A.102</option>
                           <option value='3'>A.103</option>
@@ -170,16 +177,14 @@ export default function PaymentScreen() {
                         <input type='text' placeholder='Ghi chú' />
                       </td>
                     </tr>
-                   </tbody>
+                  </tbody>
                 </table>
               </div>
               <div className='listroom-button text-center'>
                 <button type='button' class='btn btn-primary'>
                   Thanh toán
                 </button>
-                <button type='button' class='btn btn-success'>
-                  Reset
-                </button>
+
                 <Link to='/'>
                   <button type='button' class='btn btn-danger'>
                     Thoát

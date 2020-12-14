@@ -6,6 +6,7 @@ const RoomType = require('../../models/roomType');
 exports.getRooms = async (req, res, next) => {
   try {
     const { select, sort, type_id, status } = req.query;
+    const query = {};
     if (type_id) {
       const roomType = await RoomType.findById(type_id);
       if (!roomType) {
@@ -17,7 +18,7 @@ exports.getRooms = async (req, res, next) => {
       }
       query.room_type_id = type_id;
     }
-    const query = {};
+    
     if (status) {
       query.status = status;
     }

@@ -1,47 +1,250 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeScreen from '../../../page/homeScreen';
-export default function RoomedScreen(){
-    
-	return <HomeScreen>
-             <div className="listroom ">
-           <h1 className="text-center">Phòng Đang Thuê</h1>
-    
-           <div className="listrom-table">
-               
-           <table class="table table-sm">
-                <thead>
+import { roomApis } from '../../../apis/room.api';
+import { bookingApis } from '../../../apis/booking.api';
+import { roomTypeApis } from '../../../apis/roomType.api';
+import { customerApis } from '../../../apis/customer.api';
+import { customerTypeApis } from '../../../apis/customerType.api';
+import moment from 'moment';
+
+const customerTypeDefined = {
+  native: 'Nội địa',
+  foreign: 'Quốc tế'
+}
+
+export default function RoomedScreen() {
+  const [bookings, setBookings] = useState([]);
+  const [types, setTypes] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [customers, setCustomers] = useState([]);
+
+  useEffect(() => {
+    roomApis.getRooms().then((rooms) => {
+      if (rooms) {
+        setRooms(rooms);
+        roomTypeApis.getRoomTypes().then((types) => {
+          if (types) {
+            setTypes(types);
+            bookingApis.getBookings().then((res) => {
+              if (res) {
+                setBookings(
+                  res.map((item) => {
+                    const roomIndex = rooms.findIndex(
+                      (r) => r._id === item.room_id
+                    );
+                    item.room = rooms[roomIndex] ? rooms[roomIndex] : '';
+
+                    const typeIndex = types.findIndex(
+                      (t) => t._id === rooms[roomIndex].room_type_id
+                    );
+                    item.room_type = types[typeIndex] ? types[typeIndex] : '';
+                    return item;
+                  })
+                );
+              }
+            });
+          }
+        });
+      }
+    });
+    customerTypeApis.getCustomerTypes().then((types) => {
+      if (types) {
+        customerApis.getCustomer().then((res) => {
+          if (res) {
+            setCustomers(
+              res.map((item) => {
+                const index = types.findIndex(
+                  (i) => i._id === item.customer_type_id
+                );
+                item.type = types[index] ? types[index] : '';
+                return item;
+              })
+            );
+          }
+        });
+      }
+    });
+  }, []);
+
+  const onView = (item) => {
+    setSelectedBooking(item);
+  };
+
+  const dataRender = bookings
+    ? bookings.map((item, index) => (
+        <tr key={index}>
+          <td>{item.room ? item.room.name : ''}</td>
+          <td>{item.customers.length}</td>
+          <td>{moment(item.created_at).format('hh:mm DD/MM/yyyy')}</td>
+          <td>{item.room_type ? item.room_type.name : ''}</td>
+          <td>{item.room_type ? item.room_type.price : 0}</td>
+          <td>{item.total === 0 ? 'Đang cho thuê' : 'Đã trả phòng'}</td>
+          <td>{item.total}</td>
+          <td>
+            <span
+              // className='action-btns'
+              data-toggle='modal'
+              data-target='#viewModal'
+              style={{ margin: '5px' }}
+            >
+              <i
+                className='fas fa-eye'
+                style={{ cursor: 'pointer' }}
+                onClick={() => onView(item)}
+              />
+            </span>
+          </td>
+        </tr>
+      ))
+    : null;
+
+  const customersRender = selectedBooking
+    ? selectedBooking.customers.map((item, index) => {
+      const customerIndex = customers.findIndex(i => i._id === item.id);
+      const customer = customers[customerIndex];
+      return customer ? (
+        <tr key={index}>
+          <td>{customer.name}</td>
+          <td>{customer.id_number}</td>
+          <td>{customer.address}</td>
+          <td>{customer.type ? customerTypeDefined[customer.type.name] : ''}</td>
+        </tr>
+      ) : null
+    })
+    : null;
+
+  return (
+    <HomeScreen>
+      <div className='listroom '>
+        <h1 className='text-center'>Phiếu thuê phòng</h1>
+
+        <div className='listroom-table'>
+          <table className='table table-sm'>
+            <thead>
+              <tr>
+                <th style={{ width: 130 }}>Số Phòng</th>
+                <th style={{ width: 150 }}>Số lượng khách</th>
+                <th style={{ width: 200 }}>Ngày bắt đầu thuê</th>
+                <th style={{ width: 130 }}>Loại phòng</th>
+                <th style={{ width: 200 }}>Đơn giá</th>
+                <th style={{ width: 200 }}>Trạng thái</th>
+                <th style={{ width: 200 }}>Thành tiền</th>
+                <th style={{ width: 200 }}></th>
+              </tr>
+            </thead>
+            <tbody>{dataRender}</tbody>
+          </table>
+        </div>
+        <div className='listroom-button'>
+          <button type='button' className='btn btn-dark'>
+            <Link to='/seek'>Tra cứu</Link>
+          </button>
+          <button type='button' className='btn btn-danger'>
+            <Link to='/'>Thoát</Link>
+          </button>
+        </div>
+      </div>
+
+      <div
+        className='modal fade'
+        id='viewModal'
+        tabIndex='-1'
+        role='dialog'
+        aria-labelledby='viewModalTitle'
+        aria-hidden='true'
+      >
+        <div className='modal-dialog modal-dialog-centered' role='document'>
+          <form className='modal-content'>
+            <div className='modal-header'>
+              <h5 className='modal-title' id='viewModalTitle'>
+                Chi tiết phiếu thuê phòng
+              </h5>
+            </div>
+            <div className='modal-body'>
+              {/* <form> */}
+              <div className='listroom-table'>
+                <div>
+                  <label>Số Phòng: </label>
+                  <span className='mx-2 font-weight-bold'>
+                    {selectedBooking && selectedBooking.room
+                      ? selectedBooking.room.name
+                      : ''}
+                  </span>
+                </div>
+                <div>
+                  <label>Số lượng khách: </label>
+                  <span className='mx-2 font-weight-bold'>
+                    {selectedBooking ? selectedBooking.customers.length : ''}
+                  </span>
+                </div>
+                <div>
+                  <label>Ngày bắt đầu thuê: </label>
+                  <span className='mx-2 font-weight-bold'>
+                    {selectedBooking
+                      ? moment(selectedBooking.created_at).format(
+                          'hh:mm DD/MM/yyyy'
+                        )
+                      : ''}
+                  </span>
+                </div>
+                <div>
+                  <label>Loại phòng: </label>
+                  <span className='mx-2 font-weight-bold'>
+                    {selectedBooking && selectedBooking.room_type
+                      ? selectedBooking.room_type.name
+                      : ''}
+                  </span>
+                </div>
+                <div>
+                  <label>Đơn giá: </label>
+                  <span className='mx-2 font-weight-bold'>
+                    {selectedBooking && selectedBooking.room_type
+                      ? selectedBooking.room_type.price
+                      : 0}
+                  </span>
+                </div>
+                <div>
+                  <label>Trạng thái: </label>
+                  <span className='mx-2 font-weight-bold'>
+                    {selectedBooking && selectedBooking.total === 0
+                      ? 'Đang cho thuê'
+                      : 'Đã trả phòng'}
+                  </span>
+                </div>
+                <div>
+                  <label>Thành tiền: </label>
+                  <span className='mx-2 font-weight-bold'>
+                    {selectedBooking ? selectedBooking.total : 0}
+                  </span>
+                </div>
+
+                <table className='table table-sm'>
+                  <thead>
                     <tr>
-                    <th scope="col">STT</th>    
-                    <th scope="col">Tên Khách Hàng</th>
-                    <th scope="col">Số Phòng</th>
-                    <th scope="col">Loại Khách</th>
-                    <th scope="col">CMND</th>     
-                  
+                      <th style={{ width: 130 }}>Tên khách</th>
+                      <th style={{ width: 150 }}>CMND</th>
+                      <th style={{ width: 200 }}>Địa chỉ</th>
+                      <th style={{ width: 130 }}>Loại khách</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Bao bao</td>
-                        <td>A.101</td>
-                        <td>Thường</td>
-                        <td>2511253728</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Manh</td>
-                        <td>A.102</td>
-                        <td>Vip</td>
-                        <td>2515353724</td>
-                    </tr> 
-                </tbody>
-                </table>          
-           </div>
-           <div className="listroom-button text-center">       
-            <button type="button" class="btn btn-danger"><Link to="/">Thoát</Link></button>
-            <button type="button" class="btn btn-dark"><Link to="/seek">Tra cứu</Link></button>
-           </div>
-       </div>
+                  </thead>
+                  <tbody>{customersRender}</tbody>
+                </table>
+              </div>
+            </div>
+            <div className='modal-footer'>
+              <button
+                type='button'
+                className='btn btn-secondary'
+                data-dismiss='modal'
+              >
+                Đóng
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </HomeScreen>
+  );
 }

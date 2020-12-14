@@ -1,4 +1,6 @@
 {
     "user has been not registered": "Username không đúng",
-    "password is incorrect": "Mật khẩu không đúng"
+    "password is incorrect": "Mật khẩu không đúng",
+    "room type is type of some rooms": "Không thể xóa loại phòng của các phòng hiện có",
+    "room is busy or reserved": "Không thể xóa phòng đang cho thuê hoặc đã được đặt trước"
 }

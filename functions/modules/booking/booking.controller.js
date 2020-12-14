@@ -27,7 +27,7 @@ exports.create = async (req, res, next) => {
 };
 exports.getAllBookings = async (req, res, next) => {
   try {
-    const bookingList = await Booking.find();
+    const bookingList = await Booking.find(req.query).sort('-created_at');
     res.send(new Success({ data: bookingList })).status(200);
   } catch (error) {
     return next(error);

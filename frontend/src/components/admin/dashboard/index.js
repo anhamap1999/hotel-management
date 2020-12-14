@@ -1,15 +1,95 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import HomeScreen from '../../../page/homeScreen';
 import CreateBooking from './createBooking';
+import { roomApis } from '../../../apis/room.api';
+import { bookingApis } from '../../../apis/booking.api';
+import { roomTypeApis } from '../../../apis/roomType.api';
+import { billApis } from '../../../apis/bill.api';
+import moment from 'moment';
+
 export default function Home() {
+  const [bookings, setBookings] = useState([]);
+  const [bills, setBills] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  useEffect(() => {
+    billApis
+      .getBills()
+      .then(
+        (res) =>
+          res &&
+          setBills(
+            res.filter(
+              (item) =>
+                moment(item.created_at).format('DD/MM/YYYY') ===
+                moment().format('DD/MM/YYYY')
+            )
+          )
+      );
+    roomApis.getRooms().then((rooms) => {
+      if (rooms) {
+        setRooms(rooms);
+        roomTypeApis.getRoomTypes().then((types) => {
+          if (types) {
+            bookingApis.getBookings({ total: 0 }).then((res) => {
+              if (res) {
+                setBookings(
+                  res.map((item) => {
+                    const roomIndex = rooms.findIndex(
+                      (r) => r._id === item.room_id
+                    );
+                    item.room = rooms[roomIndex] ? rooms[roomIndex] : '';
+
+                    const typeIndex = types.findIndex(
+                      (t) => t._id === rooms[roomIndex].room_type_id
+                    );
+                    item.room_type = types[typeIndex] ? types[typeIndex] : '';
+                    return item;
+                  })
+                );
+              }
+            });
+          }
+        });
+      }
+      // setRooms(res)
+    });
+  }, []);
+
+  const dataRender = bookings
+    ? bookings.map((item, index) => (
+        <tr key={index}>
+          <td>{item.room ? item.room.name : ''}</td>
+          <td>{item.customers.length}</td>
+          <td>{moment(item.created_at).format('hh:mm DD/MM/yyyy')}</td>
+          <td>{item.room_type ? item.room_type.name : ''}</td>
+          <td>{item.room_type ? item.room_type.price : 0}</td>
+        </tr>
+      ))
+    : null;
+
+  let todayRevenue = 0;
+  console.log(bills);
+  bills.forEach((bill) => {
+    bill.booking_ids.forEach((id) => {
+      const index = bookings.findIndex((item) => item._id === id);
+      if (bookings[index]) {
+        const roomIndex = rooms.findIndex(
+          (r) => r._id === bookings[index].room_id
+        );
+        if (rooms[roomIndex]) {
+          todayRevenue += rooms[roomIndex].total;
+        }
+      }
+    });
+  });
   return (
     <HomeScreen>
       <div id='layoutSidenav_content'>
         <main>
           <div className='container-fluid'>
             <h2 className='mt-30 page-title'>Bảng điều khiển</h2>
-           
+
             <div className='row'>
               <div className='col-xl-3 col-md-6'>
                 <CreateBooking />
@@ -31,7 +111,7 @@ export default function Home() {
                 <div className='dashboard-report-card success'>
                   <div className='card-content'>
                     <span className='card-title'>Phòng Sử Dụng</span>
-                    <span className='card-count'>5</span>
+                    <span className='card-count'>{bookings.length}</span>
                   </div>
                   <div className='card-media'>
                     <i className='fas fa-sync-alt rpt_icon' />
@@ -42,7 +122,7 @@ export default function Home() {
                 <div className='dashboard-report-card income'>
                   <div className='card-content'>
                     <span className='card-title'>Thu Nhập Hôm nay </span>
-                    <span className='card-count'>9900 000 Đ</span>
+                    <span className='card-count'>{todayRevenue}</span>
                   </div>
                   <div className='card-media'>
                     <i className='fas fa-money-bill rpt_icon' />
@@ -67,26 +147,11 @@ export default function Home() {
                             <th style={{ width: 200 }}>Ngày bắt đầu thuê</th>
 
                             <th style={{ width: 130 }}>Loại phòng</th>
-                         
-                            <th style={{ width: 200 }}>Thành tiền</th>
-                            <th style={{ width: 100 }}>Tuỳ chỉnh</th>
+
+                            <th style={{ width: 200 }}>Đơn giá</th>
                           </tr>
                         </thead>
-                        <tbody>
-                          <tr>
-                            <td>A.101</td>
-                            <td>5 </td>
-                            <td>2013-01-12 09:10</td>
-                            <td>VIP</td>
-
-                            <td>5 000 000Đ</td>
-                            <td className='action-btns'>
-                              <i className='fas fa-eye' />
-
-                              <i className='fas fa-edit' />
-                            </td>
-                          </tr>
-                        </tbody>
+                        <tbody>{dataRender}</tbody>
                       </table>
                     </div>
                   </div>
