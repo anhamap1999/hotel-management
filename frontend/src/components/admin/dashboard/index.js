@@ -13,6 +13,39 @@ export default function Home() {
   const [bills, setBills] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    roomApis.getRooms().then((rooms) => {
+      if (rooms) {
+        setRooms(rooms);
+        roomTypeApis.getRoomTypes().then((types) => {
+          if (types) {
+            bookingApis.getBookings({ total: 0 }).then((res) => {
+              if (res) {
+                setBookings(
+                  res.map((item) => {
+                    const roomIndex = rooms.findIndex(
+                      (r) => r._id === item.room_id
+                    );
+                    item.room = rooms[roomIndex] ? rooms[roomIndex] : '';
+
+                    const typeIndex = types.findIndex(
+                      (t) => t._id === rooms[roomIndex].room_type_id
+                    );
+                    item.room_type = types[typeIndex] ? types[typeIndex] : '';
+                    return item;
+                  })
+                );
+              }
+              setIsFetching(false);
+            });
+          } else setIsFetching(false);
+        });
+      } else setIsFetching(false);
+    });
+  }, [reload]);
+
   useEffect(() => {
     setIsFetching(true);
     billApis.getBills().then((res) => {
@@ -52,15 +85,12 @@ export default function Home() {
               }
               setIsFetching(false);
             });
-          } else
-          setIsFetching(false);
+          } else setIsFetching(false);
         });
-      } else
-      setIsFetching(false);
+      } else setIsFetching(false);
       // setRooms(res)
     });
   }, []);
-
   const dataRender = bookings
     ? bookings.map((item, index) => (
         <tr key={index}>
@@ -97,7 +127,7 @@ export default function Home() {
 
             <div className='row'>
               <div className='col-xl-3 col-md-6'>
-                <CreateBooking />
+                <CreateBooking setReload={setReload} />
               </div>
 
               <div className='col-xl-3 col-md-6'>

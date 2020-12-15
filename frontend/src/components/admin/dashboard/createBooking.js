@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { roomTypeApis } from './../../../apis/roomType.api';
 import { roomApis } from '../../../apis/room.api';
 import { customerApis } from '../../../apis/customer.api';
+import { bookingApis } from '../../../apis/booking.api';
 import { customerTypeApis } from '../../../apis/customerType.api';
 import { configApis } from '../../../apis/config.api';
 import moment from 'moment';
-export default function CreateBooking() {
+export default function CreateBooking({ setReload }) {
   const [rooms, setRooms] = useState([]);
   const [roomTypes, setRoomTypes] = useState([]);
   const [room_id, setRoomId] = useState('');
   const [customers, setCustomers] = useState([]);
   const [max_qti_of_customers, setConfigs] = useState([]);
   const [customerTypes, setCustomerTypes] = useState([]);
+  const [userSelected, setUserSelected] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
   const date = moment().format('hh:mm DD/MM/YYYY');
   const customerRow = [];
   for (let i = 0; i < max_qti_of_customers; i++) {
@@ -48,9 +51,45 @@ export default function CreateBooking() {
     customerTypeApis.getCustomerTypes().then((res) => {
       if (res) setCustomerTypes(res);
     });
-    customerApis.getCustomers().then(res => res && setCustomers(res));
+    customerApis.getCustomers().then((res) => res && setCustomers(res));
   }, []);
 
+  useEffect(() => {
+    if (customers && userSelected.length > 0) {
+      for (let i = 0; i < userSelected.length; i++) {
+        const user = customers.find((cus) => cus._id === userSelected[i]);
+        if (user) {
+          setDataUser((pre) => {
+            const data = pre.slice();
+            data[i] = user;
+            return data;
+          });
+        }
+      }
+    }
+  }, [userSelected]);
+  const convertData = (fieldName, index) => {
+    return dataUser
+      ? dataUser[index]
+        ? dataUser[index][fieldName]
+        : null
+      : null;
+  };
+  const handleBooking = async () => {
+    if (!dataUser.length) return;
+    try {
+      const data = await bookingApis.createBooking({
+        room_id: room_id,
+        customers: dataUser.map((item) => ({
+          id: item._id,
+          type_id: item.customer_type_id,
+        })),
+      });
+      setReload((pre) => !pre);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const displayCustomers = () => {
     let render = <br />;
     for (let i = 0; i < max_qti_of_customers; i++) {
@@ -107,6 +146,7 @@ export default function CreateBooking() {
     console.log(render);
     return render;
   };
+
   return (
     <span>
       <button
@@ -169,7 +209,10 @@ export default function CreateBooking() {
                     Số phòng
                   </label>
                   <div className='col-md-9'>
-                    <select className='form-control'>
+                    <select
+                      className='form-control'
+                      onChange={(e) => setRoomId(e.target.value)}
+                    >
                       {rooms.map((room) => (
                         <option
                           style={{ textTransform: 'uppercase' }}
@@ -217,12 +260,22 @@ export default function CreateBooking() {
                     </thead>
                     <tbody>
                       {/* {displayCustomers()} */}
-                      {customerRow.map((item) => {
+                      {customerRow.map((_, index) => {
                         return (
                           <tr>
                             <th scope='row' className='STT'></th>
                             <td>
-                              <select className='custom-select options-size'>
+                              <select
+                                className='custom-select options-size'
+                                onChange={(e) => {
+                                  const { value } = e.target;
+                                  setUserSelected((pre) => {
+                                    const user = pre.slice();
+                                    user[index] = value;
+                                    return user;
+                                  });
+                                }}
+                              >
                                 <option selected>Lựa chọn ...</option>
                                 {customers.map((customer) => (
                                   <option
@@ -242,7 +295,10 @@ export default function CreateBooking() {
                               />
                             </td>
                             <td>
-                              <select className='custom-select options-size'>
+                              <select
+                                className='custom-select options-size'
+                                value={convertData('customer_type_id', index)}
+                              >
                                 <option selected>Lựa chọn ...</option>
                                 {customerTypes.map((type) => (
                                   <option
@@ -260,6 +316,7 @@ export default function CreateBooking() {
                                 type='text'
                                 className='form-control'
                                 placeholder='Số CMND'
+                                value={convertData('id_number', index)}
                               />
                             </td>
                             <td>
@@ -267,6 +324,7 @@ export default function CreateBooking() {
                                 type='text'
                                 className='form-control'
                                 placeholder='Vd: quận 2, Tp HCM'
+                                value={convertData('address', index)}
                               />
                             </td>
                           </tr>
@@ -278,7 +336,11 @@ export default function CreateBooking() {
               </form>
             </div>
             <div className='modal-footer'>
-              <button type='button' className='btn btn-primary'>
+              <button
+                type='button'
+                className='btn btn-primary'
+                onClick={handleBooking}
+              >
                 Tạo Phiếu Thuê
               </button>
               <button
