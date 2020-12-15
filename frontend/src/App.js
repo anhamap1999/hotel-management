@@ -4,6 +4,8 @@ import 'react-notifications/lib/notifications.css';
 import Login from './components/login';
 import Home from './components/admin/dashboard';
 import './app.css';
+import ListCustomerType from './components/admin/customertype';
+import Listcustomer from './components/admin/customers';
 import Listroom from './components/admin/listroom';
 import ListRoomType from './components/admin/roomtype';
 import RuleScreen from './components/admin/rule';
@@ -31,6 +33,8 @@ export default function App() {
         <Route path='/rule' component={RuleScreen} />
         <Route path='/report' component={ReportScreen} />
         <Route path='/seek' component={SearchScreen} />
+        <Route path='/customer' component={Listcustomer} />
+        <Route path='/customertype' component={ListCustomerType} />
       </BrowserRouter>
     </div>
   );

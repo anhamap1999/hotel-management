@@ -13,7 +13,7 @@ export default function PaymentScreen() {
   var today = new Date();
   // const date =
   //   today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  const date = moment().format('hh:mm DD/MM/YYYY')
+  const date = moment().format('hh:mm DD/MM/YYYY');
   const fetchCustomers = async () => {
     const data = await customerApis.getCustomer();
     setCustomerList(data);

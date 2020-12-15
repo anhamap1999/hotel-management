@@ -63,7 +63,7 @@ export default function RuleScreen() {
         });
       }
     });
-    Promise.all(configPromises).then(res => {
+    Promise.all(configPromises).then((res) => {
       if (res) {
         setReload(!reload);
       }

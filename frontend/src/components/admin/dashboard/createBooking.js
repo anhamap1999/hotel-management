@@ -32,9 +32,9 @@ export default function CreateBooking() {
         setRoomId(res[0]._id);
       }
     });
-    customerApis.getCustomer().then((res) => {
-      if (res) setCustomers(res);
-    });
+    // customerApis.getCustomer().then((res) => {
+    //   if (res) setCustomers(res);
+    // });
     configApis.getConfigs().then((res) => {
       if (res) {
         const index = res.findIndex(
@@ -218,58 +218,59 @@ export default function CreateBooking() {
                       {/* {displayCustomers()} */}
                       {customerRow.map((item) => {
                         return (
-                        <tr>
-                          <th scope='row' className='STT'></th>
-                          <td>
-                            <select className='custom-select options-size'>
-                              <option selected>Lựa chọn ...</option>
-                              {customers.map((customer) => (
-                                <option
-                                  style={{ textTransform: 'uppercase' }}
-                                  key={customer._id}
-                                  value={customer._id}
-                                >
-                                  {customer.name.toUpperCase()}
-                                </option>
-                              ))}
-                            </select>
-                            <div>Hoặc thêm mới: </div>
-                            <input
-                              type='text'
-                              className='form-control'
-                              placeholder='Nhập tên khách hàng'
-                            />
-                          </td>
-                          <td>
-                            <select className='custom-select options-size'>
-                              <option selected>Lựa chọn ...</option>
-                              {customerTypes.map((type) => (
-                                <option
-                                  style={{ textTransform: 'uppercase' }}
-                                  key={type._id}
-                                  value={type._id}
-                                >
-                                  {type.name.toUpperCase()}
-                                </option>
-                              ))}
-                            </select>
-                          </td>
-                          <td>
-                            <input
-                              type='text'
-                              className='form-control'
-                              placeholder='Số CMND'
-                            />
-                          </td>
-                          <td>
-                            <input
-                              type='text'
-                              className='form-control'
-                              placeholder='Vd: quận 2, Tp HCM'
-                            />
-                          </td>
-                        </tr>
-                      )})}
+                          <tr>
+                            <th scope='row' className='STT'></th>
+                            <td>
+                              <select className='custom-select options-size'>
+                                <option selected>Lựa chọn ...</option>
+                                {customers.map((customer) => (
+                                  <option
+                                    style={{ textTransform: 'uppercase' }}
+                                    key={customer._id}
+                                    value={customer._id}
+                                  >
+                                    {customer.name.toUpperCase()}
+                                  </option>
+                                ))}
+                              </select>
+                              <div>Hoặc thêm mới: </div>
+                              <input
+                                type='text'
+                                className='form-control'
+                                placeholder='Nhập tên khách hàng'
+                              />
+                            </td>
+                            <td>
+                              <select className='custom-select options-size'>
+                                <option selected>Lựa chọn ...</option>
+                                {customerTypes.map((type) => (
+                                  <option
+                                    style={{ textTransform: 'uppercase' }}
+                                    key={type._id}
+                                    value={type._id}
+                                  >
+                                    {type.name.toUpperCase()}
+                                  </option>
+                                ))}
+                              </select>
+                            </td>
+                            <td>
+                              <input
+                                type='text'
+                                className='form-control'
+                                placeholder='Số CMND'
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type='text'
+                                className='form-control'
+                                placeholder='Vd: quận 2, Tp HCM'
+                              />
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
