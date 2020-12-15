@@ -39,6 +39,8 @@ export default function Listcustomer() {
   const onEditCustomer = (index) => {
     setId(data[index]._id);
     setName(data[index].name);
+    setNumber(data[index].id_number);
+    setAddress(data[index].address);
     setCustomerTypeId(data[index].customer_type_id);
   };
 
@@ -70,6 +72,7 @@ export default function Listcustomer() {
       name,
       address,
       customer_type_id: customerTypeId,
+      id_number
     };
     customerApis.createOrUpdateCustomer(id, data).then((res) => {
       if (res) {
@@ -87,6 +90,7 @@ export default function Listcustomer() {
           <tr key={customer._id}>
             <th scope='row'>{index + 1}</th>
             <td>{customer.name}</td>
+            <td>{type ? type.name : ''}</td>
             <td>{customer.address}</td>
             <td>{customer.id_number}</td>
             <td>
@@ -124,8 +128,9 @@ export default function Listcustomer() {
               <tr>
                 <th scope='col'>STT</th>
                 <th scope='col'>Tên khách hàng</th>
+                <th scope='col'>Loại khách hàng</th>
                 <th scope='col'>Địa chỉ</th>
-                <th scope='col'>Số ĐT</th>
+                <th scope='col'>Số CMND</th>
                 <th scope='col'>Chỉnh sửa</th>
               </tr>
             </thead>

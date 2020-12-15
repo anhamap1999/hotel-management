@@ -36,6 +36,7 @@ export default function CreateCustomer(props) {
         setAddress('');
         setName('');
         setCustomertypeid('');
+        setNumber('');
       })
       .catch((err) => {
         setError('Đã xảy ra lỗi trong khi thực thi!');
@@ -150,7 +151,7 @@ export default function CreateCustomer(props) {
                   </div>
                 )}
                 <button type='submit' className='btn btn-primary'>
-                  Lưu khách hành
+                  Lưu
                 </button>
                 <button
                   type='button'

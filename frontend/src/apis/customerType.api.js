@@ -47,7 +47,7 @@ const createOrUpdateCustomerType = (id, data) => {
 
 const deleteCustomerType = (id) => {
   return fetchApi
-    .delete('/customer/delete/' + id)
+    .delete('/customertype/' + id)
     .then((response) => {
       if (response.data) {
         sweetAlert(`Xóa loại khách thành công`, '', 'success');

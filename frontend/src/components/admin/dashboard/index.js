@@ -74,7 +74,7 @@ export default function Home() {
     : null;
 
   let todayRevenue = 0;
-  console.log(bills);
+  // console.log(bills);
   bills.forEach((bill) => {
     bill.booking_ids.forEach((id) => {
       const index = bookings.findIndex((item) => item._id === id);

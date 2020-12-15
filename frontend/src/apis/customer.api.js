@@ -39,9 +39,7 @@ const createOrUpdateCustomer = (id, data) => {
     return fetchApi
       .post(
         url,
-        JSON.stringify({
-          data: [data],
-        })
+        JSON.stringify(data)
       )
       .then((response) => {
         if (response.data) {

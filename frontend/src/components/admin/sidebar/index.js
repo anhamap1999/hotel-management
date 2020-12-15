@@ -80,18 +80,7 @@ export default function Sidebar() {
                 </Link>
               </nav>
             </div> */}
-            <Link to='/customer' className='nav-link collapsed'>
-              <div className='sb-nav-link-icon'>
-                <i className='fas fa-users' />
-              </div>
-              Khách hàng
-            </Link>
-            <Link to='/customertype' className='nav-link collapsed'>
-              <div className='sb-nav-link-icon'>
-                <i className='fas fa-child' />
-              </div>
-              Loại Khách hàng
-            </Link>
+            
             <Link to='/listroom' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-store' />
@@ -104,18 +93,30 @@ export default function Sidebar() {
               </div>
               Danh sách loại phòng
             </Link>
+            <Link to='/customer' className='nav-link collapsed'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-users' />
+              </div>
+              Khách hàng
+            </Link>
+            <Link to='/customertype' className='nav-link collapsed'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-child' />
+              </div>
+              Loại Khách hàng
+            </Link>
             <Link to='/roomed' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-box' />
               </div>
               Thuê phòng
             </Link>
-            <Link to='/guest' className='nav-link collapsed'>
+            {/* <Link to='/guest' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-user' />
               </div>
               Khách hàng
-            </Link>
+            </Link> */}
             <Link to='/seek' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-search' />

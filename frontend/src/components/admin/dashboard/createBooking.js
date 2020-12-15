@@ -48,6 +48,7 @@ export default function CreateBooking() {
     customerTypeApis.getCustomerTypes().then((res) => {
       if (res) setCustomerTypes(res);
     });
+    customerApis.getCustomers().then(res => res && setCustomers(res));
   }, []);
 
   const displayCustomers = () => {
