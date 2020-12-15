@@ -16,6 +16,7 @@ export default function Listroom() {
   const [roomTypeId, setRoomTypeId] = useState('');
   const [note, setNote] = useState('');
   const [error, setError] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const [reload, setReload] = useState(false);
 
@@ -26,20 +27,30 @@ export default function Listroom() {
     reserved: 'Đã đặt trước',
   };
   useEffect(() => {
+    setIsFetching(true);
     roomApis.getRooms().then((res) => {
-      if (res) setData(res);
+      if (res) {
+        setData(res);
+      }
+      setIsFetching(false);
     });
+    setIsFetching(true);
     roomTypeApis.getRoomTypes().then((res) => {
       if (res) {
         setRoomTypes(res);
         setRoomTypeId(res[0]._id);
       }
+      setIsFetching(false);
     });
   }, []);
 
   useEffect(() => {
+    setIsFetching(true);
     roomApis.getRooms().then((res) => {
-      if (res) setData(res);
+      if (res) {
+        setData(res);
+      }
+      setIsFetching(false);
     });
   }, [reload]);
 
@@ -65,10 +76,12 @@ export default function Listroom() {
   };
 
   const onConfirm = (id) => {
+    setIsFetching(true);
     roomApis.deleteRoom(id).then((res) => {
       if (res) {
         setReload(!reload);
       }
+      setIsFetching(false);
     });
   };
 
@@ -77,12 +90,14 @@ export default function Listroom() {
     const data = {
       name,
       note,
-      room_type_id: roomTypeId
+      room_type_id: roomTypeId,
     };
+    setIsFetching(true);
     roomApis.createOrUpdateRoom(id, data).then((res) => {
       if (res) {
         setReload(!reload);
       }
+      setIsFetching(false);
     });
   };
 
@@ -139,11 +154,17 @@ export default function Listroom() {
                 <th scope='col'>Chỉnh sửa</th>
               </tr>
             </thead>
-            <tbody>{dataRender}</tbody>
+            <tbody>
+              {!isFetching ? (
+                dataRender
+              ) : (
+                <div className='spinner-border'></div>
+              )}
+            </tbody>
           </table>
         </div>
         <div className='listroom-button'>
-          <CreateRoom reload={() => setReload(!reload)}/>
+          <CreateRoom reload={() => setReload(!reload)} />
 
           <span>
             <div
@@ -172,6 +193,7 @@ export default function Listroom() {
                       <span aria-hidden='true'>&times;</span>
                     </button>
                   </div>
+                  {isFetching ? <div className='spinner-border'></div> : null}
                   <form onSubmit={handleSubmit}>
                     <div className='modal-body'>
                       <div className='form-group'>

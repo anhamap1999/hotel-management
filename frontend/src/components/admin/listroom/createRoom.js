@@ -8,27 +8,36 @@ export default function CreateRoom(props) {
   const [name, setName] = useState('');
   const [roomtypeid, setRoomtypeid] = useState('');
   const [note, setNote] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
   useEffect(() => {
+    setIsFetching(true);
     roomTypeApis.getRoomTypes().then((res) => {
-      setRoomTypes(res);
-      setRoomtypeid(res[0]._id);
+      if (res) {
+        setRoomTypes(res);
+        setRoomtypeid(res[0]._id);
+      }
+      setIsFetching(false);
     });
   }, []);
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
     const room = { name, note, room_type_id: roomtypeid };
+    setIsFetching(true);
     roomApis
       .createOrUpdateRoom(null, room)
       .then((data) => {
         if (props.reload) {
           props.reload();
         }
-        console.log(data);
-        setError('');
-        setNote('');
-        setName('');
-        setRoomtypeid('');
+        if (data) {
+          console.log(data);
+          setError('');
+          setNote('');
+          setName('');
+          setRoomtypeid('');
+        }
+        setIsFetching(false);
       })
       .catch((err) => {
         setError('Đã xảy ra lỗi trong khi thực thi!');
@@ -68,6 +77,7 @@ export default function CreateRoom(props) {
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
+            {isFetching ? <div className='spinner-border'></div> : null}
             <form onSubmit={handleCreateRoom}>
               <div className='modal-body'>
                 <div className='form-group'>

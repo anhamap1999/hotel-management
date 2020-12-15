@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { roomTypeApis } from '../../../apis/roomType.api';
 export default function CreateRoomType(props) {
-  const [ name, setName ] = useState('');
-  const [ price, setPrice ] = useState(0);
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(0);
+  const [isFetching, setIsFetching] = useState(false);
 
   const onInput = (key, value) => {
     // useEffect(() => {
@@ -26,7 +27,8 @@ export default function CreateRoomType(props) {
       price,
     };
     console.log('SUBMIT');
-    roomTypeApis.createOrUpdateRoomType(null, data).then(res => {
+    setIsFetching(true);
+    roomTypeApis.createOrUpdateRoomType(null, data).then((res) => {
       if (res) {
         // setIsReload(!isReload);
         if (props.reloadData) {
@@ -34,6 +36,7 @@ export default function CreateRoomType(props) {
         }
         // props.isReload = !props.isReload;
       }
+      setIsFetching(false);
     });
   };
 
@@ -71,6 +74,7 @@ export default function CreateRoomType(props) {
                 <span aria-hidden='true'>&times;</span>
               </button>
             </div>
+            {isFetching ? <div className='spinner-border'></div> : null}
             <div class='modal-body'>
               <div class='form-group'>
                 <label for='name'>Tên Loại Phòng</label>

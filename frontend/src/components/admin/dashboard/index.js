@@ -12,20 +12,22 @@ export default function Home() {
   const [bookings, setBookings] = useState([]);
   const [bills, setBills] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
   useEffect(() => {
-    billApis
-      .getBills()
-      .then(
-        (res) =>
-          res &&
-          setBills(
-            res.filter(
-              (item) =>
-                moment(item.created_at).format('DD/MM/YYYY') ===
-                moment().format('DD/MM/YYYY')
-            )
+    setIsFetching(true);
+    billApis.getBills().then((res) => {
+      if (res) {
+        setBills(
+          res.filter(
+            (item) =>
+              moment(item.created_at).format('DD/MM/YYYY') ===
+              moment().format('DD/MM/YYYY')
           )
-      );
+        );
+      }
+      setIsFetching(false);
+    });
+    setIsFetching(true);
     roomApis.getRooms().then((rooms) => {
       if (rooms) {
         setRooms(rooms);
@@ -48,10 +50,13 @@ export default function Home() {
                   })
                 );
               }
+              setIsFetching(false);
             });
-          }
+          } else
+          setIsFetching(false);
         });
-      }
+      } else
+      setIsFetching(false);
       // setRooms(res)
     });
   }, []);
@@ -99,7 +104,9 @@ export default function Home() {
                 <div className='dashboard-report-card purple'>
                   <div className='card-content'>
                     <span className='card-title'>Phòng Đặt Trước</span>
-                    <span className='card-count'>2</span>
+                    <span className='card-count'>
+                      {!isFetching ? 2 : <div className='spinner-border'></div>}
+                    </span>
                   </div>
                   <div className='card-media'>
                     <i className='fab fa-rev' />
@@ -111,7 +118,13 @@ export default function Home() {
                 <div className='dashboard-report-card success'>
                   <div className='card-content'>
                     <span className='card-title'>Phòng Sử Dụng</span>
-                    <span className='card-count'>{bookings.length}</span>
+                    <span className='card-count'>
+                      {!isFetching ? (
+                        bookings.length
+                      ) : (
+                        <div className='spinner-border'></div>
+                      )}
+                    </span>
                   </div>
                   <div className='card-media'>
                     <i className='fas fa-sync-alt rpt_icon' />
@@ -122,7 +135,13 @@ export default function Home() {
                 <div className='dashboard-report-card income'>
                   <div className='card-content'>
                     <span className='card-title'>Thu Nhập Hôm nay </span>
-                    <span className='card-count'>{todayRevenue}</span>
+                    <span className='card-count'>
+                      {!isFetching ? (
+                        todayRevenue
+                      ) : (
+                        <div className='spinner-border'></div>
+                      )}
+                    </span>
                   </div>
                   <div className='card-media'>
                     <i className='fas fa-money-bill rpt_icon' />
@@ -151,7 +170,13 @@ export default function Home() {
                             <th style={{ width: 200 }}>Đơn giá</th>
                           </tr>
                         </thead>
-                        <tbody>{dataRender}</tbody>
+                        <tbody>
+                          {!isFetching ? (
+                            dataRender
+                          ) : (
+                            <div className='spinner-border'></div>
+                          )}
+                        </tbody>
                       </table>
                     </div>
                   </div>

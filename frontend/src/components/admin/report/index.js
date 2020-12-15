@@ -8,15 +8,18 @@ export default function ReportScreen() {
   const [time, setTime] = useState(moment().format('YYYY-MM'));
   const [report, setReport] = useState([]);
   const [total, setTotal] = useState(0);
-  
+  const [isFetching, setIsFetching] = useState(false);
+
   useEffect(() => {
+    setIsFetching(true);
     reportApis.getReport({ date: time }).then((res) => {
       if (res) {
         setReport(res);
         let totalRevenue = 0;
-        res.forEach((item) => totalRevenue += item.revenue);
+        res.forEach((item) => (totalRevenue += item.revenue));
         setTotal(totalRevenue);
       }
+      setIsFetching(false);
     });
   }, [time]);
 
@@ -43,10 +46,18 @@ export default function ReportScreen() {
     // document.body.innerHTML = originalContents;
     const printWindow = window.open('', '', 'height=1000, width=1000');
     printWindow.document.write('<html><head><title></title>');
-    printWindow.document.write("<link href='/css/styles.css' rel='stylesheet'>");
-    printWindow.document.write("<link href='/css/admin-style.css' rel='stylesheet'>");
-    printWindow.document.write("<link href='/vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet'>");
-    printWindow.document.write("<link href='/vendor/fontawesome-free/css/all.min.css' rel='stylesheet'></link>");
+    printWindow.document.write(
+      "<link href='/css/styles.css' rel='stylesheet'>"
+    );
+    printWindow.document.write(
+      "<link href='/css/admin-style.css' rel='stylesheet'>"
+    );
+    printWindow.document.write(
+      "<link href='/vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet'>"
+    );
+    printWindow.document.write(
+      "<link href='/vendor/fontawesome-free/css/all.min.css' rel='stylesheet'></link>"
+    );
     printWindow.document.write('</head>');
     printWindow.document.write('<body>');
     printWindow.document.write(printContents);
@@ -88,7 +99,13 @@ export default function ReportScreen() {
                   <th scope='col'>Tỉ lệ</th>
                 </tr>
               </thead>
-              <tbody>{dataRender}</tbody>
+              <tbody>
+                {!isFetching ? (
+                  dataRender
+                ) : (
+                  <div className='spinner-border'></div>
+                )}
+              </tbody>
             </table>
           </div>
         </div>

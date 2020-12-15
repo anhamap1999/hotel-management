@@ -15,8 +15,11 @@ export default function RuleScreen() {
   const [maxQtiRate, setMaxQtiRate] = useState(0);
   const [customerTypeConfig, setCustomerTypeConfig] = useState([]);
   const [reload, setReload] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const fetchConfigs = async () => {
+    setIsFetching(true);
     const config = await configApis.getConfigs();
+    setIsFetching(false);
     console.log(config);
     setConfigs(config);
     setMaxQti(
@@ -25,7 +28,7 @@ export default function RuleScreen() {
     setMaxQtiRate(
       config.find((item) => item.name === 'max_qti_of_customers_rate').value
     );
-
+    setIsFetching(true);
     customerTypeApis.getCustomerTypes().then((res) => {
       if (res) {
         setCustomerTypeConfig(
@@ -37,6 +40,7 @@ export default function RuleScreen() {
             })
         );
       }
+      setIsFetching(false);
     });
   };
   useEffect(() => {
@@ -47,7 +51,7 @@ export default function RuleScreen() {
     fetchConfigs();
   }, [reload]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const configPromises = configs.map((item) => {
@@ -56,18 +60,19 @@ export default function RuleScreen() {
       } else if (item.name === 'max_qti_of_customers_rate') {
         return configApis.updateConfig(item._id, { value: maxQtiRate });
       } else {
+        const value = customerTypeConfig.map((item) => {
+          const { id, qti, rate } = item;
+          return { id, qti, rate };
+        });
         return configApis.updateConfig(item._id, {
-          value: customerTypeConfig.map(
-            (item) => item.name && delete item['name']
-          ),
+          value,
         });
       }
     });
-    Promise.all(configPromises).then(res => {
-      if (res) {
-        setReload(!reload);
-      }
-    });
+    setIsFetching(true);
+    await Promise.all(configPromises);
+    setReload(!reload);
+    setIsFetching(false);
   };
 
   const onInput = (key, value, index) => {
@@ -196,17 +201,21 @@ export default function RuleScreen() {
                     disabled
                   />
                 </div> */}
-                <div className='form-group col-md-4'>
-                  <label htmlFor='newQuantityValue'>Giá trị</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='newQuantityValue'
-                    placeholder='Số khách tối đa'
-                    value={maxQti}
-                    onChange={(e) => onInput('maxQti', e.target.value)}
-                  />
-                </div>
+                {!isFetching ? (
+                  <div className='form-group col-md-4'>
+                    <label htmlFor='newQuantityValue'>Giá trị</label>
+                    <input
+                      type='text'
+                      className='form-control'
+                      id='newQuantityValue'
+                      placeholder='Số khách tối đa'
+                      value={maxQti}
+                      onChange={(e) => onInput('maxQti', e.target.value)}
+                    />
+                  </div>
+                ) : (
+                  <div className='spinner-border'></div>
+                )}
               </div>
             </div>
 
@@ -230,23 +239,31 @@ export default function RuleScreen() {
                     disabled
                   />
                 </div> */}
-                <div className='form-group col-md-4'>
-                  <label htmlFor='newQuantityRateValue'>Giá trị</label>
-                  <input
-                    type='text'
-                    className='form-control'
-                    id='newQuantityRateValue'
-                    placeholder='Phụ thu khách tối đa'
-                    value={maxQtiRate}
-                    onChange={(e) => onInput('maxQtiRate', e.target.value)}
-                  />
-                </div>
+                {!isFetching ? (
+                  <div className='form-group col-md-4'>
+                    <label htmlFor='newQuantityRateValue'>Giá trị</label>
+                    <input
+                      type='text'
+                      className='form-control'
+                      id='newQuantityRateValue'
+                      placeholder='Phụ thu khách tối đa'
+                      value={maxQtiRate}
+                      onChange={(e) => onInput('maxQtiRate', e.target.value)}
+                    />
+                  </div>
+                ) : (
+                  <div className='spinner-border'></div>
+                )}
               </div>
             </div>
 
             <div className='row'>
               <p className='col-sm-2 font-weight-bold '>Tỷ lệ phụ thu</p>
-              {customerTypeConfigRender}
+              {!isFetching ? (
+                customerTypeConfigRender
+              ) : (
+                <div className='spinner-border'></div>
+              )}
             </div>
             <div className='listroom-button text-center'>
               <button type='submit' className='btn btn-primary'>

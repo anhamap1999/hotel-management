@@ -19,8 +19,10 @@ export default function RoomedScreen() {
   const [rooms, setRooms] = useState([]);
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [customers, setCustomers] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
+    setIsFetching(true);
     roomApis.getRooms().then((rooms) => {
       if (rooms) {
         setRooms(rooms);
@@ -44,11 +46,15 @@ export default function RoomedScreen() {
                   })
                 );
               }
+              setIsFetching(false);
             });
           }
+          setIsFetching(false);
         });
       }
+      setIsFetching(false);
     });
+    setIsFetching(true);
     customerTypeApis.getCustomerTypes().then((types) => {
       if (types) {
         customerApis.getCustomer().then((res) => {
@@ -62,9 +68,11 @@ export default function RoomedScreen() {
                 return item;
               })
             );
+            setIsFetching(false);
           }
         });
       }
+      setIsFetching(false);
     });
   }, []);
 
@@ -134,7 +142,7 @@ export default function RoomedScreen() {
                 <th style={{ width: 200 }}></th>
               </tr>
             </thead>
-            <tbody>{dataRender}</tbody>
+            <tbody>{!isFetching ? dataRender : <div className="spinner-border"></div>}</tbody>
           </table>
         </div>
         <div className='listroom-button'>

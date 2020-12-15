@@ -12,18 +12,31 @@ export default function ListRoomType() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [reload, setReload] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   let isReload = false;
 
   useEffect(() => {
-    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
+    setIsFetching(true);
+    roomTypeApis.getRoomTypes().then((res) => {
+      if (res) setRoomTypes(res);
+      setIsFetching(false);
+    });
   }, []);
 
   useEffect(() => {
-    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
+    setIsFetching(true);
+    roomTypeApis.getRoomTypes().then((res) => {
+      if (res) setRoomTypes(res);
+      setIsFetching(false);
+    });
   }, [reload]);
 
   useEffect(() => {
-    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
+    setIsFetching(true);
+    roomTypeApis.getRoomTypes().then((res) => {
+      if (res) setRoomTypes(res);
+      setIsFetching(false);
+    });
   }, [isReload]);
 
   const onEditType = (index) => {
@@ -49,39 +62,46 @@ export default function ListRoomType() {
       name,
       price,
     };
+    setIsFetching(true);
     roomTypeApis.createOrUpdateRoomType(id, data).then((res) => {
       if (res) {
         setReload(!reload);
       }
+      setIsFetching(false);
     });
   };
 
   const onConfirm = (id) => {
+    setIsFetching(true);
     roomTypeApis.deleteRoomType(id).then((res) => {
       if (res) {
         setReload(!reload);
       }
+      setIsFetching(false);
     });
-  }
+  };
 
-  const onDelete = (id) => {    
+  const onDelete = (id) => {
     sweetAlert({
-      title: "Bạn chắc chắn muốn xóa loại phòng?",
+      title: 'Bạn chắc chắn muốn xóa loại phòng?',
       // text: "Once deleted, you will not be able to recover this imaginary file!",
-      icon: "warning",
+      icon: 'warning',
       buttons: true,
       dangerMode: true,
-    })
-    .then((willDelete) => {
+    }).then((willDelete) => {
       if (willDelete) {
         onConfirm(id);
       }
     });
-  }
+  };
 
   const reloadData = () => {
-    roomTypeApis.getRoomTypes().then((res) => setRoomTypes(res));
-  }
+    setIsFetching(true);
+    roomTypeApis.getRoomTypes().then((res) => {
+      if (res) setRoomTypes(res);
+      setIsFetching(false);
+    });
+  };
 
   const dataRender = roomTypes
     ? roomTypes.map((type, index) => {
@@ -133,7 +153,13 @@ export default function ListRoomType() {
                 <th scope='col'>Chỉnh sửa</th>
               </tr>
             </thead>
-            <tbody>{dataRender}</tbody>
+            <tbody>
+              {!isFetching ? (
+                dataRender
+              ) : (
+                <div className='spinner-border'></div>
+              )}
+            </tbody>
           </table>
         </div>
         <CreateRoomType reloadData={reloadData} />
@@ -160,6 +186,7 @@ export default function ListRoomType() {
                   <span aria-hidden='true'>&times;</span>
                 </button>
               </div>
+              {isFetching ? <div className='spinner-border'></div> : null}
               <div className='modal-body'>
                 <div className='form-group'>
                   <label for={id ? id + 'name' : 'name'}>Tên Loại Phòng</label>
