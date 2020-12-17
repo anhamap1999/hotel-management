@@ -57,7 +57,7 @@ const createOrUpdateCustomer = (id, data) => {
 
 const deleteCustomer = (id) => {
   return fetchApi
-    .delete('/customer/delete/' + id)
+    .delete('/customer/' + id)
     .then((response) => {
       if (response.data) {
         sweetAlert(`Xóa thành công`, '', 'success');

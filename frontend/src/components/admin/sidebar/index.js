@@ -89,7 +89,7 @@ export default function Sidebar() {
             </Link>
             <Link to='/room-type' className='nav-link active'>
               <div className='sb-nav-link-icon'>
-                <i className='fas fa-tachometer-alt' />
+                <i className='fas fa-store-alt' />
               </div>
               Danh sách loại phòng
             </Link>
@@ -129,6 +129,12 @@ export default function Sidebar() {
                 <i className='fas fa-money-check' />
               </div>
               Thanh Toán
+            </Link>
+            <Link to='/order' className='nav-link collapsed'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-clipboard-list' style={{ fontSize: '12pt' }} />
+              </div>
+              Danh sách hóa đơn
             </Link>
             <Link to='/report' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>

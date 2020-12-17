@@ -1,5 +1,6 @@
-const { Success } = require('../../utils/Success');
+const { Success, Error } = require('../../utils');
 const CustomerType = require('./../../models/customerType');
+const Customer = require('./../../models/customer');
 exports.getCustomerType = async (req, res, next) => {
   // if (!req.user) {
   //   // res.send(404, 'Unauthorized!');
@@ -59,8 +60,16 @@ exports.deleteType = async (req, res, next) => {
     if (!customerTypeFound) {
       throw new Error({ statusCode: 404, message: 'Customer type not found!' });
     }
+    const customers = await Customer.find({ customer_type_id: id });
+    if (customers.length) {
+      throw new Error({
+        statusCode: 400,
+        message: 'customerType.canNotDelete',
+        error: 'customer type is type of some customers'
+      });
+    }
     await CustomerType.findByIdAndRemove(id);
-    res.send(200);
+    res.status(200).send(new Success({ data: customerTypeFound }));
   } catch (error) {
     return next(error);
   }

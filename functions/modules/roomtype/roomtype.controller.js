@@ -8,7 +8,8 @@ exports.getRoomTypes = async (req, res, next) => {
     const { select, sort } = req.query;
     const types = await RoomType.find({})
       .select(select ? select : '')
-      .sort(sort ? sort : 'name');
+      .sort(sort ? sort : 'name')
+      .populate('room_type');
     const success = new Success({ data: types });
     res.status(200).send(success);
   } catch (error) {

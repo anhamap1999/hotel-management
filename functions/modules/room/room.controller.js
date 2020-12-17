@@ -18,7 +18,7 @@ exports.getRooms = async (req, res, next) => {
       }
       query.room_type_id = type_id;
     }
-    
+
     if (status) {
       query.status = status;
     }
@@ -52,7 +52,8 @@ exports.createRooms = async (req, res, next) => {
   try {
     const { data } = req.body;
     const createRoomPromises = data.map(async (item) => {
-      const roomType = await RoomType.findById(item.room_type_id);
+      const { name, room_type_id, note } = item;
+      const roomType = await RoomType.findById(room_type_id);
       if (!roomType) {
         throw new Error({
           statusCode: 400,
@@ -60,7 +61,12 @@ exports.createRooms = async (req, res, next) => {
           error: 'room type not found',
         });
       }
-      const room = new Room(item);
+      const room = new Room({
+        name,
+        room_type_id,
+        note,
+        room_type: room_type_id,
+      });
       return await room.save();
     });
     const result = await Promise.all(createRoomPromises);

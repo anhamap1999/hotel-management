@@ -18,6 +18,7 @@ exports.create = async (req, res, next) => {
     const newBooking = new Booking({
       room_id,
       customers,
+      room: room_id
     });
     const result = await newBooking.save();
     res.send(new Success({ data: result })).status(200);
@@ -27,7 +28,7 @@ exports.create = async (req, res, next) => {
 };
 exports.getAllBookings = async (req, res, next) => {
   try {
-    const bookingList = await Booking.find(req.query).sort('-created_at');
+    const bookingList = await Booking.find(req.query).sort('-created_at').populate('room');
     res.send(new Success({ data: bookingList })).status(200);
   } catch (error) {
     return next(error);

@@ -14,6 +14,7 @@ import SearchScreen from './components/admin/search';
 import PaymentScreen from './components/admin/payment';
 import GuestScreen from './components/admin/guest';
 import RoomedScreen from './components/admin/booking';
+import OrderScreen from './components/admin/order';
 import { useHistory } from 'react-router-dom';
 
 export default function App() {
@@ -37,6 +38,7 @@ export default function App() {
         <Route path='/seek' component={SearchScreen} />
         <Route path='/customer' component={Listcustomer} />
         <Route path='/customertype' component={ListCustomerType} />
+        <Route path='/order' component={OrderScreen} />
       </BrowserRouter>
     </div>
   );

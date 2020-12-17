@@ -2,5 +2,15 @@
     "user has been not registered": "Username không đúng",
     "password is incorrect": "Mật khẩu không đúng",
     "room type is type of some rooms": "Không thể xóa loại phòng của các phòng hiện có",
-    "room is busy or reserved": "Không thể xóa phòng đang cho thuê hoặc đã được đặt trước"
+    "room is busy or reserved": "Không thể xóa phòng đang cho thuê hoặc đã được đặt trước",
+    "customer type is type of some customers": "Không thể xóa loại khách hàng của các khách hàng hiện có",
+    "token not found": "Không tìm thấy token",
+    "invalid token": "Token không hợp lệ",
+    "token is expired": "Token đã hết hạn",
+    "password and confirm_password do not matched": "Mật khẩu không trùng khớp",
+    "room is not available to book": "Phòng không thể cho thuê",
+    "room type not found": "Không tìm thấy loại phòng",
+    "room not found": "Không tìm thấy phòng",
+    "user not found": "Không tìm thấy người dùng",
+    "customer not found": "Không tìm thấy khách hàng"
 }
