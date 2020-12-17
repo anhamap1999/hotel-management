@@ -5,8 +5,16 @@ const { Error } = require('./../../utils/Error');
 const { Success } = require('./../../utils/Success');
 exports.create = async (req, res, next) => {
   try {
-    const { room_id, customers, total } = req.body;
+    const { room_id, customers } = req.body;
+
     const room = await Room.findById(room_id);
+    if (!room) {
+      throw new Error({
+        statusCode: 400,
+        message: 'room.notFound',
+        error: 'room not found',
+      });
+    }
     if (room.status !== 'available') {
       throw new Error({
         statusCode: 400,
