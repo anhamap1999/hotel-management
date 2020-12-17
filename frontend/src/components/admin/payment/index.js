@@ -129,9 +129,72 @@ export default function PaymentScreen() {
     // }
   };
 
+  const reset = () => {
+    const array = [];
+    array.push(null);
+    setSelectedBookings([...array]);
+    setDates([...array]);
+    setFees([...array]);
+    setPrices([...array]);
+    setCustomerSelect(null);
+    setTotal(0);
+    setRoomQti(1);
+    setReload(!reload);
+  };
+
+  const onPrint = () => {
+    const printDocument = document.getElementById('bill');
+    const customerElement = printDocument.getElementsByClassName('customer')[0]
+      .innerHTML;
+    printDocument.getElementsByClassName('customer')[0].innerHTML =
+      "<input type='text' value='" + customerSelect.name + "' className='form-control' disabled></input>";
+
+    const roomElements = [];
+    for (let i = 0; i < roomQti; i++) {
+      roomElements.push(
+        printDocument.getElementsByClassName(`room ${i}`)[0].innerHTML
+      );
+      printDocument.getElementsByClassName(`room ${i}`)[0].innerHTML =
+        '<td>' + selectedBookings[i].room.name + '</td>';
+    }
+    printDocument.getElementsByClassName('room');
+
+    const printContents = document.getElementById('bill').innerHTML;
+    const printWindow = window.open('', '', 'height=1000, width=1000');
+    printWindow.document.write('<html><head><title></title>');
+    printWindow.document.write(
+      "<link href='/css/styles.css' rel='stylesheet'>"
+    );
+    printWindow.document.write(
+      "<link href='/css/admin-style.css' rel='stylesheet'>"
+    );
+    printWindow.document.write(
+      "<link href='/vendor/bootstrap/css/bootstrap.min.css' rel='stylesheet'>"
+    );
+    printWindow.document.write(
+      "<link href='/vendor/fontawesome-free/css/all.min.css' rel='stylesheet'></link>"
+    );
+    printWindow.document.write('</head>');
+    printWindow.document.write('<body>');
+    printWindow.document.write(printContents);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    setTimeout(() => printWindow.print(), 1000);
+    printDocument.getElementsByClassName(
+      'customer'
+      )[0].innerHTML = customerElement;
+      for (let i = 0; i < roomQti; i++) {
+        printDocument.getElementsByClassName(`room ${i}`)[0].innerHTML =
+        roomElements[i];
+      }
+    reset();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const booking_ids = selectedBookings.filter(i => i && i).map(i => i._id);
+    const booking_ids = selectedBookings
+      .filter((i) => i && i)
+      .map((i) => i._id);
     const data = {
       customer_id: customerSelect._id,
       booking_ids: booking_ids,
@@ -139,16 +202,8 @@ export default function PaymentScreen() {
     setIsFetching(true);
     billApis.createBill(data).then((res) => {
       if (res) {
-        setReload(!reload);
-        const array = [];
-        array.push(null);
-        setSelectedBookings([...array]);
-        setDates([...array]);
-        setFees([...array]);
-        setPrices([...array]);
-        setCustomerSelect(null);
-        setTotal(0);
-        setRoomQti(1);
+        setIsFetching(false);
+        onPrint();
       }
       setIsFetching(false);
     });
@@ -160,7 +215,7 @@ export default function PaymentScreen() {
     ? roomArray.map((item, index) => (
         <tr style={{ textAlign: 'center' }}>
           <th scope='row' className='STT'></th>
-          <td>
+          <td className={`room ${index}`}>
             <select
               className='custom-select'
               onChange={(e) => onInput(index, e.target.value)}
@@ -219,23 +274,34 @@ export default function PaymentScreen() {
         <h1 className='text-center'>Lập hóa đơn</h1>
         <div className='bill-body'>
           <form style={{ width: '100%' }} onSubmit={handleSubmit}>
-            <div className='form-body'>
+            <div className='form-body' id='bill'>
               <div className='row'>
                 <div className='col-md-6'>
                   <div className='form-group'>
                     <label for='name'>Tên khách hàng</label>
-                    <select
-                      className='form-control'
-                      id='CustomerName'
-                      onChange={(e) => handleSelectUser(e.target.value)}
-                    >
-                      <option selected>Lựa chọn ...</option>
-                      {customerList.map((item) => (
-                        <option key={item._id} value={item._id}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
+                    <div className='customer'>
+                      <select
+                        className='form-control'
+                        id='CustomerName'
+                        onChange={(e) => handleSelectUser(e.target.value)}
+                        value={customerSelect ? customerSelect._id : ''}
+                      >
+                        <option selected>Lựa chọn ...</option>
+                        {customerList.map((item) => (
+                          <option
+                            key={item._id}
+                            value={item._id}
+                            selected={
+                              customerSelect && customerSelect._id === item._id
+                                ? true
+                                : false
+                            }
+                          >
+                            {item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <div className='col-md-6'>
@@ -293,7 +359,13 @@ export default function PaymentScreen() {
                       <th scope='col'>Xóa</th>
                     </tr>
                   </thead>
-                  <tbody>{!isFetching ? rowRender : <div className='spinner-border'></div>}</tbody>
+                  <tbody>
+                    {!isFetching ? (
+                      rowRender
+                    ) : (
+                      <div className='spinner-border'></div>
+                    )}
+                  </tbody>
                 </table>
                 <i
                   className='fas fa-plus-square'
@@ -302,17 +374,17 @@ export default function PaymentScreen() {
                   style={{ cursor: 'pointer' }}
                 />
               </div>
-              <div className='listroom-button text-center'>
-                <button type='submit' className='btn btn-primary'>
-                  Thanh toán
-                </button>
+            </div>
+            <div className='listroom-button text-center'>
+              <button type='submit' className='btn btn-primary'>
+                Thanh toán
+              </button>
 
-                <Link to='/'>
-                  <button type='button' className='btn btn-danger'>
-                    Thoát
-                  </button>
-                </Link>
-              </div>
+              <Link to='/'>
+                <button type='button' className='btn btn-danger'>
+                  Thoát
+                </button>
+              </Link>
             </div>
           </form>
         </div>

@@ -55,7 +55,7 @@ export default function Listroom() {
     ? data.map((bill, index) => {
         const roomNames = bill.bookings.map((item) => {
             const index = rooms && rooms.findIndex(i => i._id === item.room_id);
-            return rooms[index] ? rooms[index].name : '';
+            return rooms && rooms[index] ? rooms[index].name : '';
         });
         const customerIndex = customers && customers.findIndex(i => i._id === bill.customer_id);
         let total = 0;
@@ -63,7 +63,7 @@ export default function Listroom() {
         return (
           <tr key={bill._id}>
             <th scope='row'>{index + 1}</th>
-            <td>{customers[customerIndex] ? customers[customerIndex].name : ''}</td>
+            <td>{customers && customers[customerIndex] ? customers[customerIndex].name : ''}</td>
             <td>{moment(bill.created_at).format('hh:mm DD/MM/YYYY')}</td>
             <td>{roomNames.toLocaleString()}</td>
             <td>{total}</td>

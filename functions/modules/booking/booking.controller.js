@@ -22,6 +22,13 @@ exports.create = async (req, res, next) => {
         error: 'room is not available to book',
       });
     }
+    if (!customers.length) {
+      throw new Error({
+        statusCode: 400,
+        message: 'booking.customersEmpty',
+        error: 'customers are empty',
+      });
+    }
     await Room.findByIdAndUpdate(room_id, { status: 'busy' });
     const newBooking = new Booking({
       room_id,

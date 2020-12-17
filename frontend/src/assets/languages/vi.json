@@ -12,5 +12,8 @@
     "room type not found": "Không tìm thấy loại phòng",
     "room not found": "Không tìm thấy phòng",
     "user not found": "Không tìm thấy người dùng",
-    "customer not found": "Không tìm thấy khách hàng"
+    "customer not found": "Không tìm thấy khách hàng",
+    "bookings are empty": "Chưa chọn phòng để thanh toán",
+    "customer is empty": "Chưa chọn khách hàng để thanh toán",
+    "customers are empty": "Chưa chọn khách hàng"
 }

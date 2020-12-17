@@ -14,9 +14,9 @@ export default function Sidebar() {
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-tachometer-alt' />
               </div>
-              Bảng điều khiển
+              Bảng Điều Khiển
             </Link>
-
+            <div style={{ opacity: '0%', fontSize: '8pt' }}>divider</div>
             {/* <Link
               className='nav-link collapsed'
               data-toggle='collapse'
@@ -85,44 +85,40 @@ export default function Sidebar() {
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-store' />
               </div>
-              Danh sách phòng
+              Phòng
+            </Link>
+            <Link to='/seek' className='nav-link collapsed'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-search' />
+              </div>
+              Tra Cứu Phòng
             </Link>
             <Link to='/room-type' className='nav-link active'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-store-alt' />
               </div>
-              Danh sách loại phòng
+              Loại Phòng
             </Link>
+            <div style={{ opacity: '0%', fontSize: '8pt' }}>divider</div>
             <Link to='/customer' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-users' />
               </div>
-              Khách hàng
+              Khách Hàng
             </Link>
             <Link to='/customertype' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-child' />
               </div>
-              Loại Khách hàng
+              Loại Khách Hàng
             </Link>
+            <div style={{ opacity: '0%', fontSize: '8pt' }}>divider</div>
             <Link to='/roomed' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-box' />
               </div>
-              Thuê phòng
-            </Link>
-            {/* <Link to='/guest' className='nav-link collapsed'>
-              <div className='sb-nav-link-icon'>
-                <i className='fas fa-user' />
-              </div>
-              Khách hàng
-            </Link> */}
-            <Link to='/seek' className='nav-link collapsed'>
-              <div className='sb-nav-link-icon'>
-                <i className='fas fa-search' />
-              </div>
-              Tra Cứu
-            </Link>
+              Phiếu Thuê Phòng
+            </Link>            
 
             <Link to='/payment' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
@@ -134,8 +130,9 @@ export default function Sidebar() {
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-clipboard-list' style={{ fontSize: '12pt' }} />
               </div>
-              Danh sách hóa đơn
+              Hóa Đơn
             </Link>
+            <div style={{ opacity: '0%', fontSize: '8pt' }}>divider</div>
             <Link to='/report' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-scroll' />

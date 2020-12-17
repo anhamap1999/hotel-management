@@ -17,6 +17,22 @@ exports.create = async (req, res, next) => {
       bookings: booking_ids,
     });
 
+    if (!booking_ids.length) {
+      throw new Error({
+        statusCode: 400,
+        message: 'bill.bookingEmpty',
+        error: 'bookings are empty',
+      })
+    }
+
+    if (!customer_id) {
+      throw new Error({
+        statusCode: 400,
+        message: 'bill.customerEmpty',
+        error: 'customer is empty',
+      })
+    }
+
     const configs = await Config.find({});
     const max_qti_of_customers = configs.find(
       (item) => item.name === 'max_qti_of_customers'
@@ -65,16 +81,18 @@ exports.create = async (req, res, next) => {
       total_fee += fee;
     });
     const result = await newBill.save();
+    const bill = await Bill.find({_id: result._id}).populate({ path: 'bookings', populate: { path: 'bookings '}});
     // const result = [];
     result.total_fee = total_fee;
-    res.send(new Success({ data: result })).status(200);
+    res.send(new Success({ data: bill.length ? bill[0] : result })).status(200);
   } catch (error) {
     return next(error);
   }
 };
 exports.getAllBills = async (req, res, next) => {
   try {
-    const billList = await Bill.find().populate({
+    const { start_time, end_time } = req.query;
+    const billList = await Bill.find({ created_at: { $gte: start_time, $lte: end_time }}).populate({
       path: 'bookings',
       populate: { path: 'bookings' },
     });
@@ -86,11 +104,11 @@ exports.getAllBills = async (req, res, next) => {
 exports.getBillById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const billFound = Bill.findById(id);
-    if (!billFound) {
+    const billFound = await Bill.find({_id: id}).populate({ path: 'bookings', populate: { path: 'bookings '}});
+    if (!billFound.length) {
       throw new Error({ statusCode: 404, message: 'Bill not found!' });
     }
-    res.send(new Success({ data: billFound })).status(200);
+    res.send(new Success({ data: billFound[0] })).status(200);
   } catch (error) {
     return next(error);
   }
