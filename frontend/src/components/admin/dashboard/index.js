@@ -96,7 +96,11 @@ export default function Home() {
         <tr key={index}>
           <td>{item.room ? item.room.name : ''}</td>
           <td>{item.customers.length}</td>
-          <td>{moment(item.check_in_at).format('hh:mm DD/MM/yyyy')}</td>
+          <td>{item.check_in_at
+              ? moment(item.check_in_at).format('hh:mm DD/MM/yyyy')
+              : item.status === 'reserved'
+              ? 'Chưa check in'
+              : moment(item.created_at).format('hh:mm DD/MM/yyyy')}</td>
           <td>{item.room_type ? item.room_type.name : ''}</td>
           <td>{item.room_type ? item.room_type.price : 0}</td>
         </tr>

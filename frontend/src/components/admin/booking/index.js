@@ -104,7 +104,13 @@ export default function RoomedScreen() {
         <tr key={index}>
           <td>{item.room ? item.room.name : ''}</td>
           <td>{item.customers.length}</td>
-          <td>{item.check_in_at ? moment(item.check_in_at).format('hh:mm DD/MM/yyyy') : 'Chưa check in'}</td>
+          <td>
+            {item.check_in_at
+              ? moment(item.check_in_at).format('hh:mm DD/MM/yyyy')
+              : item.status === 'reserved'
+              ? 'Chưa check in'
+              : moment(item.created_at).format('hh:mm DD/MM/yyyy')}
+          </td>
           <td>{item.room_type ? item.room_type.name : ''}</td>
           <td>{item.room_type ? item.room_type.price : 0}</td>
           <td>
@@ -239,11 +245,15 @@ export default function RoomedScreen() {
                 <div>
                   <label>Ngày bắt đầu thuê: </label>
                   <span className='mx-2 font-weight-bold'>
-                    {selectedBooking
+                    {selectedBooking ? (selectedBooking.check_in_at
                       ? moment(selectedBooking.check_in_at).format(
                           'hh:mm DD/MM/yyyy'
                         )
-                      : ''}
+                      : selectedBooking.status === 'reserved'
+                      ? 'Chưa check in'
+                      : moment(selectedBooking.created_at).format(
+                          'hh:mm DD/MM/yyyy'
+                        )) : ''}
                   </span>
                 </div>
                 <div>
