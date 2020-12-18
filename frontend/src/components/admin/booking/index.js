@@ -21,6 +21,8 @@ export default function RoomedScreen() {
   const [customers, setCustomers] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const [reload, setReload] = useState(false);
+  const [start, setStart] = useState(moment().startOf('month').format('YYYY-MM-DD'));
+  const [end, setEnd] = useState(moment().endOf('date').format('YYYY-MM-DD'));
 
   const fetchData = () => {
     setIsFetching(true);
@@ -30,7 +32,7 @@ export default function RoomedScreen() {
         roomTypeApis.getRoomTypes().then((types) => {
           if (types) {
             setTypes(types);
-            bookingApis.getBookings().then((res) => {
+            bookingApis.getBookings({ start_time: start, end_time: end }).then((res) => {
               if (res) {
                 setBookings(
                   res.map((item) => {
@@ -84,6 +86,10 @@ export default function RoomedScreen() {
   useEffect(() => {
     fetchData();
   }, [reload]);
+
+  useEffect(() => {
+    fetchData();
+  }, [start, end])
 
   const onView = (item) => {
     setSelectedBooking(item);
@@ -176,7 +182,32 @@ export default function RoomedScreen() {
     <HomeScreen>
       <div className='listroom '>
         <h1 className='text-center'>Phiếu thuê phòng</h1>
-
+        <div className='form-width mar-10 '>
+            <form>
+              <div className='form-group row'>
+                <label className='col-sm-4 col-form-label'>Ngày bắt đầu</label>
+                <div className='col-sm-6'>
+                  <input
+                    type='date'
+                    className='form-control'
+                    placeholder='Vd : 1/1999'
+                    onChange={(e) => setStart(e.target.value)}
+                    value={start}
+                  />
+                </div>
+                <label className='col-sm-4 col-form-label'>Ngày kết thúc</label>
+                <div className='col-sm-6'>
+                  <input
+                    type='date'
+                    className='form-control'
+                    placeholder='Vd : 1/1999'
+                    onChange={(e) => setEnd(e.target.value)}
+                    value={end}
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
         <div className='listroom-table'>
           <table className='table table-sm'>
             <thead>

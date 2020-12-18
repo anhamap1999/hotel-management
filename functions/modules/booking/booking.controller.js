@@ -50,7 +50,17 @@ exports.create = async (req, res, next) => {
 };
 exports.getAllBookings = async (req, res, next) => {
   try {
-    const bookingList = await Booking.find(req.query).sort('-created_at').populate('room');
+    const { start_time, end_time, total, status } = req.query;
+    const query = {};
+    if (start_time && end_time) 
+      query.created_at = { $gte: start_time, $lte: end_time };
+    if (total) {
+      query.total = total;
+    }
+    if (status) {
+      query.status = status;
+    }
+    const bookingList = await Booking.find(query).sort('-created_at').populate('room');
     res.send(new Success({ data: bookingList })).status(200);
   } catch (error) {
     return next(error);
