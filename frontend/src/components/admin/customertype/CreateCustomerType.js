@@ -77,7 +77,7 @@ export default function CreateCustomerType(props) {
                     type='text'
                     class='form-control'
                     id='name'
-                    placeholder='Nhập tên loại phòng'
+                    placeholder='Nhập tên loại khách'
                     value={name}
                     onChange={(event) => onInput('name', event.target.value)}
                   />
