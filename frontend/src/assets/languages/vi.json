@@ -17,5 +17,8 @@
     "customer is empty": "Chưa chọn khách hàng để thanh toán",
     "customers are empty": "Chưa chọn khách hàng",
     "username has been registered": "Username đã tồn tại",
-    "customer is unavailable": "Không thể xóa khách hàng đang thuê phòng"
+    "customer is unavailable": "Không thể xóa khách hàng đang thuê phòng",
+    "room is in some bookings": "Không thể xóa phòng tồn tại trong phiếu thuê phòng",
+    "customer is in some bills": "Không thể xóa khách hàng tồn tại trong hóa đơn",
+    "customer is in some bookings": "Không thể xóa khách hàng đã tồn tại trong phiếu thuê phòng"
 }

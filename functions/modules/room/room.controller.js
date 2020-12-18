@@ -2,6 +2,7 @@ const Room = require('../../models/room');
 const { Success } = require('../../utils/Success');
 const { Error } = require('../../utils/Error');
 const RoomType = require('../../models/roomType');
+const Booking = require('../../models/booking');
 
 exports.getRooms = async (req, res, next) => {
   try {
@@ -139,6 +140,14 @@ exports.deleteRoom = async (req, res, next) => {
         statusCode: 400,
         message: 'room.canNotDelete',
         error: 'room is busy or reserved',
+      });
+    }
+    const bookings = await Booking.find({ room_id: req.params.id });
+    if (bookings.length) {
+      throw new Error({
+        statusCode: 400,
+        message: 'room.canNotDelete',
+        error: 'room is in some bookings',
       });
     }
     await Room.findByIdAndRemove(req.params.id);
