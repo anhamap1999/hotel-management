@@ -20,6 +20,8 @@ export default function Listroom() {
 
   const [reload, setReload] = useState(false);
 
+  const user = JSON.parse(localStorage.getItem('app-user'));
+
   const statusDefined = {
     available: 'Còn trống',
     busy: 'Đang cho thuê',
@@ -117,6 +119,7 @@ export default function Listroom() {
             </td>
             <td>{room.note}</td>
             <td>
+              {user.isAdmin ? (
               <span
                 // className='action-btns'
                 data-toggle='modal'
@@ -129,6 +132,8 @@ export default function Listroom() {
                   onClick={() => onEditRoom(index)}
                 />
               </span>
+              ) : null}
+              {user.isAdmin ? (
               <span style={{ margin: '5px' }}>
                 <i
                   className='fas fa-trash'
@@ -136,6 +141,7 @@ export default function Listroom() {
                   onClick={() => onDeleteRoom(room._id)}
                 />
               </span>
+              ) : null}
             </td>
           </tr>
         );
@@ -168,7 +174,7 @@ export default function Listroom() {
           </table>
         </div>
         <div className='listroom-button'>
-          <CreateRoom reload={() => setReload(!reload)} />
+        {user.isAdmin ? (<CreateRoom reload={() => setReload(!reload)} />) : null}
 
           <span>
             <div

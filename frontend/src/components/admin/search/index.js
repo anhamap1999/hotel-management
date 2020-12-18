@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { roomApis } from '../../../apis/room.api';
 import { roomTypeApis } from '../../../apis/roomType.api';
 import HomeScreen from '../../../page/homeScreen';
+import { Link } from 'react-router-dom';
 export default function SearchScreen() {
   const [data, setData] = useState(null);
   const [dataRender, setDataRender] = useState(null);
@@ -178,9 +179,14 @@ export default function SearchScreen() {
           </form>
         </div>
         <div className='listroom-button'>
-          <button type='button' className='btn btn-danger' onClick={reset}>
+          <button type='button' className='btn btn-warning' onClick={reset}>
             Đặt lại
           </button>
+          <Link to='/'>
+            <button type='button' className='btn btn-danger'>
+              Thoát
+            </button>
+          </Link>
         </div>
         <div className='listroom-table'>
           <table className='table table-sm'>

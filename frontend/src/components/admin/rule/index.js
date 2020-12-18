@@ -16,6 +16,8 @@ export default function RuleScreen() {
   const [customerTypeConfig, setCustomerTypeConfig] = useState([]);
   const [reload, setReload] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem('app-user'));
   const fetchConfigs = async () => {
     setIsFetching(true);
     const config = await configApis.getConfigs();
@@ -141,6 +143,7 @@ export default function RuleScreen() {
                 onChange={(e) =>
                   onInput('customerTypeQti', e.target.value, index)
                 }
+                disabled={!user.isAdmin}
               />
             </div>
             {/* </div>
@@ -167,6 +170,7 @@ export default function RuleScreen() {
                 onChange={(e) =>
                   onInput('customerTypeRate', e.target.value, index)
                 }
+                disabled={!user.isAdmin}
               />
             </div>
           </div>
@@ -211,6 +215,7 @@ export default function RuleScreen() {
                       placeholder='Số khách tối đa'
                       value={maxQti}
                       onChange={(e) => onInput('maxQti', e.target.value)}
+                      disabled={!user.isAdmin}
                     />
                   </div>
                 ) : (
@@ -249,6 +254,7 @@ export default function RuleScreen() {
                       placeholder='Phụ thu khách tối đa'
                       value={maxQtiRate}
                       onChange={(e) => onInput('maxQtiRate', e.target.value)}
+                      disabled={!user.isAdmin}
                     />
                   </div>
                 ) : (
@@ -266,9 +272,11 @@ export default function RuleScreen() {
               )}
             </div>
             <div className='listroom-button text-center'>
+              {user.isAdmin ? (
               <button type='submit' className='btn btn-primary'>
                 Lưu
               </button>
+              ) : null}
 
               <Link to='/'>
                 <button type='button' className='btn btn-danger'>

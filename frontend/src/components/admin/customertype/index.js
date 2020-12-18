@@ -5,10 +5,13 @@ import moment from 'moment';
 import CreateCustomerType from './CreateCustomerType';
 import { customerTypeApis } from '../../../apis/customerType.api';
 import sweetAlert from 'sweetalert';
+import { Link } from 'react-router-dom';
 export default function Listcustomertype() {
   const [customerTypes, setCustomerTypes] = useState([]);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
+
+  const user = JSON.parse(localStorage.getItem('app-user'));
 
   const [reload, setReload] = useState(false);
   let isReload = false;
@@ -89,6 +92,7 @@ export default function Listcustomertype() {
             {/* <td className='action-btns'>
               <i className='fas fa-edit' onClick={() => onEditType(index)} style={{ cursor: 'pointer' }}/>
             </td> */}
+            {user.isAdmin ? (
             <span
               // className='action-btns'
               data-toggle='modal'
@@ -101,6 +105,8 @@ export default function Listcustomertype() {
                 onClick={() => onEditType(index)}
               />
             </span>
+            ) : null}
+            {user.isAdmin ? (
             <span style={{ margin: '5px' }}>
               <i
                 className='fas fa-trash'
@@ -108,6 +114,7 @@ export default function Listcustomertype() {
                 onClick={() => onDelete(type._id)}
               />
             </span>
+            ) : null}
             {/* <EditRoomType selectedType={type} /> */}
           </tr>
         );
@@ -129,7 +136,7 @@ export default function Listcustomertype() {
             <tbody>{dataRender}</tbody>
           </table>
         </div>
-        <CreateCustomerType reloadData={reloadData} />
+        {user.isAdmin ? (<CreateCustomerType reloadData={reloadData} />) : null}
         <div
           className='modal fade'
           id='editModal'
@@ -183,17 +190,13 @@ export default function Listcustomertype() {
             </form>
           </div>
         </div>
-        {/* <div className='listroom-button'>
-          <button type='button' className='btn btn-dark'>
-            Reset
-          </button>
-          <CreateRoom />
+        <div className='listroom-button'>
           <Link to='/'>
-            <button type='button' className='btn btn-success'>
+            <button type='button' className='btn btn-danger'>
               Thoát
             </button>
           </Link>
-        </div> */}
+        </div>
       </div>
     </HomeScreen>
   );

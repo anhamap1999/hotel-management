@@ -6,6 +6,7 @@ import './styles.css';
 import CreateRoomType from './CreateRoomType';
 import { roomTypeApis } from '../../../apis/roomType.api';
 import sweetAlert from 'sweetalert';
+import { Link } from 'react-router-dom';
 export default function ListRoomType() {
   const [roomTypes, setRoomTypes] = useState([]);
   const [id, setId] = useState('');
@@ -13,6 +14,8 @@ export default function ListRoomType() {
   const [price, setPrice] = useState(0);
   const [reload, setReload] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+
+  const user = JSON.parse(localStorage.getItem('app-user'));
   let isReload = false;
 
   useEffect(() => {
@@ -114,6 +117,7 @@ export default function ListRoomType() {
             {/* <td className='action-btns'>
               <i className='fas fa-edit' onClick={() => onEditType(index)} style={{ cursor: 'pointer' }}/>
             </td> */}
+            {user.isAdmin ? (
             <span
               // className='action-btns'
               data-toggle='modal'
@@ -126,6 +130,8 @@ export default function ListRoomType() {
                 onClick={() => onEditType(index)}
               />
             </span>
+            ) : null}
+            {user.isAdmin ? (
             <span style={{ margin: '5px' }}>
               <i
                 className='fas fa-trash'
@@ -133,6 +139,7 @@ export default function ListRoomType() {
                 onClick={() => onDelete(type._id)}
               />
             </span>
+            ) : null}
             {/* <EditRoomType selectedType={type} /> */}
           </tr>
         );
@@ -162,7 +169,8 @@ export default function ListRoomType() {
             </tbody>
           </table>
         </div>
-        <CreateRoomType reloadData={reloadData} />
+        <div className='listroom-button'>
+        {user.isAdmin ? (<CreateRoomType reloadData={reloadData} />) : null}
         <div
           className='modal fade'
           id='editModal'
@@ -230,17 +238,13 @@ export default function ListRoomType() {
             </form>
           </div>
         </div>
-        {/* <div className='listroom-button'>
-          <button type='button' className='btn btn-dark'>
-            Reset
-          </button>
-          <CreateRoom />
+        
           <Link to='/'>
-            <button type='button' className='btn btn-success'>
+            <button type='button' className='btn btn-danger'>
               Thoát
             </button>
           </Link>
-        </div> */}
+        </div>
       </div>
     </HomeScreen>
   );

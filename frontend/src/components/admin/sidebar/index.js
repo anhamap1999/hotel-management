@@ -152,14 +152,13 @@ export default function Sidebar() {
                 Nhân viên
               </Link>
             )}
-            {user.isAdmin && (
-              <Link to='/rule' className='nav-link' href='/admin/customer/list'>
-                <div className='sb-nav-link-icon'>
-                  <i className='fas fa-users-cog' />
-                </div>
-                Quy Định
-              </Link>
-            )}
+            
+            <Link to='/rule' className='nav-link' href='/admin/customer/list'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-users-cog' />
+              </div>
+              Quy Định
+            </Link>
             <Link to='/profile' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-user' />
