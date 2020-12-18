@@ -1,5 +1,6 @@
 const express = require('express');
 const { handleError } = require('./../../middlewares/error.middleware');
+const { isAdmin, isAuth } = require('../../middlewares/auth.middleware');
 const router = express.Router();
 const {
   createCustomer,
@@ -9,11 +10,11 @@ const {
   updateCustomer,
 } = require('./customer.controller');
 
-router.get('/', getCustomers);
-router.get('/:id', getCustomerById);
-router.post('/create', createCustomer);
-router.patch('/update/:id', updateCustomer);
-router.delete('/:id', deleteCustomer);
+router.get('/', isAuth, getCustomers);
+router.get('/:id', isAuth, getCustomerById);
+router.post('/create', isAuth, createCustomer);
+router.patch('/update/:id', isAuth, updateCustomer);
+router.delete('/:id', isAuth, deleteCustomer);
 
 router.use(handleError);
 module.exports = router;

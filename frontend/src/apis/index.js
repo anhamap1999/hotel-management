@@ -2,8 +2,8 @@ import axios from 'axios';
 import queryString from 'query-string';
 
 const axiosClient = axios.create({
-  baseURL: 'https://us-central1-hotel-management-se.cloudfunctions.net/api',
-  // baseURL: 'http://localhost:5001/hotel-management-se/us-central1/api',
+  // baseURL: 'https://us-central1-hotel-management-se.cloudfunctions.net/api',
+  baseURL: 'http://localhost:5001/hotel-management-se/us-central1/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,7 +14,7 @@ axiosClient.interceptors.request.use(async (config) => {
   //Process token here
   const token = window.localStorage.getItem('token');
   if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
+    config.headers['Authorization'] = `Bearer ${JSON.parse(token)}`;
   }
   return config;
 });

@@ -45,6 +45,7 @@ exports.login = async (req, res, next) => {
         _id: user._id,
         username: user.username,
         full_name: user.full_name,
+        isAdmin: user.isAdmin
       },
     };
     const success = new Success({ data });

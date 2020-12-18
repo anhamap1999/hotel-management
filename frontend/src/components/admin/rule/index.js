@@ -4,10 +4,10 @@ import HomeScreen from '../../../page/homeScreen';
 import { configApis } from './../../../apis/config.api';
 import { customerTypeApis } from '../../../apis/customerType.api';
 
-const customerTypeDefined = {
-  native: 'Nội địa',
-  foreign: 'Quốc tế',
-};
+// const customerTypeDefined = {
+//   native: 'Nội địa',
+//   foreign: 'Quốc tế',
+// };
 
 export default function RuleScreen() {
   const [configs, setConfigs] = useState([]);
@@ -116,7 +116,7 @@ export default function RuleScreen() {
                 type='text'
                 className='form-control'
                 id={'customerType' + index}
-                value={customerTypeDefined[item.name]}
+                value={item.name}
                 disabled
               />
             </div>

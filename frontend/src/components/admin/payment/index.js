@@ -40,7 +40,7 @@ export default function PaymentScreen() {
   };
   const fetchBooking = async () => {
     setIsFetching(true);
-    const data = await bookingApis.getBookings({ total: 0 });
+    const data = await bookingApis.getBookings({ total: 0, status: 'booking' });
     setBookingList(data);
     // setBookings(data);
     setIsFetching(false);
@@ -345,7 +345,8 @@ export default function PaymentScreen() {
                   </div>
                 </div>
               </div>
-              <div className='bill-table'>
+              <div className='listroom' style={{ height: '250px' }}>
+              <div className='bill-table listroom-table' style={{ height: '250px' }}>
                 <table className='table table-sm'>
                   <thead className='text-center'>
                     <tr>
@@ -373,6 +374,7 @@ export default function PaymentScreen() {
                   onClick={onAddRow}
                   style={{ cursor: 'pointer' }}
                 />
+              </div>
               </div>
             </div>
             <div className='listroom-button text-center'>

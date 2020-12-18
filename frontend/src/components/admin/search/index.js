@@ -207,7 +207,11 @@ export default function SearchScreen() {
                         {getRoomType && getRoomType.name}
                       </td>
                       <td>{getRoomType && getRoomType.price}</td>
-                      <td>{statusDefined[room.status]}</td>
+                      <td>
+                        <div className={`label label-${room.status}`}>
+                          {statusDefined[room.status]}
+                        </div>
+                      </td>
                     </tr>
                   );
                 })}

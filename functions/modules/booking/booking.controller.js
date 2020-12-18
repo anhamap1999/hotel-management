@@ -5,7 +5,7 @@ const { Error } = require('./../../utils/Error');
 const { Success } = require('./../../utils/Success');
 exports.create = async (req, res, next) => {
   try {
-    const { room_id, customers } = req.body;
+    const { room_id, customers, is_reserved } = req.body;
 
     const room = await Room.findById(room_id);
     if (!room) {
@@ -29,11 +29,18 @@ exports.create = async (req, res, next) => {
         error: 'customers are empty',
       });
     }
-    await Room.findByIdAndUpdate(room_id, { status: 'busy' });
+    
+    if (!is_reserved) {
+      const customerPromises = customers.map(i => Customer.findByIdAndUpdate(i.id, { status: 'unavailable' }));
+      await Promise.all(customerPromises);
+    }
+    await Room.findByIdAndUpdate(room_id, { status: is_reserved ? 'reserved' : 'busy' });
     const newBooking = new Booking({
       room_id,
       customers,
-      room: room_id
+      room: room_id,
+      check_in_at: is_reserved ? null : Date.now(),
+      status: is_reserved ? 'reserved' : 'booking'
     });
     const result = await newBooking.save();
     res.send(new Success({ data: result })).status(200);
@@ -58,6 +65,28 @@ exports.getBookingById = async (req, res, next) => {
       throw new Error({ statusCode: 404, message: 'Booking not found!' });
     }
     res.send(new Success({ data: bookingFound })).status(200);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.checkIn = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const bookingFound = await Booking.findById(id);
+    if (!bookingFound) {
+      throw new Error({ statusCode: 404, message: 'booking.notFound', error: 'booking not found' });
+    }
+    await Booking.findByIdAndUpdate(id, { status: 'booking', check_in_at: Date.now() });
+    const { customers, room_id } = bookingFound;
+    
+    await Room.findByIdAndUpdate(room_id, { status: 'busy' });
+    const customerPromises = customers.map(i => Customer.findByIdAndUpdate(i.id, { status: 'unavailable' }));
+    await Promise.all(customerPromises);
+
+    const booking = await Booking.findById(id);
+    res.send(new Success({ data: booking })).status(200);
   } catch (error) {
     return next(error);
   }

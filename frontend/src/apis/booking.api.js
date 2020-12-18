@@ -48,8 +48,24 @@ const deleteBooking = (id) => {
     });
 };
 
+const checkIn = (id) => {
+  return fetchApi
+    .patch('/booking/check-in/' + id)
+    .then((response) => {
+      if (response.data) {
+        sweetAlert(`Check in thành công`, '', 'success');
+        return response.data;
+      }
+    })
+    .catch((error) => {
+      const message = utils.getMessage(error.error);
+      sweetAlert(`Check in thất bại`, message, 'error');
+      return false;
+    });
+};
 export const bookingApis = {
   getBookings,
   createBooking,
   deleteBooking,
+  checkIn
 };

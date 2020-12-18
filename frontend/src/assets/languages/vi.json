@@ -15,5 +15,7 @@
     "customer not found": "Không tìm thấy khách hàng",
     "bookings are empty": "Chưa chọn phòng để thanh toán",
     "customer is empty": "Chưa chọn khách hàng để thanh toán",
-    "customers are empty": "Chưa chọn khách hàng"
+    "customers are empty": "Chưa chọn khách hàng",
+    "username has been registered": "Username đã tồn tại",
+    "customer is unavailable": "Không thể xóa khách hàng đang thuê phòng"
 }

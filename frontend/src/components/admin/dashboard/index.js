@@ -96,7 +96,7 @@ export default function Home() {
         <tr key={index}>
           <td>{item.room ? item.room.name : ''}</td>
           <td>{item.customers.length}</td>
-          <td>{moment(item.created_at).format('hh:mm DD/MM/yyyy')}</td>
+          <td>{moment(item.check_in_at).format('hh:mm DD/MM/yyyy')}</td>
           <td>{item.room_type ? item.room_type.name : ''}</td>
           <td>{item.room_type ? item.room_type.price : 0}</td>
         </tr>
@@ -135,7 +135,7 @@ export default function Home() {
                   <div className='card-content'>
                     <span className='card-title'>Phòng Đặt Trước</span>
                     <span className='card-count'>
-                      {!isFetching ? 2 : <div className='spinner-border'></div>}
+                      {!isFetching ? bookings.filter(i => i.status === 'reserved').length : <div className='spinner-border'></div>}
                     </span>
                   </div>
                   <div className='card-media'>
@@ -186,8 +186,8 @@ export default function Home() {
                       Xem tất cả
                     </Link>
                   </div>
-                  <div className='card-body-table'>
-                    <div className='table-responsive'>
+                  <div className='card-body-table listroom' style={{ height: '200px' }}>
+                    <div className='table-responsive listroom-table'  style={{ height: '200px' }}>
                       <table className='table ucp-table table-hover'>
                         <thead>
                           <tr>

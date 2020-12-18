@@ -72,7 +72,7 @@ export default function Listcustomer() {
       name,
       address,
       customer_type_id: customerTypeId,
-      id_number
+      id_number,
     };
     customerApis.createOrUpdateCustomer(id, data).then((res) => {
       if (res) {
@@ -93,6 +93,13 @@ export default function Listcustomer() {
             <td>{type ? type.name : ''}</td>
             <td>{customer.address}</td>
             <td>{customer.id_number}</td>
+            <td>
+              <div className={`label label-${customer.status}`}>
+                {customer.status === 'available'
+                  ? 'Chưa thuê phòng'
+                  : 'Đang thuê phòng'}
+              </div>
+            </td>
             <td>
               <span
                 //className='action-btns'
@@ -131,6 +138,7 @@ export default function Listcustomer() {
                 <th scope='col'>Loại khách hàng</th>
                 <th scope='col'>Địa chỉ</th>
                 <th scope='col'>Số CMND</th>
+                <th scope='col'>Trạng thái</th>
                 <th scope='col'>Chỉnh sửa</th>
               </tr>
             </thead>

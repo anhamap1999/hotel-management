@@ -15,6 +15,8 @@ export default function CreateBooking({ setReload }) {
   const [customerTypes, setCustomerTypes] = useState([]);
   const [userSelected, setUserSelected] = useState([]);
   const [dataUser, setDataUser] = useState([]);
+  const [error, setError] = useState([]);
+  const [type, setType] = useState('booking');
   const date = moment().format('hh:mm DD/MM/YYYY');
   const customerRow = [];
   for (let i = 0; i < max_qti_of_customers; i++) {
@@ -51,7 +53,7 @@ export default function CreateBooking({ setReload }) {
     customerTypeApis.getCustomerTypes().then((res) => {
       if (res) setCustomerTypes(res);
     });
-    customerApis.getCustomers().then((res) => res && setCustomers(res));
+    customerApis.getCustomers({ status: 'available' }).then((res) => res && setCustomers(res));
   }, []);
 
   useEffect(() => {
@@ -78,16 +80,78 @@ export default function CreateBooking({ setReload }) {
   const handleBooking = async () => {
     if (!dataUser.length) return;
     try {
-      const data = await bookingApis.createBooking({
-        room_id: room_id,
-        customers: dataUser.map((item) => ({
-          id: item._id,
-          type_id: item.customer_type_id,
-        })),
+      const customers = [];
+      const customerPromises = [];
+      dataUser.forEach((item, index) => {
+        if (!item._id) {
+          const { name, id_number, address, customer_type_id } = item;
+          if (name && id_number && address && customer_type_id) {
+            customerPromises.push(customerApis.createOrUpdateCustomer(null, {
+              name,
+              id_number,
+              address,
+              customer_type_id,
+            }))
+            // const customer = await customerApis.createOrUpdateCustomer(null, {
+            //   name,
+            //   id_number,
+            //   address,
+            //   customer_type_id,
+            // });
+            // if (customer) {
+            //   customers.push({
+            //     id: customer._id,
+            //     type_id: customer.customer_type_id,
+            //   });
+            // }
+          } else if (!name || !id_number || !address || !customer_type_id) {
+            error[index] = 'Hãy nhập đầy đủ thông tin';
+            setError([...error]);
+          } else {
+            error[index] = null;
+            setError([...error]);
+          }
+        } else {
+          if (!item) {
+            error[index] =
+              'Hãy chọn khách hàng hoặc nhập thông tin khách hàng mới';
+            setError([...error]);
+          }
+          customers.push({
+            id: item._id,
+            type_id: item.customer_type_id,
+          });
+        }
       });
-      setReload((pre) => !pre);
+      const result = await Promise.all(customerPromises);
+      customers.push(...(result.map(i => ({ id: i._id, type_id: i.customer_type_id }))));
+      if (!error || error.every((i) => !i)) {
+        const data = await bookingApis.createBooking({
+          room_id: room_id,
+          customers,
+          is_reserved: type === 'reserved' ? true : false
+        });
+        setReload((pre) => !pre);
+      }
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  const onInput = (index, key, value) => {
+    if (dataUser[index]) {
+      if (key === 'id_number' && !parseInt(value)) {
+        return;
+      }
+      dataUser[index][key] = value;
+      setDataUser([...dataUser]);
+    } else {
+      dataUser[index] = {};
+      if (key === 'id_number' && !parseInt(value)) {
+        return;
+      }
+      dataUser[index][key] = value;
+      setDataUser([...dataUser]);
     }
   };
   const displayCustomers = () => {
@@ -243,6 +307,31 @@ export default function CreateBooking({ setReload }) {
                     />
                   </div>
                 </div>
+                <div className='form-group row'>
+                  <label
+                    htmlFor='startDate'
+                    className='col-md-3 col-form-label'
+                  >
+                    Thuê phòng hay Đặt trước
+                  </label>
+                  <div className='col-md-9'>
+                  <select
+                      className='form-control'
+                      onChange={(e) => setType(e.target.value)}
+                      value={type}
+                    >
+                      {['booking', 'reserved'].map((item) => (
+                        <option
+                          style={{ textTransform: 'uppercase' }}
+                          key={item}
+                          value={item}
+                        >
+                          {item === 'booking' ? 'Thuê phòng' : 'Đặt trước'}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
                 <div className='customerList'>
                   <table className='table table-sm'>
                     <thead className='text-center'>
@@ -292,12 +381,22 @@ export default function CreateBooking({ setReload }) {
                                 type='text'
                                 className='form-control'
                                 placeholder='Nhập tên khách hàng'
+                                onChange={(e) =>
+                                  onInput(index, 'name', e.target.value)
+                                }
                               />
                             </td>
                             <td>
                               <select
                                 className='custom-select options-size'
                                 value={convertData('customer_type_id', index)}
+                                onChange={(e) =>
+                                  onInput(
+                                    index,
+                                    'customer_type_id',
+                                    e.target.value
+                                  )
+                                }
                               >
                                 <option selected>Lựa chọn ...</option>
                                 {customerTypes.map((type) => (
@@ -317,6 +416,9 @@ export default function CreateBooking({ setReload }) {
                                 className='form-control'
                                 placeholder='Số CMND'
                                 value={convertData('id_number', index)}
+                                onChange={(e) =>
+                                  onInput(index, 'id_number', e.target.value)
+                                }
                               />
                             </td>
                             <td>
@@ -325,8 +427,24 @@ export default function CreateBooking({ setReload }) {
                                 className='form-control'
                                 placeholder='Vd: quận 2, Tp HCM'
                                 value={convertData('address', index)}
+                                onChange={(e) =>
+                                  onInput(index, 'address', e.target.value)
+                                }
                               />
                             </td>
+                            {error && error[index] && (
+                              <div
+                                className='err'
+                                style={{
+                                  textAlign: 'center',
+                                  color: 'red',
+                                  fontWeight: 500,
+                                  display: 'block',
+                                }}
+                              >
+                                {error[index]}
+                              </div>
+                            )}
                           </tr>
                         );
                       })}

@@ -6,6 +6,7 @@ const customerSchema = new mongoose.Schema({
   customer_type: { type: mongoose.SchemaTypes.ObjectId, ref: 'CustomerType' },
   address: { type: String, required: true },
   id_number: { type: String, required: true },
+  status: { type: String, required: true, default: 'available', enum: ['available', 'unavailable'] },
   created_at: { type: Date, default: Date.now(), required: true }
 });
 const customerModel = mongoose.model('Customer', customerSchema);

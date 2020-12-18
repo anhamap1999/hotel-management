@@ -63,8 +63,8 @@ div#layoutSidenav_nav {
 }
 .frnt-link {
     color: #141411 !important;
-    position: absolute;
-    right: 60px;
+    /* position: absolute;
+    right: 60px; */
 }
 
 table {

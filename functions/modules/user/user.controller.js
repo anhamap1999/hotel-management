@@ -27,8 +27,7 @@ exports.register = async (req, res, next) => {
         error: 'password and confirm_password do not matched',
       });
     }
-    const user = new User(req.body);
-    user.password = hash;
+    const user = new User({ username: req.body.username, password: hash, full_name: req.body.full_name });
     const savedUser = await user.save();
 
     const success = new Success({ data: savedUser });
@@ -49,6 +48,17 @@ exports.changePassword = async (req, res, next) => {
         statusCode: 400,
         message: 'user.notFound',
         error: 'user not found',
+      });
+    }
+    const result = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!result) {
+      throw new Error({
+        message: 'user.passwordIncorrect',
+        statusCode: 400,
+        error: 'password is incorrect',
       });
     }
     const hash = await bcrypt.hash(req.body.new_password, 10);
@@ -122,3 +132,62 @@ exports.getUser = async (req, res, next) => {
     }
   };
   
+exports.getStaff = async (req, res, next) => {
+  try {
+    const users = await User.find({
+      isAdmin: false,
+    });
+
+    const success = new Success({ data: users });
+    res.status(200).send(success);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.deleteStaff = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+      status: 'active',
+    });
+    if (!user) {
+      throw new Error({
+        statusCode: 400,
+        message: 'user.notFound',
+        error: 'user not found',
+      });
+    }
+
+    await User.findByIdAndRemove(req.params.id);
+
+    const success = new Success({ data: user });
+    res.status(200).send(success);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+
+exports.updateStatusStaff = async (req, res, next) => {
+  try {
+    const user = await User.findOne({
+      _id: req.params.id,
+      // status: 'active',
+    });
+    if (!user) {
+      throw new Error({
+        statusCode: 400,
+        message: 'user.notFound',
+        error: 'user not found',
+      });
+    }
+
+    await User.findByIdAndUpdate(req.params.id, { status: req.body.status });
+    user.status = req.body.status;
+    const success = new Success({ data: user });
+    res.status(200).send(success);
+  } catch (error) {
+    return next(error);
+  }
+};

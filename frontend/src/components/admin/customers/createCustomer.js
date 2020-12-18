@@ -125,12 +125,12 @@ export default function CreateCustomer(props) {
                   />
                 </div>
                 <div className='form-group'>
-                  <label htmlFor='sodt'>Số ĐT</label>
+                  <label htmlFor='sodt'>Số CMND</label>
                   <input
                     type='text'
                     className='form-control'
                     id='sodt'
-                    placeholder='Nhấp số điện thoại'
+                    placeholder='Nhấp số CMND'
                     value={id_number}
                     onChange={(e) => setNumber(e.target.value)}
                   />

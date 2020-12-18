@@ -12,10 +12,10 @@ const {
 
 // router.use(isAuth);
 
-router.get('/', getRoomTypes);
-router.delete('/delete/:id', deleteType);
-router.post('/create', createType);
-router.patch('/update/:id', updateType);
+router.get('/', isAuth, getRoomTypes);
+router.delete('/delete/:id', isAuth, deleteType);
+router.post('/create', isAuth, createType);
+router.patch('/update/:id', isAuth, updateType);
 
 router.use(handleError);
 module.exports = router;

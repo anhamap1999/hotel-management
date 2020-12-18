@@ -110,7 +110,11 @@ export default function Listroom() {
             <td>{room.name}</td>
             <td>{type ? type.name : ''}</td>
             <td>{type ? type.price : ''}</td>
-            <td>{statusDefined[room.status]}</td>
+            <td>
+              <div className={`label label-${room.status}`}>
+                {statusDefined[room.status]}
+              </div>
+            </td>
             <td>{room.note}</td>
             <td>
               <span

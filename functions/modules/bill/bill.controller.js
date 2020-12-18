@@ -78,6 +78,8 @@ exports.create = async (req, res, next) => {
       room.status = 'available';
       await Booking.findByIdAndUpdate(item, booking);
       await Room.findByIdAndUpdate(room_id, room);
+      const customerPromises = customers.map(i => Customer.findByIdAndUpdate(i.id, { status: 'available' }));
+      await Promise.all(customerPromises);
       total_fee += fee;
     });
     const result = await newBill.save();
@@ -91,11 +93,11 @@ exports.create = async (req, res, next) => {
 };
 exports.getAllBills = async (req, res, next) => {
   try {
-    const { start_time, end_time } = req.query;
+    const { start_time, end_time, sort } = req.query;
     const billList = await Bill.find({ created_at: { $gte: start_time, $lte: end_time }}).populate({
       path: 'bookings',
       populate: { path: 'bookings' },
-    });
+    }).sort(sort ? sort : '-created_at');
     res.send(new Success({ data: billList })).status(200);
   } catch (error) {
     return next(error);

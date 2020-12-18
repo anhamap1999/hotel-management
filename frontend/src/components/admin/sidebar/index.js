@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Sidebar() {
+  const user = JSON.parse(localStorage.getItem('app-user'));
   return (
-    <div id='layoutSidenav_nav'>
+    <div id='layoutSidenav_nav' style={{ overflowX: 'auto' }}>
       <nav
         className='sb-sidenav accordion sb-sidenav-dark'
         id='sidenavAccordion'
@@ -140,11 +141,25 @@ export default function Sidebar() {
               Báo Cáo
             </Link>
 
-            <Link to='/rule' className='nav-link' href='/admin/customer/list'>
+            {user.isAdmin && (
+            <Link to='/staff' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-users' />
               </div>
+              Nhân viên
+            </Link>
+            )}
+            <Link to='/rule' className='nav-link' href='/admin/customer/list'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-users-cog' />
+              </div>
               Quy Định
+            </Link>
+            <Link to='/profile' className='nav-link collapsed'>
+              <div className='sb-nav-link-icon'>
+                <i className='fas fa-user' />
+              </div>
+              Thông tin cá nhân
             </Link>
           </div>
         </div>

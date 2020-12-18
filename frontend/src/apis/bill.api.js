@@ -1,8 +1,18 @@
 import fetchApi from './index';
 import utils from '../modules/utils';
 import sweetAlert from 'sweetalert';
+import moment from 'moment';
 
-const getBills = (query) => {
+const getBills = (query = {}) => {
+  if (!query.sort) {
+    query.sort = '-created_at';
+  }
+  if (query.start_time) {
+    query.start_time = moment(query.start_time).endOf('date').toISOString();
+  }
+  if (query.end_time) {
+    query.end_time = moment(query.end_time).endOf('date').toISOString();
+  }
   const queryString = utils.formatQuery(query);
   return fetchApi
     .get('/bill' + queryString)

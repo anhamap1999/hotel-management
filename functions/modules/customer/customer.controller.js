@@ -56,6 +56,9 @@ exports.deleteCustomer = async (req, res, next) => {
     if (!customerFound) {
       throw new Error({ statusCode: 404, message: 'Customer not found!', error: 'customer not found' });
     }
+    if (customerFound.status === 'unavailable') {
+      throw new Error({ statusCode: 404, message: 'customer.canNotDelete', error: 'customer is unavailable' });
+    }
     await Customer.findByIdAndDelete(id);
     res.status(200).send(new Success({ data: customerFound }));
   } catch (error) {

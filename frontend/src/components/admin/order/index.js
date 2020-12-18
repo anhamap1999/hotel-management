@@ -10,14 +10,14 @@ import { Link } from 'react-router-dom';
 export default function Listroom() {
   const [data, setData] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [start, setStart] = useState(null);
-  const [end, setEnd] = useState(null);
+  const [start, setStart] = useState(moment().startOf('month').format('YYYY-MM-DD'));
+  const [end, setEnd] = useState(moment().endOf('date').format('YYYY-MM-DD'));
   const [rooms, setRooms] = useState(null);
   const [customers, setCustomers] = useState(null);
 
   const fetchBill = () => {
     setIsFetching(true);
-    billApis.getBills().then((res) => {
+    billApis.getBills({ start_time: start, end_time: end }).then((res) => {
       if (res) {
         setData(res);
       }
@@ -74,7 +74,33 @@ export default function Listroom() {
   return (
     <HomeScreen>
       <div className='listroom '>
-        <h1 className='text-center'>Danh sách phòng</h1>
+        <h1 className='text-center'>Danh sách hóa đơn</h1>
+        <div className='form-width mar-10 '>
+            <form>
+              <div className='form-group row'>
+                <label className='col-sm-4 col-form-label'>Ngày bắt đầu</label>
+                <div className='col-sm-6'>
+                  <input
+                    type='date'
+                    className='form-control'
+                    placeholder='Vd : 1/1999'
+                    onChange={(e) => setStart(e.target.value)}
+                    value={start}
+                  />
+                </div>
+                <label className='col-sm-4 col-form-label'>Ngày kết thúc</label>
+                <div className='col-sm-6'>
+                  <input
+                    type='date'
+                    className='form-control'
+                    placeholder='Vd : 1/1999'
+                    onChange={(e) => setEnd(e.target.value)}
+                    value={end}
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
         <div className='listroom-table'>
           <table className='table table-sm'>
             <thead>

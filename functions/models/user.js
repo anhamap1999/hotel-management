@@ -5,12 +5,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     minlength: 5,
     maxlength: 30,
+    required: true,
   },
   password: {
     type: String,
-    required: true,
     minlength: 5,
     maxlength: 100,
+    required: true,
   },
   isAdmin: {
     type: Boolean,
@@ -36,9 +37,7 @@ const userSchema = new mongoose.Schema({
     default: 'female',
     enum: ['female', 'male', 'other'],
   },
-  birthday: {
-    type: String,
-  },
+  birthday: { type: Date, default: Date.now(), required: true },
   created_at: { type: Date, default: Date.now(), required: true },
 });
 const userModel = mongoose.model('User', userSchema);

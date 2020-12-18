@@ -10,8 +10,8 @@ import moment from 'moment';
 
 const customerTypeDefined = {
   native: 'Nội địa',
-  foreign: 'Quốc tế'
-}
+  foreign: 'Quốc tế',
+};
 
 export default function RoomedScreen() {
   const [bookings, setBookings] = useState([]);
@@ -20,8 +20,9 @@ export default function RoomedScreen() {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [customers, setCustomers] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
+  const [reload, setReload] = useState(false);
 
-  useEffect(() => {
+  const fetchData = () => {
     setIsFetching(true);
     roomApis.getRooms().then((rooms) => {
       if (rooms) {
@@ -54,10 +55,14 @@ export default function RoomedScreen() {
       }
       setIsFetching(false);
     });
+  };
+
+  useEffect(() => {
+    fetchData();
     setIsFetching(true);
     customerTypeApis.getCustomerTypes().then((types) => {
       if (types) {
-        customerApis.getCustomer().then((res) => {
+        customerApis.getCustomers().then((res) => {
           if (res) {
             setCustomers(
               res.map((item) => {
@@ -76,8 +81,22 @@ export default function RoomedScreen() {
     });
   }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [reload]);
+
   const onView = (item) => {
     setSelectedBooking(item);
+  };
+
+  const onCheckIn = (id) => {
+    setIsFetching(true);
+    bookingApis.checkIn(id).then((res) => {
+      if (res) {
+        setReload(!reload);
+      }
+      setIsFetching(false);
+    });
   };
 
   const dataRender = bookings
@@ -85,10 +104,26 @@ export default function RoomedScreen() {
         <tr key={index}>
           <td>{item.room ? item.room.name : ''}</td>
           <td>{item.customers.length}</td>
-          <td>{moment(item.created_at).format('hh:mm DD/MM/yyyy')}</td>
+          <td>{item.check_in_at ? moment(item.check_in_at).format('hh:mm DD/MM/yyyy') : 'Chưa check in'}</td>
           <td>{item.room_type ? item.room_type.name : ''}</td>
           <td>{item.room_type ? item.room_type.price : 0}</td>
-          <td>{item.total === 0 ? 'Đang cho thuê' : 'Đã trả phòng'}</td>
+          <td>
+            <div
+              className={`label label-${
+                item.status === 'reserved'
+                  ? 'reserved'
+                  : item.total === 0
+                  ? 'not-paid'
+                  : 'paid'
+              }`}
+            >
+              {item.status === 'reserved'
+                ? 'Đã đặt trước'
+                : item.total === 0
+                ? 'Đang cho thuê'
+                : 'Đã thanh toán'}
+            </div>
+          </td>
           <td>{item.total}</td>
           <td>
             <span
@@ -103,6 +138,14 @@ export default function RoomedScreen() {
                 onClick={() => onView(item)}
               />
             </span>
+            {item.status === 'reserved' ? (
+              <i
+                className='fas fa-check-square'
+                style={{ cursor: 'pointer', marginLeft: '10px' }}
+                onClick={() => onCheckIn(item._id)}
+                title='Check in'
+              />
+            ) : null}
           </td>
         </tr>
       ))
@@ -110,17 +153,17 @@ export default function RoomedScreen() {
 
   const customersRender = selectedBooking
     ? selectedBooking.customers.map((item, index) => {
-      const customerIndex = customers.findIndex(i => i._id === item.id);
-      const customer = customers[customerIndex];
-      return customer ? (
-        <tr key={index}>
-          <td>{customer.name}</td>
-          <td>{customer.id_number}</td>
-          <td>{customer.address}</td>
-          <td>{customer.type ? customerTypeDefined[customer.type.name] : ''}</td>
-        </tr>
-      ) : null
-    })
+        const customerIndex = customers.findIndex((i) => i._id === item.id);
+        const customer = customers[customerIndex];
+        return customer ? (
+          <tr key={index}>
+            <td>{customer.name}</td>
+            <td>{customer.id_number}</td>
+            <td>{customer.address}</td>
+            <td>{customer.type && customer.type.name}</td>
+          </tr>
+        ) : null;
+      })
     : null;
 
   return (
@@ -142,7 +185,13 @@ export default function RoomedScreen() {
                 <th style={{ width: 200 }}></th>
               </tr>
             </thead>
-            <tbody>{!isFetching ? dataRender : <div className="spinner-border"></div>}</tbody>
+            <tbody>
+              {!isFetching ? (
+                dataRender
+              ) : (
+                <div className='spinner-border'></div>
+              )}
+            </tbody>
           </table>
         </div>
         <div className='listroom-button'>
@@ -191,7 +240,7 @@ export default function RoomedScreen() {
                   <label>Ngày bắt đầu thuê: </label>
                   <span className='mx-2 font-weight-bold'>
                     {selectedBooking
-                      ? moment(selectedBooking.created_at).format(
+                      ? moment(selectedBooking.check_in_at).format(
                           'hh:mm DD/MM/yyyy'
                         )
                       : ''}
@@ -218,7 +267,7 @@ export default function RoomedScreen() {
                   <span className='mx-2 font-weight-bold'>
                     {selectedBooking && selectedBooking.total === 0
                       ? 'Đang cho thuê'
-                      : 'Đã trả phòng'}
+                      : 'Đã thanh toán'}
                   </span>
                 </div>
                 <div>
