@@ -81,7 +81,7 @@ export default function Sidebar() {
                 </Link>
               </nav>
             </div> */}
-            
+
             <Link to='/listroom' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-store' />
@@ -119,7 +119,7 @@ export default function Sidebar() {
                 <i className='fas fa-box' />
               </div>
               Phiếu Thuê Phòng
-            </Link>            
+            </Link>
 
             <Link to='/payment' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
@@ -129,7 +129,10 @@ export default function Sidebar() {
             </Link>
             <Link to='/order' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
-                <i className='fas fa-clipboard-list' style={{ fontSize: '12pt' }} />
+                <i
+                  className='fas fa-clipboard-list'
+                  style={{ fontSize: '12pt' }}
+                />
               </div>
               Hóa Đơn
             </Link>
@@ -142,19 +145,21 @@ export default function Sidebar() {
             </Link>
 
             {user.isAdmin && (
-            <Link to='/staff' className='nav-link collapsed'>
-              <div className='sb-nav-link-icon'>
-                <i className='fas fa-users' />
-              </div>
-              Nhân viên
-            </Link>
+              <Link to='/staff' className='nav-link collapsed'>
+                <div className='sb-nav-link-icon'>
+                  <i className='fas fa-users' />
+                </div>
+                Nhân viên
+              </Link>
             )}
-            <Link to='/rule' className='nav-link' href='/admin/customer/list'>
-              <div className='sb-nav-link-icon'>
-                <i className='fas fa-users-cog' />
-              </div>
-              Quy Định
-            </Link>
+            {user.isAdmin && (
+              <Link to='/rule' className='nav-link' href='/admin/customer/list'>
+                <div className='sb-nav-link-icon'>
+                  <i className='fas fa-users-cog' />
+                </div>
+                Quy Định
+              </Link>
+            )}
             <Link to='/profile' className='nav-link collapsed'>
               <div className='sb-nav-link-icon'>
                 <i className='fas fa-user' />
