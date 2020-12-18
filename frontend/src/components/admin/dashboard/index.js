@@ -150,7 +150,7 @@ export default function Home() {
                     <span className='card-title'>Phòng Sử Dụng</span>
                     <span className='card-count'>
                       {!isFetching ? (
-                        bookings.length
+                        bookings.filter(i => i.status === 'booking').length
                       ) : (
                         <div className='spinner-border'></div>
                       )}
