@@ -17,22 +17,29 @@ export default function Listcustomer() {
   const [reload, setReload] = useState(false);
   const [address, setAddress] = useState('');
   const [id_number, setNumber] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
+    setIsFetching(true);
     customerApis.getCustomers().then((res) => {
       if (res) setData(res);
+      setIsFetching(false);
     });
+    setIsFetching(true);
     customerTypeApis.getCustomerTypes().then((res) => {
       if (res) {
         setCustomerTypes(res);
         setCustomerTypeId(res[0]._id);
       }
+      setIsFetching(false);
     });
   }, []);
 
   useEffect(() => {
+    setIsFetching(true);
     customerApis.getCustomers().then((res) => {
       if (res) setData(res);
+      setIsFetching(false);
     });
   }, [reload]);
 
@@ -59,10 +66,12 @@ export default function Listcustomer() {
   };
 
   const onConfirm = (id) => {
+    setIsFetching(true);
     customerApis.deleteCustomer(id).then((res) => {
       if (res) {
         setReload(!reload);
       }
+      setIsFetching(false);
     });
   };
 
@@ -74,10 +83,12 @@ export default function Listcustomer() {
       customer_type_id: customerTypeId,
       id_number,
     };
+    setIsFetching(true);
     customerApis.createOrUpdateCustomer(id, data).then((res) => {
       if (res) {
         setReload(!reload);
       }
+      setIsFetching(false);
     });
   };
 
@@ -142,7 +153,7 @@ export default function Listcustomer() {
                 <th scope='col'>Chỉnh sửa</th>
               </tr>
             </thead>
-            <tbody>{dataRender}</tbody>
+            <tbody>{!isFetching ? dataRender : <div className='spinner-border'></div>}</tbody>
           </table>
         </div>
         <div className='listroom-button'>

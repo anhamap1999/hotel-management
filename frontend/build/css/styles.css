@@ -909,3 +909,29 @@ body {
   background-color: #e9ecef;
 }
 
+.label {
+  border-radius: 10px;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  max-width: 150px;
+}
+.label-available, .label-paid, .label-active {
+  background-color: #28a745;
+}
+
+.label-unavailable, .label-not-paid {
+  background-color: #ffa723;
+}
+
+.label-busy {
+  background-color: #ffa115;
+}
+
+.label-disabled {
+  background-color: #ff3e3e;
+}
+
+.label-reserved {
+  background-color: #2594df;
+}

@@ -10,6 +10,7 @@ export default function Listcustomertype() {
   const [customerTypes, setCustomerTypes] = useState([]);
   const [id, setId] = useState('');
   const [name, setName] = useState('');
+  const [isFetching, setIsFetching] = useState(false);
 
   const user = JSON.parse(localStorage.getItem('app-user'));
 
@@ -17,15 +18,27 @@ export default function Listcustomertype() {
   let isReload = false;
 
   useEffect(() => {
-    customerTypeApis.getCustomerTypes().then((res) => setCustomerTypes(res));
+    setIsFetching(true);
+    customerTypeApis.getCustomerTypes().then((res) => {
+      if (res) setCustomerTypes(res);
+      setIsFetching(false);
+    });
   }, []);
 
   useEffect(() => {
-    customerTypeApis.getCustomerTypes().then((res) => setCustomerTypes(res));
+    setIsFetching(true);
+    customerTypeApis.getCustomerTypes().then((res) => {
+      if (res) setCustomerTypes(res);
+      setIsFetching(false);
+    });
   }, [reload]);
 
   useEffect(() => {
-    customerTypeApis.getCustomerTypes().then((res) => setCustomerTypes(res));
+    setIsFetching(true);
+    customerTypeApis.getCustomerTypes().then((res) => {
+      if (res) setCustomerTypes(res);
+      setIsFetching(false);
+    });
   }, [isReload]);
 
   const onEditType = (index) => {
@@ -49,18 +62,22 @@ export default function Listcustomertype() {
     const data = {
       name,
     };
+    setIsFetching(true);
     customerTypeApis.createOrUpdateCustomerType(id, data).then((res) => {
       if (res) {
         setReload(!reload);
       }
+      setIsFetching(false);
     });
   };
 
   const onConfirm = (id) => {
+    setIsFetching(true);
     customerTypeApis.deleteCustomerType(id).then((res) => {
       if (res) {
         setReload(!reload);
       }
+      setIsFetching(false);
     });
   };
 
@@ -79,7 +96,11 @@ export default function Listcustomertype() {
   };
 
   const reloadData = () => {
-    customerTypeApis.getCustomerTypes().then((res) => setCustomerTypes(res));
+    setIsFetching(true);
+    customerTypeApis.getCustomerTypes().then((res) => {
+      if (res) setCustomerTypes(res);
+      setIsFetching(false)
+    });
   };
 
   const dataRender = customerTypes
@@ -133,9 +154,10 @@ export default function Listcustomertype() {
                 <th scope='col'>Ngày tạo</th>
               </tr>
             </thead>
-            <tbody>{dataRender}</tbody>
+            <tbody>{!isFetching ? dataRender : <div className='spinner-border'></div>}</tbody>
           </table>
         </div>
+        <div className='listroom-button'>
         {user.isAdmin ? (<CreateCustomerType reloadData={reloadData} />) : null}
         <div
           className='modal fade'
@@ -190,7 +212,7 @@ export default function Listcustomertype() {
             </form>
           </div>
         </div>
-        <div className='listroom-button'>
+        
           <Link to='/'>
             <button type='button' className='btn btn-danger'>
               Thoát

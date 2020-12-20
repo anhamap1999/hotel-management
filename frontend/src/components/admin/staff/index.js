@@ -105,16 +105,22 @@ export default function Listroom() {
                   className='custom-control custom-switch m-0'
                   title={staff.status === 'active' ? 'Vô hiệu' : 'Kích hoat'}
                 >
-                  <input
+                  {/* <input
                     className='custom-control-input custom-control-input-success'
                     id='customSwitch4'
                     type='checkbox'
                     checked={staff.status === 'active'}
-                    onChange={() => onEditStaff(staff.status, staff._id)}
+                    onClick={() => { onEditStaff(staff.status, staff._id); console.log('ID', staff.status, staff._id);}}
                   />
                   <label
                     className='custom-control-label font-italic'
                     htmlFor='customSwitch4'
+                  /> */}
+                  <i
+                    className={`fas ${staff.status === 'active' ? 'fa-toggle-on' : 'fa-toggle-off'}`}
+                    style={{ cursor: 'pointer', color: staff.status === 'active' ? 'green' : 'red' }}
+                    title={staff.status === 'active' ? 'Vô hiệu nhân viên' : 'Kích hoạt nhân viên'}
+                    onClick={() => onEditStaff(staff.status, staff._id)}
                   />
                 </span>
                 {/* </div> */}
