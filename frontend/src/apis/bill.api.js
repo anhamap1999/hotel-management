@@ -8,7 +8,7 @@ const getBills = (query = {}) => {
     query.sort = '-created_at';
   }
   if (query.start_time) {
-    query.start_time = moment(query.start_time).endOf('date').toISOString();
+    query.start_time = moment(query.start_time).startOf('date').toISOString();
   }
   if (query.end_time) {
     query.end_time = moment(query.end_time).endOf('date').toISOString();

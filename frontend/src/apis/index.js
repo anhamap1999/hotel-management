@@ -14,7 +14,7 @@ axiosClient.interceptors.request.use(async (config) => {
   //Process token here
   const token = window.localStorage.getItem('token');
   if (token) {
-    config.headers['Authorization'] = `Bearer ${JSON.parse(token)}`;
+    config.headers['Authorization'] = `Bearer ${token}`;
   }
   return config;
 });

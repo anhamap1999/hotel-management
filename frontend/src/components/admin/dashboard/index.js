@@ -48,35 +48,44 @@ export default function Home() {
 
   useEffect(() => {
     setIsFetching(true);
-    billApis.getBills().then((res) => {
-      if (res) {
-        setBills(
-          res.filter(
-            (item) =>
-              moment(item.created_at).format('DD/MM/YYYY') ===
-              moment().format('DD/MM/YYYY')
-          )
-        );
-      }
-      setIsFetching(false);
-    });
+    billApis
+      .getBills({
+        start_time: moment().startOf('date').format('YYYY-MM-DD'),
+        end_time: moment().endOf('date').format('YYYY-MM-DD'),
+      })
+      .then((res) => {
+        if (res) {
+          // setBills(
+          //   res.filter(
+          //     (item) =>
+          //       moment(item.created_at).format('DD/MM/YYYY') ===
+          //       moment().format('DD/MM/YYYY')
+          //   )
+          // );
+          setBills(res);
+        }
+        setIsFetching(false);
+      });
     setIsFetching(true);
-    roomApis.getRooms().then((rooms) => {
-      if (rooms) {
-        setRooms(rooms);
+    // roomApis.getRooms().then((rooms) => {
+    //   if (rooms) {
+    //     setRooms(rooms);
         roomTypeApis.getRoomTypes().then((types) => {
           if (types) {
             bookingApis.getBookings({ total: 0 }).then((res) => {
               if (res) {
                 setBookings(
                   res.map((item) => {
-                    const roomIndex = rooms.findIndex(
-                      (r) => r._id === item.room_id
-                    );
-                    item.room = rooms[roomIndex] ? rooms[roomIndex] : '';
+                    // const roomIndex = rooms.findIndex(
+                    //   (r) => r._id === item.room_id
+                    // );
+                    // item.room = rooms[roomIndex] ? rooms[roomIndex] : '';
 
+                    // const typeIndex = types.findIndex(
+                    //   (t) => t._id === rooms[roomIndex].room_type_id
+                    // );
                     const typeIndex = types.findIndex(
-                      (t) => t._id === rooms[roomIndex].room_type_id
+                      (t) => t._id === item.room.room_type_id
                     );
                     item.room_type = types[typeIndex] ? types[typeIndex] : '';
                     return item;
@@ -87,20 +96,22 @@ export default function Home() {
             });
           } else setIsFetching(false);
         });
-      } else setIsFetching(false);
+      // } else setIsFetching(false);
       // setRooms(res)
-    });
+    // });
   }, []);
   const dataRender = bookings
     ? bookings.map((item, index) => (
         <tr key={index}>
           <td>{item.room ? item.room.name : ''}</td>
           <td>{item.customers.length}</td>
-          <td>{item.check_in_at
+          <td>
+            {item.check_in_at
               ? moment(item.check_in_at).format('hh:mm DD/MM/yyyy')
               : item.status === 'reserved'
               ? 'Chưa check in'
-              : moment(item.created_at).format('hh:mm DD/MM/yyyy')}</td>
+              : moment(item.created_at).format('hh:mm DD/MM/yyyy')}
+          </td>
           <td>{item.room_type ? item.room_type.name : ''}</td>
           <td>{item.room_type ? item.room_type.price : 0}</td>
         </tr>
@@ -109,18 +120,21 @@ export default function Home() {
 
   let todayRevenue = 0;
   // console.log(bills);
+  // bills.forEach((bill) => {
+  //   bill.booking_ids.forEach((id) => {
+  //     const index = bookings.findIndex((item) => item._id === id);
+  //     if (bookings[index]) {
+  //       const roomIndex = rooms.findIndex(
+  //         (r) => r._id === bookings[index].room_id
+  //       );
+  //       if (rooms[roomIndex]) {
+  //         todayRevenue += rooms[roomIndex].total;
+  //       }
+  //     }
+  //   });
+  // });
   bills.forEach((bill) => {
-    bill.booking_ids.forEach((id) => {
-      const index = bookings.findIndex((item) => item._id === id);
-      if (bookings[index]) {
-        const roomIndex = rooms.findIndex(
-          (r) => r._id === bookings[index].room_id
-        );
-        if (rooms[roomIndex]) {
-          todayRevenue += rooms[roomIndex].total;
-        }
-      }
-    });
+    bill.bookings.forEach((item) => todayRevenue += item.total)
   });
   return (
     <HomeScreen>
@@ -139,7 +153,11 @@ export default function Home() {
                   <div className='card-content'>
                     <span className='card-title'>Phòng Đặt Trước</span>
                     <span className='card-count'>
-                      {!isFetching ? bookings.filter(i => i.status === 'reserved').length : <div className='spinner-border'></div>}
+                      {!isFetching ? (
+                        bookings.filter((i) => i.status === 'reserved').length
+                      ) : (
+                        <div className='spinner-border'></div>
+                      )}
                     </span>
                   </div>
                   <div className='card-media'>
@@ -154,7 +172,7 @@ export default function Home() {
                     <span className='card-title'>Phòng Sử Dụng</span>
                     <span className='card-count'>
                       {!isFetching ? (
-                        bookings.filter(i => i.status === 'booking').length
+                        bookings.filter((i) => i.status === 'booking').length
                       ) : (
                         <div className='spinner-border'></div>
                       )}
@@ -190,8 +208,14 @@ export default function Home() {
                       Xem tất cả
                     </Link>
                   </div>
-                  <div className='card-body-table listroom' style={{ height: '200px' }}>
-                    <div className='table-responsive listroom-table'  style={{ height: '200px' }}>
+                  <div
+                    className='card-body-table listroom'
+                    style={{ height: '200px' }}
+                  >
+                    <div
+                      className='table-responsive listroom-table'
+                      style={{ height: '200px' }}
+                    >
                       <table className='table ucp-table table-hover'>
                         <thead>
                           <tr>

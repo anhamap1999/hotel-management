@@ -42,7 +42,7 @@ export default function Login() {
       authApis.login(data).then((res) => {
         if (res) {
           localStorage.setItem('app-user', JSON.stringify(res.user));
-          localStorage.setItem('token', JSON.stringify(res.access_token));
+          localStorage.setItem('token', res.access_token);
           history.push('/');
         }
       });
