@@ -68,7 +68,7 @@ exports.deleteType = async (req, res, next) => {
         error: 'customer type is type of some customers'
       });
     }
-    // await CustomerType.findByIdAndRemove(id);
+    await CustomerType.findByIdAndRemove(id);
     res.status(200).send(new Success({ data: customerTypeFound }));
   } catch (error) {
     return next(error);
